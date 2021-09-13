@@ -6,7 +6,7 @@ import Image from '../elements/Image';
 import splitImage03 from './../../assets/images/features-split-image-03.png';
 import './../../assets/css/style.css'
 import 'react-slideshow-image/dist/styles.css'
-import { Slide } from 'react-slideshow-image';
+import { Zoom, Slide } from 'react-slideshow-image';
 import {SuaMay, HoTro} from './events/ImagesData'
 
 
@@ -86,7 +86,10 @@ const FeaturesSplit = ({
                   Sự kiện sửa máy hàng năm
                   </h3>
                 <p className="m-0">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua — Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Là hoạt động vô cùng quan trọng, được SIC tổ chức diễn ra hàng năm sửa chữa máy tính miễn phí cho sinh viên- cán bộ giáo viên bao gồm các hoạt động thiết thực như:
+                Hỗ trợ vệ sinh và nâng cấp máy tính.
+                Tư vấn máy tính miễn phí.
+                Cài đặt windows, ubuntu, phần mềm,...
                   </p>
               </div> 
               <div className={
@@ -136,13 +139,13 @@ const FeaturesSplit = ({
                   width={528}
                   height={396} /> */}
                 <div className="slide-container-left">
-                  <Slide {...properties}>
+                  <Zoom {...properties}>
                     {HoTro.map((each, index) => (
                       <div key={index} className="each-slide" > 
                         <img className="lazy" src={each} alt="sample" />
                       </div>
                     ))}
-                  </Slide>
+                  </Zoom>
                 </div>
               </div>
             </div>

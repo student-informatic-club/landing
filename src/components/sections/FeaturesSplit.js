@@ -89,7 +89,7 @@ const FeaturesSplit = ({
                 Là hoạt động vô cùng quan trọng, được SIC tổ chức diễn ra hàng năm sửa chữa máy tính miễn phí cho sinh viên- cán bộ giáo viên bao gồm các hoạt động thiết thực như:
                 Hỗ trợ vệ sinh và nâng cấp máy tính.
                 Tư vấn máy tính miễn phí.
-                Cài đặt windows, ubuntu, phần mềm,...
+                Cài đặt windows, phần mềm,...
                   </p>
               </div> 
               <div className={
@@ -124,8 +124,8 @@ const FeaturesSplit = ({
                   Hỗ trợ tân sinh viên nhập học
                 </h3>
                 <p className="m-0">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua — Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  </p>
+                  Luôn đồng hành cũng các bạn tân sinh viên, sát cánh ngay những" bước đầu tiên". CLB Tin Học Sinh Viên hỗ trợ tân sinh viên trong việc khai báo hồ sơ, hoàn tất thủ tục nhập học bằng mọi hình thức dù xa hay gần chỉ với những click chuột. Bên cạnh đó, các kênh hỗ trợ online, tổng đài liên hệ luôn sẵn sàng để giải đáp thắc mặc cho tân sinh viên và phụ huynh.
+                </p>
               </div>
               <div className={
                 classNames(
@@ -173,6 +173,41 @@ const FeaturesSplit = ({
                   alt="Features split 03"
                   width={528}
                   height={396} />
+              </div>
+            </div>
+
+            <div className="split-item">
+              <div className="split-item-content center-content-mobile reveal-from-right" data-reveal-container=".split-item">
+                <div className="text-xxs text-color-primary fw-600 tt-u mb-8">
+                  Lightning fast workflow
+                  </div>
+                <h3 className="mt-0 mb-12">
+                  Hỗ trợ tân sinh viên nhập học
+                </h3>
+                <p className="m-0">
+                  Luôn đồng hành cũng các bạn tân sinh viên, sát cánh ngay những" bước đầu tiên". CLB Tin Học Sinh Viên hỗ trợ tân sinh viên trong việc khai báo hồ sơ, hoàn tất thủ tục nhập học bằng mọi hình thức dù xa hay gần chỉ với những click chuột. Bên cạnh đó, các kênh hỗ trợ online, tổng đài liên hệ luôn sẵn sàng để giải đáp thắc mặc cho tân sinh viên và phụ huynh.
+                </p>
+              </div>
+              <div className={
+                classNames(
+                  'split-item-image center-content-mobile reveal-from-bottom',
+                  imageFill && 'split-item-image-fill'
+                )}
+                data-reveal-container=".split-item">
+                {/* <Image
+                  src={splitImage02}
+                  alt="Features split 02"
+                  width={528}
+                  height={396} /> */}
+                <div className="slide-container-left">
+                  <Zoom {...properties}>
+                    {HoTro.map((each, index) => (
+                      <div key={index} className="each-slide" > 
+                        <img className="lazy" src={each} alt="sample" />
+                      </div>
+                    ))}
+                  </Zoom>
+                </div>
               </div>
             </div>
 

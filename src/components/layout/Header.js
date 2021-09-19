@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import Logo from './partials/Logo';
+import MessengerCustomerChat from 'react-messenger-customer-chat';
 
 const propTypes = {
   navPosition: PropTypes.string,
@@ -128,6 +129,10 @@ const Header = ({
             </>}
         </div>
       </div>
+      <MessengerCustomerChat
+        pageId="104115109644619"
+        appId="3327191804169027"
+      />
     </header>
   );
 }

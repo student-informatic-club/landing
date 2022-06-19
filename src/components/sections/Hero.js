@@ -5,7 +5,7 @@ import ButtonGroup from '../elements/ButtonGroup';
 import Button from '../elements/Button';
 import Image from '../elements/Image';
 import Modal from '../elements/Modal';
-import videoPlacehoder from './../../assets/images/video-placeholder.jpg'
+import videoPlacehoder from './../../assets/images/logo.png';
 
 const propTypes = {
   ...SectionProps.types

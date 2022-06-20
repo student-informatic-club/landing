@@ -14,7 +14,11 @@
 }
 
 .site-footer-inner {
+	display: flex;
 	padding: $footer--padding__mobile 0;
+	align-items: center;
+	justify-content: center;
+	column-gap: 50%;
 }
 
 .footer-top {
@@ -132,6 +136,10 @@
 			}
 		}
 	}
+
+	.list-reset {
+		justify-content: flex-end;
+	}
 }
 
 .footer-nav {
@@ -148,6 +156,8 @@
 			@include anchor-aspect(footer, inverse);
 		}
 	}
+
+
 }
 
 @include media( '<=medium' ) {
@@ -175,8 +185,7 @@
 
 		&.space-between {
 			display: flex;
-			justify-content: space-between;
-			align-items: center;
+			flex-direction: column;
 		}
 	}
 

@@ -79,9 +79,7 @@ const FeaturesSplit = ({
           <div className={splitClasses}>
             <div className="split-item">
               <div className="split-item-content center-content-mobile reveal-from-left" data-reveal-container=".split-item">
-                <div className="text-xxs text-color-primary fw-600 tt-u mb-8">
-                  Lightning fast workflow
-                  </div>
+
                 <h3 className="mt-0 mb-12">
                   Sự kiện sửa máy hàng năm
                   </h3>
@@ -117,9 +115,7 @@ const FeaturesSplit = ({
 
             <div className="split-item">
               <div className="split-item-content center-content-mobile reveal-from-right" data-reveal-container=".split-item">
-                <div className="text-xxs text-color-primary fw-600 tt-u mb-8">
-                  Lightning fast workflow
-                  </div>
+
                 <h3 className="mt-0 mb-12">
                   Hỗ trợ tân sinh viên nhập học
                 </h3>
@@ -150,11 +146,9 @@ const FeaturesSplit = ({
               </div>
             </div>
 
-            <div className="split-item">
+            {/* <div className="split-item">
               <div className="split-item-content center-content-mobile reveal-from-left" data-reveal-container=".split-item">
-                <div className="text-xxs text-color-primary fw-600 tt-u mb-8">
-                  Lightning fast workflow
-                  </div>
+
                 <h3 className="mt-0 mb-12">
                   Data-driven insights
                   </h3>
@@ -174,13 +168,11 @@ const FeaturesSplit = ({
                   width={528}
                   height={396} />
               </div>
-            </div>
+            </div> */}
 
             <div className="split-item">
               <div className="split-item-content center-content-mobile reveal-from-right" data-reveal-container=".split-item">
-                <div className="text-xxs text-color-primary fw-600 tt-u mb-8">
-                  Lightning fast workflow
-                  </div>
+
                 <h3 className="mt-0 mb-12">
                   Hỗ trợ tân sinh viên nhập học
                 </h3>
@@ -199,7 +191,7 @@ const FeaturesSplit = ({
                   alt="Features split 02"
                   width={528}
                   height={396} /> */}
-                <div className="slide-container-left">
+                <div className="slide-container">
                   <Zoom {...properties}>
                     {HoTro.map((each, index) => (
                       <div key={index} className="each-slide" > 

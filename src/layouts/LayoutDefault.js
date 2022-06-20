@@ -11,7 +11,7 @@ const LayoutDefault = ({ children }) => {
     <>
       <Header
         navPosition="right"
-        className="reveal-from-bottom"
+        // className="reveal-from-bottom"
         scroll={scroll}
       />
       <main className="site-content">{children}</main>

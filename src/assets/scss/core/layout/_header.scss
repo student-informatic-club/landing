@@ -1,10 +1,33 @@
+:root {
+	--bg-nav: transparent;
+	--bg-nav-scroll: #6B6DFF;
+}
+
+@keyframes scrollDown {
+	from {
+		background-color: var(--bg-nav);
+	}
+	to {
+		background-color: var(--bg-nav-scroll);
+	}
+}
+
+@keyframes scrollUp {
+	from {
+		background-color: var(--bg-nav-scroll);
+	}
+	to {
+		background-color: var(--bg-nav);
+	}
+}
+
 .site-header {
-	position: absolute !important;
+	position: fixed !important;
 	top: 0;
 	width: 100%;
-	z-index: 10 !important;
-	background: color-bg(header);
-
+	z-index: 9999 !important;
+	background-color: var(--bg-nav);
+	animation: scrollUp linear .3s;
 	+ .site-content {
 
 		.section:first-of-type {
@@ -17,11 +40,27 @@
 	}	
 }
 
+.scroll {
+	background-color: var(--bg-nav-scroll);
+	animation: scrollDown linear .3s;
+}
+
 .site-header-inner {
+
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 	height: $header-height__mobile;
+}
+
+.container-nav {
+	max-width: 1350px ;
+	margin: 0 auto;
+	// position: sticky;
+	// width: 100%;
+	// top: 0;
+	// left: 16%;
+	// z-index: 9999;
 }
 
 .header-nav {
@@ -47,6 +86,7 @@
     li {
 
 		+ .header-button {
+			
 			margin-left: $header-nav--padding-h;
 		}
     }
@@ -118,6 +158,7 @@
 				text-align: center;
 
 			    a:not(.button) {
+
 					display: inline-flex;
 			        @include anchor-aspect(header-mobile);
 					padding-top: $header-nav--padding-v__mobile / 2;

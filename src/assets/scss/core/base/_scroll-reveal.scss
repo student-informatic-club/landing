@@ -3,7 +3,7 @@
 	.has-animations {
 
 		[class*=reveal-] {
-			opacity: 0;
+			opacity: 1;
 			will-change: opacity, transform;
 		}
 

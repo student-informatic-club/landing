@@ -27,7 +27,7 @@
 	width: 100%;
 	z-index: 9999 !important;
 	background-color: var(--bg-nav);
-	animation: scrollUp linear .3s;
+	animation: scrollUp linear .5s;
 	+ .site-content {
 
 		.section:first-of-type {
@@ -42,7 +42,7 @@
 
 .scroll {
 	background-color: var(--bg-nav-scroll);
-	animation: scrollDown linear .3s;
+	animation: scrollDown linear .5s;
 }
 
 .site-header-inner {

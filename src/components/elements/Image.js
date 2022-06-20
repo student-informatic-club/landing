@@ -54,13 +54,13 @@ const Image = ({
       placeholder.style.opacity = '0';
       img.className && placeholder.classList.add(img.className);
       placeholder.remove();
-      img.style.display = '';      
+      img.style.display = '';
     }
   }
 
   function onLoad() {
     setLoaded(true);
-  }  
+  }
 
   return (
     <img

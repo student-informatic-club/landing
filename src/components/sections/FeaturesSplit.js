@@ -97,7 +97,7 @@ const FeaturesSplit = ({
                       <div className={index % 2 === 0 ? "slide-container" : "slide-container-left"}>
                         <Slide {...properties}>
                           {e.images.map((each, index) => (
-                            <div key={index} className="each-slide" > 
+                            <div key={index} className="each-slide" >
                               <img className="lazy" src={each} alt="sample" />
                             </div>
                           ))}

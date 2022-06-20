@@ -1,23 +1,21 @@
-import React from 'react';
-import classNames from 'classnames';
-import { SectionSplitProps } from '../../utils/SectionProps';
-import SectionHeader from './partials/SectionHeader';
-import Image from '../elements/Image';
-import splitImage03 from './../../assets/images/features-split-image-03.png';
-import './../../assets/css/style.css'
-import 'react-slideshow-image/dist/styles.css'
-import { Zoom, Slide } from 'react-slideshow-image';
-import events from './events/ImagesData'
-
+import React from "react";
+import classNames from "classnames";
+import { SectionSplitProps } from "../../utils/SectionProps";
+import SectionHeader from "./partials/SectionHeader";
+import Image from "../elements/Image";
+import splitImage03 from "./../../assets/images/features-split-image-03.png";
+import "./../../assets/css/style.css";
+import "react-slideshow-image/dist/styles.css";
+import { Zoom, Slide } from "react-slideshow-image";
+import events from "./events/ImagesData";
 
 const propTypes = {
-  ...SectionSplitProps.types
-}
+  ...SectionSplitProps.types,
+};
 
 const defaultProps = {
-  ...SectionSplitProps.defaults
-}
-
+  ...SectionSplitProps.defaults,
+};
 
 const FeaturesSplit = ({
   className,
@@ -33,31 +31,30 @@ const FeaturesSplit = ({
   imageFill,
   ...props
 }) => {
-
   const outerClasses = classNames(
-    'features-split section',
-    topOuterDivider && 'has-top-divider',
-    bottomOuterDivider && 'has-bottom-divider',
-    hasBgColor && 'has-bg-color',
-    invertColor && 'invert-color',
+    "features-split section",
+    topOuterDivider && "has-top-divider",
+    bottomOuterDivider && "has-bottom-divider",
+    hasBgColor && "has-bg-color",
+    invertColor && "invert-color",
     className
   );
 
   const innerClasses = classNames(
-    'features-split-inner section-inner',
-    topDivider && 'has-top-divider',
-    bottomDivider && 'has-bottom-divider'
+    "features-split-inner section-inner",
+    topDivider && "has-top-divider",
+    bottomDivider && "has-bottom-divider"
   );
 
   const splitClasses = classNames(
-    'split-wrap',
-    invertMobile && 'invert-mobile',
-    invertDesktop && 'invert-desktop',
-    alignTop && 'align-top'
+    "split-wrap",
+    invertMobile && "invert-mobile",
+    invertDesktop && "invert-desktop",
+    alignTop && "align-top"
   );
 
   const sectionHeader = {
-    title: 'Các sự kiện đã tổ chức',
+    title: "Các sự kiện đã tổ chức",
   };
 
   const properties = {
@@ -69,50 +66,53 @@ const FeaturesSplit = ({
   };
 
   return (
-    <section
-      {...props}
-      className={outerClasses}
-    >
+    <section {...props} className={outerClasses}>
       <div className="container">
         <div className={innerClasses}>
           <SectionHeader data={sectionHeader} className="center-content" />
           <div className={splitClasses}>
-              {events.map((e, index) => {
-                return (
-                    <div className="split-item" key={index}>
-                    <div className="split-item-content center-content-mobile reveal-from-left" data-reveal-container=".split-item">
-                      <h3 className="mt-0 mb-12">
-                        {e.title}
-                        </h3>
-                      <p className="m-0">
-                      {e.desc}
-                        </p>
-                    </div>
-                    <div className={
-                      classNames(
-                        'split-item-image center-content-mobile reveal-from-bottom',
-                        imageFill && 'split-item-image-fill'
-                      )}
-                      data-reveal-container=".split-item">
-                      <div className={index % 2 === 0 ? "slide-container" : "slide-container-left"}>
-                        <Slide {...properties}>
-                          {e.images.map((each, index) => (
-                            <div key={index} className="each-slide" > 
-                              <img className="lazy" src={each} alt="sample" />
-                            </div>
-                          ))}
-                        </Slide>
-                      </div>
+            {events.map((e, index) => {
+              return (
+                <div className="split-item" key={index}>
+                  <div
+                    className="split-item-content center-content-mobile reveal-from-left"
+                    data-reveal-container=".split-item"
+                  >
+                    <h3 className="mt-0 mb-12">{e.title}</h3>
+                    <p className="m-0">{e.desc}</p>
+                  </div>
+                  <div
+                    className={classNames(
+                      "split-item-image center-content-mobile reveal-from-bottom",
+                      imageFill && "split-item-image-fill"
+                    )}
+                    data-reveal-container=".split-item"
+                  >
+                    <div
+                      className={
+                        index % 2 === 0
+                          ? "slide-container"
+                          : "slide-container-left"
+                      }
+                    >
+                      <Slide {...properties}>
+                        {e.images.map((each, index) => (
+                          <div key={index} className="each-slide">
+                            <img className="lazy" src={each} alt="sample" />
+                          </div>
+                        ))}
+                      </Slide>
                     </div>
                   </div>
-                )
-              })}
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
     </section>
   );
-}
+};
 
 FeaturesSplit.propTypes = propTypes;
 FeaturesSplit.defaultProps = defaultProps;

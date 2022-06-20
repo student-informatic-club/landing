@@ -71,7 +71,7 @@ const Hero = ({
               <div className="reveal-from-bottom" data-reveal-delay="600">
                 <ButtonGroup>
                   <Button tag="a" color="primary" wideMobile href="https://cruip.com/">
-                    Đăng kí CTV
+                    Đăng kí
                     </Button>
                 </ButtonGroup>
               </div>
@@ -97,7 +97,7 @@ const Hero = ({
             show={videoModalActive}
             handleClose={closeModal}
             video="https://player.vimeo.com/video/174002812"
-            videoTag="iframe" />
+            videoTag="iframe"/>
         </div>
       </div>
     </section>

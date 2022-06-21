@@ -52,6 +52,33 @@
     }
 }
 
+@keyframes animationMegaDropDownShow {
+    0% {
+        transform: rotate(0);
+    }
+    25% {
+        transform: rotate(-90deg);
+    }
+    50% {
+        transform: rotate(-90deg) translateY(50%);
+    }
+    100% {
+        transform: rotate(-90deg) translateY(75px);
+    }
+}
+
+@keyframes animationMegaDropDownHide {
+    0% {
+        transform: rotate(-90deg) translateY(75px);
+    }
+    50% {
+        transform: rotate(-90deg);
+    }
+    100% {
+        transform: rotate(0);
+    }
+}
+
 .hover-dropdown {
     position: relative;
     padding: 0 32px;
@@ -125,13 +152,28 @@
     .dropdown-item--mega {
         span {
             display: flex;
-            justify-content: space-between;
+            gap: 10px;
             width: 100%;
+        }
+        .dropdown-icon-mega {
+            animation: animationMegaDropDownHide ease-in-out .5s;
         }
     }
 
     .dropdown .dropdown-mega {
         display: none;
+        top: 0;
+        left: 108%;
+    }
+
+    .dropdown .dropdown-mega::before {
+        position: absolute;
+        content: "";
+        width: 20px;
+        height: 100%;
+        background-color: transparent;
+        left: -20px;
+        top: 0px;
     }
 
     .dropdown-item--mega:hover {
@@ -140,8 +182,8 @@
         }
 
         .dropdown-icon-mega {
-            transform: rotate(-180deg);
-            transition: all .3s;
+            transform: rotate(-90deg) translateY(75px);
+            animation: animationMegaDropDownShow ease-in-out .4s;
         }
     }
 

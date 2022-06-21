@@ -8,7 +8,7 @@ const navLinks = [
         {name: 'Ban Khác', status: false, dropdown: [
             {name: 'Ban Học Tập', status: false},
             {name: 'Ban Văn Thể', status: false}
-        ]}
+        ]},
     ]},
     {name: 'Sự Kiện', status: false, dropdown: [
         {name: 'Sự Kiện Đã Tổ Chức', status: false},

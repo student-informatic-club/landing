@@ -1,6 +1,7 @@
 import react from "react";
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { VscTriangleDown } from 'react-icons/vsc';
 
 const propTypes = {
     children: PropTypes.array,
@@ -37,13 +38,19 @@ const DropDown = ({
 
     return (
         <>
-            <div {...props} className={classes}>
-                {children && children.map((item, index) => {
-                    return (
-                        <div key={index} className="dropdown-item"><span>{item.name}</span></div>
+            <ul {...props} className={classes}>
+                {children && children.map((item, index) => { return item.dropdown ?
+                    (
+                        <li key={index} className="dropdown-item dropdown-item--mega">
+                            <span>{item.name} <VscTriangleDown style={{display: 'inline-block'}} className="dropdown-icon-mega"/></span>
+                            <DropDown children={item.dropdown} className="dropdown-mega"/>
+                        </li>
+                    ):
+                    (
+                        <li key={index} className="dropdown-item"><span>{item.name}</span></li>
                     )
                 })}
-            </div>
+            </ul>
         </>
     )
 }

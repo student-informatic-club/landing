@@ -37,7 +37,7 @@
 
 	.brand {
 		margin-right: $header-nav--padding-h;
-	}	
+	}
 }
 
 .scroll {
@@ -60,11 +60,6 @@
 .container-nav {
 	max-width: 1350px ;
 	margin: 0 auto;
-	// position: sticky;
-	// width: 100%;
-	// top: 0;
-	// left: 16%;
-	// z-index: 9999;
 }
 
 .header-nav {
@@ -81,6 +76,7 @@
 		flex-grow: 1;
         white-space: nowrap;
 		margin-bottom: 0;
+		list-style-type: none;
 
 		&:first-of-type {
 			flex-wrap: wrap;
@@ -90,7 +86,6 @@
     li {
 
 		+ .header-button {
-			
 			margin-left: $header-nav--padding-h;
 		}
     }

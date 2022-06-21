@@ -127,7 +127,7 @@ const Header = ({
                         >
                           {navLink.dropdown ? (
                             <>
-                              <span>{navLink.name} <VscTriangleDown style={{display: 'inline-block'}}/></span>
+                              <span>{navLink.name} <VscTriangleDown style={{display: 'inline-block'}} className="dropdown-icon"/></span>
                               <DropDown children={navLink.dropdown} />
                             </>
                           ) : (

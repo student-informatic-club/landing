@@ -4,6 +4,9 @@ import classNames from "classnames";
 import { Link } from "react-router-dom";
 import Logo from "./partials/Logo";
 import MessengerCustomerChat from "react-messenger-customer-chat";
+import navLinks from "./partials/HeaderNav";
+import DropDown from "../elements/dropdown";
+import {VscTriangleDown} from 'react-icons/vsc';
 
 const propTypes = {
   navPosition: PropTypes.string,
@@ -116,25 +119,36 @@ const Header = ({
                       navPosition && `header-nav-${navPosition}`
                     )}
                   >
-                    <li>
-                      <Link to="#0" onClick={closeMenu}>
-                        Documentation
-                      </Link>
-                    </li>
+                    {navLinks.map((navLink, index) => {
+                      return (
+                        <li
+                          key={index}
+                          className={navLink.dropdown && "hover-dropdown"}
+                        >
+                          {navLink.dropdown ? (
+                            <>
+                              <span>{navLink.name} <VscTriangleDown style={{display: 'inline-block'}}/></span>
+                              <DropDown children={navLink.dropdown} />
+                            </>
+                          ) : (
+                            <Link to="#0">{navLink.name}</Link>
+                          )}
+                        </li>
+                      );
+                    })}
                   </ul>
-                  {!hideSignin && (
+                  {/* {!hideSignin && (
                     <ul className="list-reset header-nav-right">
                       <li>
                         <Link
                           to="#0"
                           className="button button-primary button-wide-mobile button-sm"
-                          onClick={closeMenu}
                         >
                           Sign up
                         </Link>
                       </li>
                     </ul>
-                  )}
+                  )} */}
                 </div>
               </nav>
             </>

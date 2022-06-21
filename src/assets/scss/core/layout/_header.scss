@@ -27,7 +27,7 @@
 	width: 100%;
 	z-index: 9999 !important;
 	background-color: var(--bg-nav);
-	animation: scrollUp linear .5s;
+	animation: scrollUp linear .2s;
 	+ .site-content {
 
 		.section:first-of-type {
@@ -42,7 +42,11 @@
 
 .scroll {
 	background-color: var(--bg-nav-scroll);
-	animation: scrollDown linear .5s;
+	animation: scrollDown linear .2s;
+	a {
+		color: #DD483A !important;
+		transition: linear .2s;
+	}
 }
 
 .site-header-inner {
@@ -163,6 +167,7 @@
 			        @include anchor-aspect(header-mobile);
 					padding-top: $header-nav--padding-v__mobile / 2;
 					padding-bottom: $header-nav--padding-v__mobile / 2;
+					color: #fff !important;
 			    }
 			}
 

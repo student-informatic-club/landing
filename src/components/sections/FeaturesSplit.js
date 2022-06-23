@@ -2,8 +2,6 @@ import React from "react";
 import classNames from "classnames";
 import { SectionSplitProps } from "../../utils/SectionProps";
 import SectionHeader from "./partials/SectionHeader";
-import Image from "../elements/Image";
-import splitImage03 from "./../../assets/images/features-split-image-03.png";
 import "./../../assets/css/style.css";
 import "react-slideshow-image/dist/styles.css";
 import { Zoom, Slide } from "react-slideshow-image";
@@ -54,7 +52,7 @@ const FeaturesSplit = ({
   );
 
   const sectionHeader = {
-    title: "Các sự kiện đã tổ chức",
+    title: "Các sự kiện tiêu biểu",
   };
 
   const properties = {

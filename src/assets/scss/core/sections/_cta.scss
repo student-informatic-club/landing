@@ -11,6 +11,9 @@
 
 @include media(">medium") {
   .cta {
+
+    background-color: #5658DD;
+
     .section-inner {
       padding-top: $cta--padding-t__desktop;
       padding-bottom: $cta--padding-b__desktop;
@@ -23,12 +26,58 @@
     gap: 31%;
   }
 
+  .cta-center {
+    width: 60%;
+    margin: 0 auto;
+    text-align: center;
+  }
+
   .cta-slogan {
     margin-bottom: $cta-slogan--padding-v__desktop;
 
     .cta-split & {
       margin-bottom: 0;
       margin-right: $cta-slogan--padding-h__desktop;
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    input {
+      border-radius: 4px;
+      width: 100%;
+    }
+    .cta-group-btn {
+      justify-content: flex-end;
+      .cta-btn {
+        width: 20%;
+        float: right;
+      }
+    }
+  
+    textarea {
+      padding: 10px;
+      resize: none;
+      font-size: 14px;
+      width: 100%;
+    }
+  
+    ::placeholder {
+      font-size: 15px;
+      color: #9CA9B3 !important;
+    }
+
+    .group-input {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .errorMessage {
+      font-size: 14px;
+      color: red;
     }
   }
 }

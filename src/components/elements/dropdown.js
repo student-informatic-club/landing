@@ -2,6 +2,7 @@ import react from "react";
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { VscTriangleDown } from 'react-icons/vsc';
+import { Link } from "react-router-dom";
 
 const propTypes = {
     children: PropTypes.array,
@@ -47,7 +48,7 @@ const DropDown = ({
                         </li>
                     ):
                     (
-                        <li key={index} className="dropdown-item"><span>{item.name}</span></li>
+                        <li key={index} className="dropdown-item"><Link to={item.href}>{item.name}</Link></li>
                     )
                 })}
             </ul>

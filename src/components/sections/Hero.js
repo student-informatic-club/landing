@@ -6,6 +6,7 @@ import Button from '../elements/Button';
 import Image from '../elements/Image';
 import Modal from '../elements/Modal';
 import videoPlacehoder from './../../assets/images/logo.png';
+// import video from '';
 
 const propTypes = {
   ...SectionProps.types
@@ -36,7 +37,7 @@ const Hero = ({
   const closeModal = (e) => {
     e.preventDefault();
     setVideomodalactive(false);
-  }   
+  }
 
   const outerClasses = classNames(
     'hero section center-content',
@@ -70,7 +71,7 @@ const Hero = ({
                 </p>
               <div className="reveal-from-bottom" data-reveal-delay="600">
                 <ButtonGroup>
-                  <Button tag="a" color="primary" wideMobile href="https://cruip.com/">
+                  <Button tag="a" color="primary" wideMobile className="hover-btn">
                     Đăng kí CTV
                     </Button>
                 </ButtonGroup>
@@ -79,25 +80,27 @@ const Hero = ({
           </div>
           <div className="hero-figure reveal-from-bottom illustration-element-01" data-reveal-value="20px" data-reveal-delay="800">
             <a
-              data-video="https://player.vimeo.com/video/174002812"
+              data-video="https://youfiles.herokuapp.com/418514c8-cb09-46a8-ae1e-fda564e8704c"
               href="#0"
               aria-controls="video-modal"
               onClick={openModal}
             >
               <Image
-                className="has-shadow"
+                className='has-shadow'
                 src={videoPlacehoder}
-                alt="Hero"
+                alt='Hero'
                 width={896}
-                height={504} />
+                height={504}
+              />
             </a>
           </div>
           <Modal
-            id="video-modal"
+            id='video-modal'
             show={videoModalActive}
             handleClose={closeModal}
-            video="https://player.vimeo.com/video/174002812"
-            videoTag="iframe"/>
+            video="https://youfiles.herokuapp.com/418514c8-cb09-46a8-ae1e-fda564e8704c"
+            videoTag='iframe'
+          />
         </div>
       </div>
     </section>

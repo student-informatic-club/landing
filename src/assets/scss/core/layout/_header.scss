@@ -21,6 +21,7 @@
 	}
 }
 
+
 .site-header {
 	position: fixed !important;
 	top: 0;
@@ -38,14 +39,36 @@
 	.brand {
 		margin-right: $header-nav--padding-h;
 	}
+	&:not(.scroll) {
+		.dropdown {
+			li {
+				a:not(.button), span{
+					color: #111 !important;
+					transition: linear .2s;
+				}
+			}
+		}
+	}
 }
 
 .scroll {
 	background-color: var(--bg-nav-scroll);
+	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 	animation: scrollDown linear .2s;
-	a {
+	a.home {
 		color: #DD483A !important;
 		transition: linear .2s;
+	}
+	li {
+		color: #ffffff !important;
+		transition: linear .2s;
+	}
+
+	.dropdown {
+		background-color: #191A2E;
+		&-item::after {
+			background-color: #DD483A;
+		}
 	}
 }
 
@@ -84,27 +107,15 @@
     }
 
     li {
-
 		+ .header-button {
 			margin-left: $header-nav--padding-h;
 		}
     }
 
-    a:not(.button) {
+    a:not(.button).home {
 		display: block;
-        @include anchor-aspect(header);
-		@include font-weight(header-link);
-		text-transform: $link-header--transform;
         padding: 0 $header-nav--padding-h;
-
-		.invert-color & {
-			@include anchor-aspect(header, inverse);
-		}
     }
-
-	a.button {
-		margin-left: $header-nav--padding-h;
-	}
 }
 
 .header-nav-center:first-of-type {

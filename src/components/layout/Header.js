@@ -131,7 +131,7 @@ const Header = ({
                               <DropDown children={navLink.dropdown} />
                             </>
                           ) : (
-                            <Link to={navLink.href ? navLink.href : ''} className={index === 0 && 'home'}>{navLink.name}</Link>
+                            <Link to={navLink.href ? navLink.href : ''} className={navLink.status && 'active'}>{navLink.name}</Link>
                           )}
                         </li>
                       );

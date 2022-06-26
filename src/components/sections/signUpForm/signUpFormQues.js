@@ -1,8 +1,8 @@
 import { SiGmail } from "react-icons/si";
-import { BsFillTelephoneFill } from "react-icons/bs";
+import { FaPhoneAlt } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
 const textMainBase = {
-    title: <h3>BECOME OUR <br/>TEAMMATE</h3>,
+    title: <h3>BECOME OUR TEAMMATE</h3>,
     dayEnd: 30,
     monthEnd: 7,
     messageTitle: 'Mong muốn của bạn khi vào CLB'
@@ -15,7 +15,7 @@ const infoContact = [
   },
   {
     href: "tel:0123456789",
-    icon: <BsFillTelephoneFill className="contact__icon"></BsFillTelephoneFill>,
+    icon: <FaPhoneAlt className="contact__icon"></FaPhoneAlt>,
     data: "0123456789",
   },
   {

@@ -60,7 +60,7 @@ const Hero = ({
 
   return (
     <section {...props} className={outerClasses}>
-      {showSignUpForm && <SignUpForm stateFunc={handleSignUp}></SignUpForm>}
+      {showSignUpForm && <SignUpForm stateFunc={handleSignUp} status={showSignUpForm}></SignUpForm>}
       <div className="container-sm">
         <div className={innerClasses}>
           <div className="hero-content">
@@ -80,6 +80,7 @@ const Hero = ({
               </p>
               <div className="reveal-from-bottom" data-reveal-delay="600">
                 <ButtonGroup>
+                  <span onClick={handleSignUp}>
                   <Button tag="a" color="primary" wideMobile className="hover-btn">
                     Đăng kí CTV
                     </Button>

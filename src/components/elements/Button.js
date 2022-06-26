@@ -9,7 +9,8 @@ const propTypes = {
   loading: PropTypes.bool,
   wide: PropTypes.bool,
   wideMobile: PropTypes.bool,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  submit: PropTypes.bool,
 }
 
 const defaultProps = {
@@ -19,7 +20,8 @@ const defaultProps = {
   loading: false,
   wide: false,
   wideMobile: false,
-  disabled: false
+  disabled: false,
+  submit: false,
 }
 
 const Button = ({
@@ -31,6 +33,7 @@ const Button = ({
   wide,
   wideMobile,
   disabled,
+  submit,
   ...props
 }) => {
 
@@ -50,6 +53,7 @@ const Button = ({
       {...props}
       className={classes}
       disabled={disabled}
+      type={submit && 'submit'}
     />
   );
 }

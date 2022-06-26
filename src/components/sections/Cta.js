@@ -96,7 +96,7 @@ const Cta = ({
                         }) => {
                           return (
                             <>
-                              <textarea rows={7} cols={10} placeholder="Nội Dung ... (Tối đã 200 kí tự)" {...field}></textarea>
+                              <textarea rows={7} cols={10} placeholder="Nội dung... (Tối đa 200 kí tự)" {...field}></textarea>
                               {meta.touched && meta.error ? (
                                 <div className="errorMessage">{meta.error}</div>
                               ) : null}

@@ -1,0 +1,124 @@
+.flex-col {
+  display: flex !important;
+  gap: 8px;
+  flex-direction: column !important;
+}
+.gridCol-2 {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 8px 20px;
+}
+.title {
+  font-size: 16px;
+}
+textarea,
+input {
+  outline: none;
+  transition: all 0.2s linear;
+  font-size: 18px !important;
+  color: #000;
+
+  &:focus {
+    border: 1px solid #373888;
+    border-radius: 5px;
+  }
+}
+.signUpForm {
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  z-index: 9999;
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  .signUpForm__footer {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    color: #fff;
+    gap: 20px;
+    .button {
+      padding: 4px 18px;
+      flex: 1 0;
+    }
+  }
+  .signUpForm-inner {
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto;
+    width: 70%;
+    background-color: #fff;
+    height: 85vh;
+    min-height: 85vh;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    text-align: left;
+  }
+  .signUpForm--left {
+    grid-column: 1/ 3;
+    padding: 6% 8%;
+    background: url("../../../images/signUpLeft.png") bottom center/ cover
+      no-repeat;
+    p {
+      color: rgba(255, 255, 255, 0.5);
+      line-height: 130%;
+      font-size: 16px;
+      font-style: italic;
+    }
+    .contact {
+      display: flex;
+      flex-direction: column;
+    }
+    .contact__info {
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      font-size: 18px;
+      margin-top: 6%;
+      gap: 10px;
+      &:hover {
+        color: #373888;
+        transition: all 0.2s linear;
+      }
+      span {
+        flex: 1;
+      }
+    }
+    .contact__icon {
+      display: inline-block;
+      color: #373888;
+    }
+  }
+  .signUpForm--right {
+    padding: 6% 8%;
+    grid-column: 3/ 6;
+    position: relative;
+    .closeBtn {
+      position: absolute;
+      right: 0;
+      top: 0;
+      margin: 4% 4%;
+      font-size: 25px;
+      transition: all 0.2s linear;
+      cursor: pointer;
+      &:hover {
+        color: #373888;
+      }
+    }
+
+    .basic-info__item {
+      display: flex;
+      flex-direction: column;
+    }
+    .basic-info__item input,
+    .message__text {
+      width: 100%;
+      resize: none;
+      padding: 4px 6px;
+    }
+  }
+}

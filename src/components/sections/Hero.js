@@ -33,6 +33,7 @@ const Hero = ({
   const handleSignUp = () => {
     setShowSignUpForm(!showSignUpForm)
   }
+
   const openModal = (e) => {
     e.preventDefault();
     setVideomodalactive(true);
@@ -57,6 +58,13 @@ const Hero = ({
     topDivider && "has-top-divider",
     bottomDivider && "has-bottom-divider"
   );
+
+  window.addEventListener('keyup', function(e) {
+    // console.log(e.key);
+    if(e.key === 'Escape'){
+      setShowSignUpForm(false);
+    }
+  });
 
   return (
     <section {...props} className={outerClasses}>

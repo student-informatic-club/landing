@@ -72,7 +72,7 @@ const SignUpForm = ({
 
   return (
     <section className={outerClasses}>
-      <div className={innerClasses}>
+      <div className={innerClasses} >
         <div className="signUpForm--left flex-col">
           <div>
             {/* <h3> */}

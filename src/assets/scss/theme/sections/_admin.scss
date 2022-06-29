@@ -1,0 +1,27 @@
+.site-admin {
+    margin-top: 80px;
+}
+
+.header-admin {
+    width: 100%;
+    
+}
+
+.side_bar {
+    width: 10%;
+    &_inner {
+        padding: 2.5%;
+    }
+    &_list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+    }
+    &_item {
+        // width: 100%;
+        display: flex;
+        justify-content: center;
+        padding: 10px 15px;
+    }
+}

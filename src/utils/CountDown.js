@@ -48,29 +48,29 @@ export default function Countdown(props) {
     }, 1000)
 
     //clear
-    if (date.days == 0 && date.hours == 0 && date.min == 0 && date.second == 0) {
+    if (date.days === 0 && date.hours === 0 && date.min === 0 && date.second === 0) {
         clearInterval(handle)
     }
     return (
         <span className="Countdown">
           <span className="countdown-col">
             <strong>{formatText(date.days)}</strong>{' '}
-            <span>{date.days === 1 ? 'Day' : 'Days'}</span>{' '}
+            <span>{date.days === 1 ? 'Day' : 'Ngày'}</span>{' '}
           </span>
   
           <span className="countdown-col">
             <strong>{formatText(date.hours)}</strong>{' '}
-            <span>Hours</span>{' '}
+            <span>Giờ</span>{' '}
           </span>
   
           <span className="countdown-col">
             <strong>{formatText(date.min)}</strong>{' '}
-            <span>Min</span>{' '}
+            <span>Phút</span>{' '}
           </span>
   
           <span className="countdown-col">
             <strong>{formatText(date.sec)}</strong>{' '}
-            <span>Seconds</span>{' '}
+            <span>Giây</span>{' '}
           </span>
         </span>
       );

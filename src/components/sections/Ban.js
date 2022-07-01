@@ -11,11 +11,13 @@ const Ban = () => {
     }
     const Bans = [{title: 'Ban Kỹ Thuật', theme: '#A149FA'}, {title: 'Ban Truyền Thông', theme: '#3B44F6'}, {title: 'Ban Hỗ Trợ', theme: '#3EC70B'}, {title: 'Ban Học Tập', theme: '#F7EC09'}];
     return (
+        // <div className="container">
             <Slide
                 children={Bans}
                 option={options}
                 label='Các Ban Trong SIC'
             />
+        // </div>
     )
 }
 

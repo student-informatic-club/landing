@@ -22,6 +22,11 @@
   grid-template-columns: auto auto;
   gap: 8px 20px;
 }
+.gridCol-3 {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 8px 10px;
+}
 .title {
   font-size: 16px;
 }
@@ -72,17 +77,15 @@ textarea {
     border-radius: 10px;
     overflow: hidden;
     margin: 0 auto;
-    width: 70%;
+    width: 80%;
     background-color: #fff;
-    height: 85vh;
-    min-height: 85vh;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(11, 1fr);
     text-align: left;
   }
   .signUpForm--left {
-    grid-column: 1/ 3;
-    padding: 6% 8%;
+    grid-column: 1/ 5;
+    padding: 30px 40px;
     background: url("../../../images/signUpLeft.png") bottom center/ cover
       no-repeat;
     h3 {
@@ -121,10 +124,11 @@ textarea {
   }
   .signUpForm--right {
     form.flex-col {
+      margin-top: 30px;
       gap: 30px;
     }
-    padding: 6% 8%;
-    grid-column: 3/ 6;
+    padding: 30px 40px;
+    grid-column: 5/ 12;
     position: relative;
     input {
       width: auto !important;
@@ -140,6 +144,7 @@ textarea {
       margin: 4% 4%;
       font-size: 25px;
       transition: all 0.2s linear;
+      z-index:10000;
       cursor: pointer;
       &:hover {
         color: #373888;
@@ -147,7 +152,6 @@ textarea {
     }
 
     .basic-info {
-      margin-top: 40px;
       gap: 35px;
     }
 
@@ -155,6 +159,11 @@ textarea {
       position: relative;
       display: flex;
       flex-direction: column;
+      .errorMessage{
+        position: absolute;
+        bottom: -70%;
+        left:0;
+      }
       .title {
         position: absolute;
         left: 10px;
@@ -166,7 +175,6 @@ textarea {
       input:focus + .title {
         top: -15px;
         display: inline-block;
-        // padding: 10px;
         color: #000;
         background-color: #fff;
         cursor: default;

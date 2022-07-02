@@ -6,6 +6,7 @@ import "./../../assets/css/style.css";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import CountDown from "../../utils/CountDown";
+import { motion } from "framer-motion";
 
 import {
   signUpQues,
@@ -13,7 +14,6 @@ import {
   textMainBase,
 } from "../sections/signUpForm/signUpFormQues";
 import { AiFillCloseCircle } from "react-icons/ai";
-import Button from "./Button";
 
 const propTypes = {
   ...SectionProps.types,
@@ -23,6 +23,21 @@ const propTypes = {
 const defaultProps = {
   ...SectionProps.defaults,
   status: false,
+};
+
+const signUpFormVariants = {
+  init: {
+    y: "-100vh",
+  },
+  ani: {
+    y: 0,
+    transition: {
+      type: "spring",
+      stiffness: 50,
+      duration: .2,
+    },
+  },
+
 };
 
 const SignUpForm = ({
@@ -40,14 +55,25 @@ const SignUpForm = ({
     ` signUpForm
     `
   );
-  const dayOut = textMainBase.yearEnd+'-'+textMainBase.monthEnd+'-'+textMainBase.dayEnd+'T00:00:00';
-  const [isTimeOut, setIsTimeOut] = useState(false)
+  const dayOut =
+    textMainBase.yearEnd +
+    "-" +
+    textMainBase.monthEnd +
+    "-" +
+    textMainBase.dayEnd +
+    "T00:00:00";
+  const [isTimeOut, setIsTimeOut] = useState(false);
   // 2022-12-24T00:00:00
-  const innerClasses = classNames("signUpForm-inner ", status && "appear");
+  const innerClasses = classNames("signUpForm-inner");
 
   return (
     <section className={outerClasses}>
-      <div className={innerClasses}>
+      <motion.div
+        className={innerClasses}
+        variants={signUpFormVariants}
+        initial="init"
+        animate="ani"
+      >
         <div className="signUpForm--left flex-col">
           <div>
             {textMainBase.title}
@@ -72,10 +98,10 @@ const SignUpForm = ({
             </div>
           </div>
           <div className="signUpForm__footer">
-          <span>
-            Hạn đăng kí: Còn{' '} 
-            <CountDown endDate={dayOut} checkTimeOut={setIsTimeOut}/>  
-          </span>
+            <span style={{ fontSize: "16px" }}>
+              Hạn đăng kí: Còn{" "}
+              <CountDown endDate={dayOut} checkTimeOut={setIsTimeOut} />
+            </span>
           </div>
         </div>
         <div className="signUpForm--right flex-col">
@@ -94,13 +120,14 @@ const SignUpForm = ({
             validationSchema={Yup.object({
               fullName: Yup.string().required("Vui Lòng Điền Trường Này"),
               phone: Yup.string().required("Vui Lòng Điền Trường Này"),
-              // answer:Yup.
               email: Yup.string()
                 .email("E-mail của bạn không hợp lệ")
                 .required("Vui Lòng Điền Trường Này"),
               class: Yup.string().required("Vui Lòng Điền Trường Này"),
             })}
-            onSubmit={(values) => {console.log(values); props.stateFunc()}}
+            onSubmit={(values) => {
+              props.stateFunc();
+            }}
           >
             {({ errors, touched }) => {
               return (
@@ -166,10 +193,9 @@ const SignUpForm = ({
                       CANCEL
                     </button>
                     <button
-                      className="button button-primary button-sm" 
+                      className="button button-primary button-sm"
                       disabled={isTimeOut}
                       type="submit"
-                      
                     >
                       Submit
                     </button>
@@ -179,7 +205,7 @@ const SignUpForm = ({
             }}
           </Formik>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };

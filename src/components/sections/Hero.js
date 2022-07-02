@@ -67,7 +67,7 @@ const Hero = ({
 
   return (
     <section {...props} className={outerClasses}>
-      {showSignUpForm && <SignUpForm stateFunc={handleSignUp} status={showSignUpForm}></SignUpForm>}
+      {showSignUpForm && <SignUpForm stateFunc={handleSignUp} ></SignUpForm>}
       <div className="container-sm">
         <div className={innerClasses}>
           <div className="hero-content">

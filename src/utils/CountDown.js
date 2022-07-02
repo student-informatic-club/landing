@@ -63,7 +63,7 @@ export default function CountDown({endDate, checkTimeOut}) {
   }, []);
 
   const viewData = () => (
-    <span style={{fontSize:'16px'}}>
+    <span style={{}}>
       <span>
         <strong>{formatText(date.days)}</strong>{" "}
         <span>{date.days === 1 ? "Ngày" : "Ngày"}</span>{" "}

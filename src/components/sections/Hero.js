@@ -60,7 +60,6 @@ const Hero = ({
   );
 
   window.addEventListener('keyup', function(e) {
-    // console.log(e.key);
     if(e.key === 'Escape'){
       setShowSignUpForm(false);
     }

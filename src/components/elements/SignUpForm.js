@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { SectionProps } from "../../utils/SectionProps";
@@ -6,12 +6,14 @@ import "./../../assets/css/style.css";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import CountDown from "../../utils/CountDown";
+
 import {
   signUpQues,
   infoContact,
   textMainBase,
 } from "../sections/signUpForm/signUpFormQues";
 import { AiFillCloseCircle } from "react-icons/ai";
+import Button from "./Button";
 
 const propTypes = {
   ...SectionProps.types,
@@ -38,9 +40,9 @@ const SignUpForm = ({
     ` signUpForm
     `
   );
-    const dayLeft = textMainBase.yearEnd+'-'+textMainBase.monthEnd+'-'+textMainBase.dayEnd+'T00:00:00';
-    console.log(dayLeft)
-    // 2022-12-24T00:00:00
+  const dayOut = textMainBase.yearEnd+'-'+textMainBase.monthEnd+'-'+textMainBase.dayEnd+'T00:00:00';
+  const [isTimeOut, setIsTimeOut] = useState(false)
+  // 2022-12-24T00:00:00
   const innerClasses = classNames("signUpForm-inner ", status && "appear");
 
   return (
@@ -60,6 +62,7 @@ const SignUpForm = ({
                   target="_blank"
                   rel="noreferrer"
                   className="contact__info"
+                  key={info.data}
                   href={info.href || ""}
                 >
                   {info.icon}
@@ -70,8 +73,8 @@ const SignUpForm = ({
           </div>
           <div className="signUpForm__footer">
           <span>
-            Hạn đăng kí:{' '} 
-            <CountDown date={dayLeft}/>  
+            Hạn đăng kí: Còn{' '} 
+            <CountDown endDate={dayOut} checkTimeOut={setIsTimeOut}/>  
           </span>
           </div>
         </div>
@@ -91,19 +94,20 @@ const SignUpForm = ({
             validationSchema={Yup.object({
               fullName: Yup.string().required("Vui Lòng Điền Trường Này"),
               phone: Yup.string().required("Vui Lòng Điền Trường Này"),
+              // answer:Yup.
               email: Yup.string()
                 .email("E-mail của bạn không hợp lệ")
                 .required("Vui Lòng Điền Trường Này"),
               class: Yup.string().required("Vui Lòng Điền Trường Này"),
             })}
-            onSubmit={(values) => console.log(values)}
+            onSubmit={(values) => {console.log(values); props.stateFunc()}}
           >
             {({ errors, touched }) => {
               return (
                 <Form className="flex-col">
                   <div className="basic-info gridCol-2">
                     {signUpQues[0].ques.map((item) => (
-                      <div className="basic-info__item">
+                      <div className="basic-info__item" key={item.quesTitle}>
                         <Field
                           type="text"
                           placeholder=" "
@@ -133,7 +137,7 @@ const SignUpForm = ({
                     </label>
                     <div className="gridCol-3">
                       {signUpQues[1].ans.map((item) => (
-                        <label style={{ color: "#000" }}>
+                        <label style={{ color: "#000" }} key={item}>
                           <Field
                             type="checkbox"
                             name={signUpQues[1].quesName}
@@ -162,8 +166,10 @@ const SignUpForm = ({
                       CANCEL
                     </button>
                     <button
-                      className="button button-primary button-sm"
+                      className="button button-primary button-sm" 
+                      disabled={isTimeOut}
                       type="submit"
+                      
                     >
                       Submit
                     </button>

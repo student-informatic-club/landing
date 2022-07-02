@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
-function formatText(num) {
-  if (num < 10) {
-    return "0" + num;
-  }
-  return num;
-}
+
 function calculateCountdown(endDate) {
   let diff = (Date.parse(new Date(endDate)) - Date.parse(new Date())) / 1000;
 
@@ -44,7 +39,7 @@ function calculateCountdown(endDate) {
   return timeLeft;
 }
 
-export default function CountDown({endDate, checkTimeOut}) {
+export default function CountDown(endDate) {
   const [date, setDate] = useState({
     days: 0,
     hours: 0,
@@ -56,32 +51,9 @@ export default function CountDown({endDate, checkTimeOut}) {
     const handle = setInterval(() => {
       const date2 = calculateCountdown(endDate);
       setDate(date2);
-      checkTimeOut(date2.isTimeOut)
     }, 1000);
-    console.log(date);
     return () => clearInterval(handle);
   }, []);
-
-  const viewData = () => (
-    <span style={{}}>
-      <span>
-        <strong>{formatText(date.days)}</strong>{" "}
-        <span>{date.days === 1 ? "Ngày" : "Ngày"}</span>{" "}
-      </span>
-
-      <span>
-        <strong>{formatText(date.hours)}</strong> <span>Giờ</span>{" "}
-      </span>
-
-      <span>
-        <strong>{formatText(date.min)}</strong> <span>Phút</span>{" "}
-      </span>
-
-      <span>
-        <strong>{formatText(date.second)}</strong> <span>Giây</span>{" "}
-      </span>
-    </span>
-  );
-  return viewData();
+  return date;
 }
 

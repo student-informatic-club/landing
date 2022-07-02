@@ -5,7 +5,7 @@ import { SectionProps } from "../../utils/SectionProps";
 import "./../../assets/css/style.css";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
-import CountDown from "../../utils/CountDown";
+import CountDown, { CheckTimeOut } from "../../utils/CountDown";
 import { motion } from "framer-motion";
 
 import {
@@ -14,7 +14,12 @@ import {
   textMainBase,
 } from "../sections/signUpForm/signUpFormQues";
 import { AiFillCloseCircle } from "react-icons/ai";
-
+function formatText(num) {
+  if (num < 10) {
+    return "0" + num;
+  }
+  return num;
+}
 const propTypes = {
   ...SectionProps.types,
   status: PropTypes.bool,
@@ -34,10 +39,9 @@ const signUpFormVariants = {
     transition: {
       type: "spring",
       stiffness: 50,
-      duration: .2,
+      duration: 0.2,
     },
   },
-
 };
 
 const SignUpForm = ({
@@ -55,6 +59,7 @@ const SignUpForm = ({
     ` signUpForm
     `
   );
+  // Định dạng mẫu: 2022-12-24T00:00:00
   const dayOut =
     textMainBase.yearEnd +
     "-" +
@@ -62,8 +67,9 @@ const SignUpForm = ({
     "-" +
     textMainBase.dayEnd +
     "T00:00:00";
-  const [isTimeOut, setIsTimeOut] = useState(false);
-  // 2022-12-24T00:00:00
+  const dateData = CountDown(dayOut);
+
+  console.log(dateData);
   const innerClasses = classNames("signUpForm-inner");
 
   return (
@@ -99,8 +105,10 @@ const SignUpForm = ({
           </div>
           <div className="signUpForm__footer">
             <span style={{ fontSize: "16px" }}>
-              Hạn đăng kí: Còn{" "}
-              <CountDown endDate={dayOut} checkTimeOut={setIsTimeOut} />
+              Hạn đăng kí: Còn <strong>{formatText(dateData.days)}</strong> ngày{" "}
+              <strong>{formatText(dateData.hours)}</strong> giờ{" "}
+              <strong>{formatText(dateData.min)}</strong> phút{" "}
+              <strong>{formatText(dateData.second)}</strong> giây{" "}
             </span>
           </div>
         </div>
@@ -194,7 +202,7 @@ const SignUpForm = ({
                     </button>
                     <button
                       className="button button-primary button-sm"
-                      disabled={isTimeOut}
+                      disabled={dateData.isTimeOut}
                       type="submit"
                     >
                       Submit

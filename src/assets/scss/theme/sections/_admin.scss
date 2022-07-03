@@ -1,5 +1,5 @@
 .site-admin {
-    margin-top: 80px;
+    // margin-top: 80px;
 }
 
 .header-admin {
@@ -23,5 +23,14 @@
         display: flex;
         justify-content: center;
         padding: 10px 15px;
+    }
+}
+.sidebar_logo {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    .header-sidebar-toggle {
+        background: transparent;
+        border: none;
     }
 }

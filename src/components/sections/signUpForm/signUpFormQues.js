@@ -3,7 +3,7 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
 const textMainBase = {
     title: <h3>BECOME OUR TEAMMATE</h3>,
-    dayEnd: '30',
+    dayEnd: '02',
     monthEnd: '07',
     yearEnd: '2022',
     messageTitle: 'Mong muốn của bạn khi vào CLB'

@@ -27,7 +27,9 @@ const Admin = ({
     return (
         <section className={classes}>
             <SideBar children={sideBarAdmin}/>
-            {children}
+            <section className="site-main-admin">
+                {children}
+            </section>
         </section>
     )
 }

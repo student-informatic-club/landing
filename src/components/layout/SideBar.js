@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import Logo from "./partials/Logo";
 import { Link } from "react-router-dom";
+import {FaAngleDoubleLeft} from 'react-icons/fa';
 const propTypes = {
   children: PropTypes.array,
   isHide: PropTypes.bool,
@@ -21,18 +22,27 @@ const SideBar = ({
     theme,
     className
 }) => {
+    const [minimize, setMinimize] = useState(false);
     const outerclasses = classNames(
         'side_bar',
         `side_bar--${theme}`,
         isHide && 'hide',
+        minimize && 'minimize',
         className
     )
     const innerclasses = classNames(
         'side_bar_inner'
     )
+  const handleMinimize = () => {
+    setMinimize(!minimize)
+  }
+
     return (
-        <div className={outerclasses}>
+        <div className={outerclasses} id="sidebar">
             <div className={innerclasses}>
+                <div className="sidebar_logo">
+                    <Logo />
+                </div>
                 <div className="side_bar_list">
                     {children && children.map((item, i) => {
                         return (
@@ -42,6 +52,9 @@ const SideBar = ({
                         )
                     })}
                 </div>
+            </div>
+            <div className="minimize-icon" onClick={handleMinimize}>
+                <FaAngleDoubleLeft/>
             </div>
         </div>
     )

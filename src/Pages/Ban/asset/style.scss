@@ -1,0 +1,61 @@
+.Ban_section {
+    header {
+        width: 100%;
+        margin-top: 5px;
+        padding: 10px 0;
+        border-top: 1px solid #f1f1f184;
+        border-bottom: 1px solid #f1f1f184;
+        .Ban-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 1550px;
+            margin: 0 auto;
+            .navLinks {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                .navLink-item {
+                    padding: 10px 15px;
+                }
+            }
+        }
+    }
+    .f_layout {
+        display: flex;
+        .f_layout-f {
+            display: flex;
+            flex-direction: column;
+            .f_layout-ff {
+                h1 {
+                    position: relative;
+                    letter-spacing: 3px;
+                    span {
+                        padding: 5px 0;
+                        border-bottom: 1px solid #fff;
+                    }
+                }
+                p {
+                    position: absolute;
+                    top: -35px;
+                    right: 54%;
+                    font-size: 12px;
+                    color: #ccc;
+                    letter-spacing: 0;
+                }
+            }
+        }
+    }
+}
+
+.italic {
+    font-style: italic;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}

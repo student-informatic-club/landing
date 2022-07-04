@@ -13,6 +13,7 @@ import LayoutAdmin from './layouts/LayoutAdmin';
 // Views 
 import Home from './views/Home';
 import AdminPage from './admin/Admin';
+import Login from './views/Login';
 import BanHocTap from './Pages/Ban/BanHocTap';
 
 // Initialize Google Analytics
@@ -43,11 +44,11 @@ const App = () => {
         <Switch>
           <AppRoute exact path="/" component={Home} layout={LayoutDefault} />
           <AppRoute exact path="/admin" component={AdminPage} layout={LayoutAdmin} />
-          <AppRoute exact path="/ban-hoc-tap" component={BanHocTap}  /> 
-          {/* <AppRoute exact path="/ban-ho-tro" component={BanHoTro}  />
-          <AppRoute exact path="/ban-truyen-thong" component={BanTruyenThong}  />
-          <AppRoute exact path="/ban-ky-thuat" component={BanKyThuat}  />
-          <AppRoute exact path="/ban-van-the" component={BanVanThe}  />  */}
+          <AppRoute exact path="/ban-hoc-tap" component={BanHocTap}/>
+          {/* <AppRoute exact path="/ban-ho-tro" component={BanHoTro} layout={LayoutDefault} />
+          <AppRoute exact path="/ban-truyen-thong" component={BanTruyenThong} layout={LayoutDefault} />
+          <AppRoute exact path="/ban-ky-thuat" component={BanKyThuat} layout={LayoutDefault} />
+          <AppRoute exact path="/ban-van-the" component={BanVanThe} layout={LayoutDefault} /> */}
         </Switch>
       )} />
   );

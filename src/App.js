@@ -4,6 +4,8 @@ import AppRoute from './utils/AppRoute';
 import ScrollReveal from './utils/ScrollReveal';
 import ReactGA from 'react-ga';
 
+
+
 // Layouts
 import LayoutDefault from './layouts/LayoutDefault';
 import LayoutAdmin from './layouts/LayoutAdmin';
@@ -39,6 +41,11 @@ const App = () => {
         <Switch>
           <AppRoute exact path="/" component={Home} layout={LayoutDefault} />
           <AppRoute exact path="/admin" component={AdminPage} layout={LayoutAdmin} />
+          <AppRoute exact path="/ban-hoc-tap" component={BanHocTap} layout={LayoutDefault} /> 
+          <AppRoute exact path="/ban-ho-tro" component={BanHoTro} layout={LayoutDefault} />
+          <AppRoute exact path="/ban-truyen-thong" component={BanTruyenThong} layout={LayoutDefault} />
+          <AppRoute exact path="/ban-ky-thuat" component={BanKyThuat} layout={LayoutDefault} />
+          <AppRoute exact path="/ban-van-the" component={BanVanThe} layout={LayoutDefault} />
         </Switch>
       )} />
   );

@@ -60,7 +60,6 @@ const Hero = ({
   );
 
   window.addEventListener('keyup', function(e) {
-    // console.log(e.key);
     if(e.key === 'Escape'){
       setShowSignUpForm(false);
     }
@@ -68,7 +67,7 @@ const Hero = ({
 
   return (
     <section {...props} className={outerClasses}>
-      {showSignUpForm && <SignUpForm stateFunc={handleSignUp} status={showSignUpForm}></SignUpForm>}
+      {showSignUpForm && <SignUpForm stateFunc={handleSignUp} ></SignUpForm>}
       <div className="container-sm">
         <div className={innerClasses}>
           <div className="hero-content">

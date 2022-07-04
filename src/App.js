@@ -10,6 +10,7 @@ import LayoutAdmin from './layouts/LayoutAdmin';
 // Views 
 import Home from './views/Home';
 import AdminPage from './admin/Admin';
+import Login from './views/Login';
 
 // Initialize Google Analytics
 ReactGA.initialize(process.env.REACT_APP_GA_CODE);
@@ -39,6 +40,7 @@ const App = () => {
         <Switch>
           <AppRoute exact path="/" component={Home} layout={LayoutDefault} />
           <AppRoute exact path="/admin" component={AdminPage} layout={LayoutAdmin} />
+          <AppRoute exact path="/login" component={Login} />
         </Switch>
       )} />
   );

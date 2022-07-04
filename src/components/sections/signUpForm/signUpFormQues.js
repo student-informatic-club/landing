@@ -2,6 +2,7 @@ import { SiGmail } from "react-icons/si";
 import { FaPhoneAlt } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
 const textMainBase = {
+  // Định dạng mẫu: 2022-12-24T00:00:00, input dạng chuỗi 2 kí tự 2=>02
     title: <h3>BECOME OUR TEAMMATE</h3>,
     dayEnd: '02',
     monthEnd: '07',

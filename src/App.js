@@ -6,12 +6,14 @@ import ReactGA from 'react-ga';
 
 
 
+
 // Layouts
 import LayoutDefault from './layouts/LayoutDefault';
 import LayoutAdmin from './layouts/LayoutAdmin';
 // Views 
 import Home from './views/Home';
 import AdminPage from './admin/Admin';
+import BanHocTap from './Pages/Ban/BanHocTap';
 
 // Initialize Google Analytics
 ReactGA.initialize(process.env.REACT_APP_GA_CODE);
@@ -41,11 +43,11 @@ const App = () => {
         <Switch>
           <AppRoute exact path="/" component={Home} layout={LayoutDefault} />
           <AppRoute exact path="/admin" component={AdminPage} layout={LayoutAdmin} />
-          <AppRoute exact path="/ban-hoc-tap" component={BanHocTap} layout={LayoutDefault} /> 
-          <AppRoute exact path="/ban-ho-tro" component={BanHoTro} layout={LayoutDefault} />
-          <AppRoute exact path="/ban-truyen-thong" component={BanTruyenThong} layout={LayoutDefault} />
-          <AppRoute exact path="/ban-ky-thuat" component={BanKyThuat} layout={LayoutDefault} />
-          <AppRoute exact path="/ban-van-the" component={BanVanThe} layout={LayoutDefault} />
+          <AppRoute exact path="/ban-hoc-tap" component={BanHocTap}  /> 
+          {/* <AppRoute exact path="/ban-ho-tro" component={BanHoTro}  />
+          <AppRoute exact path="/ban-truyen-thong" component={BanTruyenThong}  />
+          <AppRoute exact path="/ban-ky-thuat" component={BanKyThuat}  />
+          <AppRoute exact path="/ban-van-the" component={BanVanThe}  />  */}
         </Switch>
       )} />
   );

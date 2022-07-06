@@ -63,7 +63,7 @@ const signUpQues = [
       "Ban học tập",
       "Ban kỹ thuật",
       "Ban hỗ trợ",
-      "Ban văn thể",
+      // "Ban văn thể",
     ],
   },
 ];

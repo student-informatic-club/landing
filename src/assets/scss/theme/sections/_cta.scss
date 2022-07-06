@@ -1,32 +1,48 @@
 .cta {
-
-    .form-input {
-        border-color: transparent;
-        border-radius: 2px;
-    }
+  .form-input {
+    border-color: transparent;
+    border-radius: 2px;
+  }
 }
 
 .cta-inner {
-	padding-left: 16px;
-	padding-right: 16px;
-    background-color: get-color(primary, 3);
-	background-image: url(../../../images/cta-illustration.svg);
-	background-repeat: no-repeat;
-    background-size: cover;
-    background-position: right bottom;    
+  padding-left: 16px;
+  padding-right: 16px;
+  background-color: get-color(primary, 3);
+  background-image: url(../../../images/cta-illustration.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: right bottom;
+}
+.cta-group-input {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.group-input {
+  display: flex !important;
+  flex-direction: column;
+  position: relative !important;
+  .errorMessage {
+    position: absolute;
+    bottom: -60%;
+  }
+  textarea {
+    padding: 11px 15px;
+    display: block;
+    width: 100% !important;
+  }
 }
 
-@include media( '>medium' ) {
-
-.cta {
-
+@include media(">medium") {
+  .cta {
     .form-input {
-        min-width: 280px;
+      width: 100% !important;
     }
-}    
+  }
 
-	.cta-inner {
-		padding-left: 48px;
-		padding-right: 48px;
-	}
+  .cta-inner {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
 }

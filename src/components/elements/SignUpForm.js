@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React  from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { SectionProps } from "../../utils/SectionProps";
 import "./../../assets/css/style.css";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
-import CountDown, { CheckTimeOut } from "../../utils/CountDown";
+import CountDown from "../../utils/CountDown";
 import { motion } from "framer-motion";
 
 import {
@@ -14,16 +14,17 @@ import {
   textMainBase,
 } from "../sections/signUpForm/signUpFormQues";
 import { AiFillCloseCircle } from "react-icons/ai";
+const propTypes = {
+  ...SectionProps.types,
+  status: PropTypes.bool,
+};
+
 function formatText(num) {
   if (num < 10) {
     return "0" + num;
   }
   return num;
 }
-const propTypes = {
-  ...SectionProps.types,
-  status: PropTypes.bool,
-};
 
 const defaultProps = {
   ...SectionProps.defaults,
@@ -69,7 +70,6 @@ const SignUpForm = ({
     "T00:00:00";
   const dateData = CountDown(dayOut);
 
-  console.log(dateData);
   const innerClasses = classNames("signUpForm-inner");
 
   return (
@@ -205,7 +205,7 @@ const SignUpForm = ({
                       disabled={dateData.isTimeOut}
                       type="submit"
                     >
-                      Submit
+                      SUBMIT
                     </button>
                   </div>
                 </Form>

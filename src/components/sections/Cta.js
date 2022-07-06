@@ -5,29 +5,28 @@ import { SectionProps } from "../../utils/SectionProps";
 import "./../../assets/css/style.css";
 import Button from "../elements/Button";
 import ButtonGroup from "../elements/ButtonGroup";
-import {Formik, Form, Field} from 'formik';
-import * as Yup from 'yup';
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
 
 const propTypes = {
   ...SectionProps.types,
   split: PropTypes.bool,
-  center: PropTypes.bool
+  center: PropTypes.bool,
 };
 
 const defaultProps = {
   ...SectionProps.defaults,
   split: false,
-  center: false
+  center: false,
 };
 
 const ContactSchema = Yup.object().shape({
-  name: Yup.string()
-  .required('Mục này không được bỏ trống'),
+  name: Yup.string().required("Mục này không được bỏ trống"),
   email: Yup.string()
-  .email('E-mail không hợp lệ')
-  .required('Mục này không được bỏ trống'),
-  content: Yup.string().max(200, 'Đã vượt qua số kí tự cho phép')
-})
+    .email("E-mail không hợp lệ")
+    .required("Mục này không được bỏ trống"),
+  content: Yup.string().max(200, "Đã vượt qua số kí tự cho phép"),
+});
 
 const Cta = ({
   className,
@@ -67,51 +66,69 @@ const Cta = ({
           </div>
           <div className="cta-action">
             <Formik
-              initialValues={{email: '', name: '', content: ''}}
+              initialValues={{ email: "", name: "", content: "" }}
               validationSchema={ContactSchema}
               onSubmit={(values) => {
                 console.log(values);
               }}
             >
-              {({errors, touched}) => {
+              {({ errors, touched }) => {
                 return (
-                  <Form>
+                  <Form className="cta-group-input">
                     <div className="group-input">
-                      <Field name='name' className='form-input' placeholder='Họ tên *'/>
+                      <Field
+                        name="name"
+                        className="form-input"
+                        placeholder="Họ tên *"
+                      />
                       {errors.name && touched.name ? (
                         <div className="errorMessage">{errors.name}</div>
                       ) : null}
                     </div>
                     <div className="group-input">
-                    <Field name='email' className='form-input' placeholder='Email của bạn *'/>
+                      <Field
+                        name="email"
+                        className="form-input"
+                        placeholder="Email của bạn *"
+                      />
                       {errors.email && touched.email ? (
                         <div className="errorMessage">{errors.email}</div>
                       ) : null}
                     </div>
                     <div className="group-input">
-                      <Field name='content'>
-                        {({
-                          field,
-                          meta
-                        }) => {
+                      <Field name="content">
+                        {({ field, meta }) => {
                           return (
                             <>
-                              <textarea rows={7} cols={10} placeholder="Nội dung... (Tối đa 200 kí tự)" {...field}></textarea>
+                              <textarea
+                                style={{
+                                  // width: "inherit !important",
+                                  display: "block",
+                                }}
+                                rows={7}
+                                placeholder="Nội dung... (Tối đa 200 kí tự)"
+                                {...field}
+                              ></textarea>
                               {meta.touched && meta.error ? (
                                 <div className="errorMessage">{meta.error}</div>
                               ) : null}
                             </>
-                          )
+                          );
                         }}
                       </Field>
                     </div>
-                    <ButtonGroup className='cta-group-btn'>
-                      <Button color="primary" className="cta-btn" wideMobile submit>
+                    <ButtonGroup className="cta-group-btn">
+                      <Button
+                        color="primary"
+                        className="cta-btn"
+                        wideMobile
+                        submit
+                      >
                         Gửi Tin Nhắn
                       </Button>
                     </ButtonGroup>
                   </Form>
-                )
+                );
               }}
             </Formik>
           </div>

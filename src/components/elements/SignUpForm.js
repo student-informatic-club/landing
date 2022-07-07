@@ -74,7 +74,7 @@ const SignUpForm = ({
 
   return (
     <section className={outerClasses}>
-      <div style={{ position: "relative" }}>
+      <div className="container" style={{ position: "relative" }}>
         <span className="closeBtn" onClick={props.stateFunc}>
           <AiFillCloseCircle size="25px"></AiFillCloseCircle>
         </span>

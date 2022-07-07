@@ -44,11 +44,11 @@ textarea {
   background-color: rgba(0, 0, 0, 0.5);
   .closeBtn {
     position: absolute;
-    right: 4%;
-    transform:translateX(50%);
-    top: -50px;
-    margin: 4% 4%;
-    margin-right: 8%;
+    right: 0;
+    transform: translateX(50%);
+    top: 0;
+    margin: 2% 4%;
+    // margin-right: 8%;
     font-size: 25px;
     transition: all 0.2s linear;
     z-index: 10000;
@@ -72,7 +72,7 @@ textarea {
     border-radius: 10px;
     overflow: hidden;
     margin: 0 auto;
-    width: 80%;
+    width: 100% !important;
     background-color: #fff;
     display: grid;
     grid-template-columns: repeat(11, 1fr);
@@ -174,9 +174,9 @@ textarea {
 }
 @media screen and (max-width: 1080px) {
   .signUpForm {
-    .signUpForm-inner {
-      width: 90%;
-    }
+    // .signUpForm-inner {
+    //   width: 90%;
+    // }
     .signUpForm--left,
     .signUpForm--right {
       padding: 15px 20px;
@@ -191,20 +191,19 @@ textarea {
   }
 }
 @media screen and (max-width: 850px) {
-  * {
-    word-wrap: break-word;
-  }
-  .flex-col {
-    flex-wrap: wrap;
-  }
-  .closeBtn{
-    right:0 !important;
+  .closeBtn {
+    right: 0 !important;
+    svg {
+      fill: #fff;
+    }
+    // background-color: #fff;
   }
   .signUpForm {
     .signUpForm-inner {
-      max-height: 90vh;
+      height: 100vh;
       display: flex;
       flex-direction: column;
+      border-radius: 0;
     }
     .signUpForm--left {
       width: 100%;

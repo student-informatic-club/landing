@@ -25,6 +25,9 @@ const Slide = ({ children, option, name, label, className }) => {
         settings: {
           slidesToShow: 3,
           slidesToScroll: 1,
+          infinite: true,
+          autoplay: true,
+          speed: 1000,
         },
       },
       {
@@ -32,6 +35,9 @@ const Slide = ({ children, option, name, label, className }) => {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
+          infinite: true,
+          autoplay: true,
+          speed: 1000,
         },
       },
       {
@@ -39,6 +45,9 @@ const Slide = ({ children, option, name, label, className }) => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          infinite: true,
+          autoplay: true,
+          speed: 1000,
         },
       },
     ],

@@ -55,13 +55,13 @@ const Slide = ({ children, option, name, label, className }) => {
   console.log(option);
   return (
     <div className="Ban-section">
-      <h2 className="Ban-section-header">{label}</h2>
+      {label !== "" && (<h2 className="Ban-section-header">{label}</h2>)}
       <Slider {...option} className="Ban-section-slider">
         {children.map((item, i) => {
           return (
             <div key={i}>
               <div
-                style={{ backgroundColor: `${item.theme}` }}
+                style={item.theme && { backgroundColor: `${item.theme}` }}
                 className="slide-item"
               >
                 <div className="overlay"></div>

@@ -26,7 +26,8 @@ const Admin = ({
     className
 }) => {
     const classes = classNames(
-        'site-admin'
+        'site-admin',
+        className
     )
     return (
         <section className={classes}>
@@ -48,5 +49,8 @@ const Admin = ({
         </section>
     )
 }
+
+Admin.prototype = propTypes;
+Admin.defaultProps = defaultProps;
 
 export default Admin

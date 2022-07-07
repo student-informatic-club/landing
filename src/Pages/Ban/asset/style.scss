@@ -1,4 +1,7 @@
 .Ban_section {
+  .Ban-main-content {
+    height: 1000px;
+  }
   header {
     width: 100%;
     margin-top: 5px;
@@ -59,7 +62,7 @@
       }
       .f_layout-fs {
         border-right: 1px solid #ccc;
-        border-bottom: 1px solid #ccc;
+        border-bottom: 3px solid #ccc;
         height: 200px;
         display: flex;
         gap: 12%;
@@ -69,6 +72,7 @@
 
     }
     .Ban-slides {
+      border-bottom: 3px solid #ccc;
       width: 36%;
       height: 100%;
     }
@@ -178,4 +182,10 @@
       cursor: pointer;
     }
   }
+}
+
+.Slogan_page {
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 16px;
 }

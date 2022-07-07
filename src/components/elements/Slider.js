@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Slider from "react-slick";
+import { Link } from "react-router-dom";
 
 const propTypes = {
   children: PropTypes.node,
@@ -60,13 +61,15 @@ const Slide = ({ children, option, name, label, className }) => {
         {children.map((item, i) => {
           return (
             <div key={i}>
-              <div
-                style={item.theme && { backgroundColor: `${item.theme}` }}
-                className="slide-item"
-              >
-                <div className="overlay"></div>
-                <span className="slide-title">{item.title}</span>
-              </div>
+              <Link to={item.href && item.href}>
+                <div
+                  style={item.theme && { backgroundColor: `${item.theme}` }}
+                  className="slide-item"
+                >
+                  <div className="overlay"></div>
+                  <span className="slide-title">{item.title}</span>
+                </div>
+              </Link>
             </div>
           );
         })}

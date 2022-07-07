@@ -98,8 +98,14 @@ const Ban = ({
                             </div>
                         </div>
                     </div>
-                    <div></div>
-                    <div></div>
+                    <div className="Slogan_page uppercase">
+                        <h1>
+                            sinh viên giúp sinh viên làm chủ công nghệ
+                        </h1>
+                    </div>
+                    <div>
+                        
+                    </div>
                 </section>
                 <Cta/>
                 <Footer/>

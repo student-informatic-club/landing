@@ -74,16 +74,17 @@ const SignUpForm = ({
 
   return (
     <section className={outerClasses}>
-      <div className="container" style={{ position: "relative" }}>
+      <motion.div
+        className="container"
+        style={{ position: "relative" }}
+        variants={signUpFormVariants}
+        initial="init"
+        animate="ani"
+      >
         <span className="closeBtn" onClick={props.stateFunc}>
           <AiFillCloseCircle size="25px"></AiFillCloseCircle>
         </span>
-        <motion.div
-          className={innerClasses}
-          variants={signUpFormVariants}
-          initial="init"
-          animate="ani"
-        >
+        <div className={innerClasses}>
           <div className="signUpForm--left flex-col">
             <div>
               {textMainBase.title}
@@ -220,8 +221,8 @@ const SignUpForm = ({
               }}
             </Formik>
           </div>
-        </motion.div>
-      </div>
+        </div>
+      </motion.div>
     </section>
   );
 };

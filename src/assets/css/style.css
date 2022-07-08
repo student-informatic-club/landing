@@ -27,7 +27,7 @@
 }
 
 .slide-container-left {
-  width: 896px;
+  /* width: 896px; */
   height: 510px;
   margin-left: -350px;
 }

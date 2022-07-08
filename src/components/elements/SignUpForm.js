@@ -9,9 +9,10 @@ import CountDown from "../../utils/CountDown";
 import { motion } from "framer-motion";
 
 import {
-  signUpQues,
   infoContact,
   textMainBase,
+  basicQues,
+  chooseQues,
 } from "../sections/signUpForm/signUpFormQues";
 import { AiFillCloseCircle } from "react-icons/ai";
 const propTypes = {
@@ -147,7 +148,7 @@ const SignUpForm = ({
                 return (
                   <Form className="flex-col">
                     <div className="basic-info gridCol-2">
-                      {signUpQues[0].ques.map((item) => (
+                      {basicQues.map((item) => (
                         <div className="basic-info__item" key={item.quesTitle}>
                           <Field
                             type="text"
@@ -173,15 +174,15 @@ const SignUpForm = ({
                       role="group"
                       aria-labelledby="checkbox-group"
                     >
-                      <label htmlFor={signUpQues[1].quesName} className="title">
-                        {signUpQues[1].quesTitle}
+                      <label htmlFor={chooseQues.quesName} className="title">
+                        {chooseQues.quesTitle}
                       </label>
                       <div className="gridCol-2">
-                        {signUpQues[1].ans.map((item) => (
+                        {chooseQues.ans.map((item) => (
                           <label style={{ color: "#000" }} key={item}>
                             <Field
                               type="checkbox"
-                              name={signUpQues[1].quesName}
+                              name={chooseQues.quesName}
                               value={item}
                             />
                             {item}

@@ -1,12 +1,26 @@
+.Header-ban-pages {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+  background-color: var(--bg-nav-scroll);
+  transition: 0.3s linear;
+  animation: scrollDown linear 0.2s;
+  &.scroll {
+    background-color: var(--bg-nav-scroll);
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  }
+}
+
 .Ban_section {
   .Ban-main-content {
-    height: 1000px;
+    height: 5000px;
+    padding-top: 77px;
   }
   header {
-    width: 100%;
-    margin-top: 5px;
+    margin-top: 0px;
     padding: 10px 0;
-    border-top: 1px solid #f1f1f184;
+    border-top: 2px solid #f1f1f184;
     border-bottom: 1px solid #f1f1f184;
     .Ban-nav {
       display: flex;
@@ -69,7 +83,6 @@
         justify-content: center;
         align-items: center;
       }
-
     }
     .Ban-slides {
       border-bottom: 3px solid #ccc;
@@ -101,8 +114,6 @@
   width: 20%;
 }
 
-
-
 .btn_desc-ban {
   padding: 12px 20px;
   background-color: #6063fe;
@@ -112,7 +123,7 @@
   // border-radius: 28px 26px;
   position: relative;
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
     right: -10px;
@@ -122,7 +133,7 @@
     border-right: 5px solid transparent;
   }
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
     left: -10px;
@@ -140,19 +151,19 @@
   display: flex;
   justify-content: center;
   .shine {
-   position: absolute;
-   width: 200px;
-   height: 25px;
-   transform: rotate(-130deg);
-   background-color: #fff;
-   left: -115px;
+    position: absolute;
+    width: 200px;
+    height: 25px;
+    transform: rotate(-130deg);
+    background-color: #fff;
+    left: -115px;
     top: 42px;
   }
   &:hover {
     .shine {
       left: 100px;
-    top: -22px;
-      transition: .3s linear;
+      top: -22px;
+      transition: 0.3s linear;
     }
   }
 }
@@ -177,7 +188,7 @@
     .Ban-slides-next {
       cursor: pointer;
     }
-    .Ban-slides-previous{
+    .Ban-slides-previous {
       transform: rotate(180deg);
       cursor: pointer;
     }
@@ -185,7 +196,27 @@
 }
 
 .Slogan_page {
+  font-size: 12px;
   text-align: center;
   border-bottom: 1px solid #ccc;
   padding-bottom: 16px;
+  font-family:  'Patrick Hand', cursive;
+}
+.Slogan_page-desc {
+  font-size:64px ;
+  font-style: italic;
+  position: relative;
+  &::before {
+    content: ",,";
+    position: absolute;
+    top: -52px;
+    left: 18%;
+    transform: rotateY(180deg);
+  }
+  &::after {
+    content: ",,";
+    position: absolute;
+    bottom: -12px;
+    right: 18%;
+  }
 }

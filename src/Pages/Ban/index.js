@@ -13,17 +13,20 @@ import SignUpForm from "../../components/elements/SignUpForm";
 
 const propTypes = {
   children: Object,
-  theme: String
+  theme: String,
+  scroll: Boolean,
 }
 
 const defaultProps = {
     children: {},
-    theme: 'dark'
+    theme: 'dark',
+    scroll: false,
 }
 
 const Ban = ({
     children,
     theme,
+    scroll,
     className
 }) => {
     const opts = {
@@ -38,6 +41,10 @@ const Ban = ({
     const classes = classNames(
         `Ban_section Ban_section-${theme}`
     )
+    const innerClasses = classNames(
+        'Header-ban-pages',
+        scroll && 'scroll'
+    )
     const [showSignUpForm, setShowSignUpForm] = useState(false);
 
     const handleSignUp = () => {
@@ -47,7 +54,7 @@ const Ban = ({
         <div className={className}>
       {showSignUpForm && <SignUpForm stateFunc={handleSignUp} ></SignUpForm>}
             <section className={classes}>
-                <header>
+                <header className={innerClasses}> 
                     <div className="Ban-nav">
                         <div className="navLinks">
                             {navLinks.map((item, i) => {
@@ -99,7 +106,7 @@ const Ban = ({
                         </div>
                     </div>
                     <div className="Slogan_page uppercase">
-                        <h1>
+                        <h1 className="Slogan_page-desc">
                             sinh viên giúp sinh viên làm chủ công nghệ
                         </h1>
                     </div>

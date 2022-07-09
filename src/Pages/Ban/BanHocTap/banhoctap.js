@@ -11,6 +11,7 @@ const BanHocTap = {
   clb: "student informatic club",
   btn: "Đăng kí CTV",
   imagesIntro: [hocTap1, hocTap2, hocTap3, hocTap4, hocTap5],
+  purpose: ['']
 };
 
 export default BanHocTap;

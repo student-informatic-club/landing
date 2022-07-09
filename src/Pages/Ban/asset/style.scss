@@ -231,7 +231,7 @@
     position: absolute;
     font-size: 62px;
     bottom: 105%;
-    left: 13%;
+    left: 15%;
     transform: rotateY(180deg);
   }
   &::after{
@@ -239,7 +239,7 @@
     position: absolute;
     font-size: 62px;
     top: 16%;
-    right: 13%;
+    right: 15%;
   }
   @media screen and (max-width: 800px) {
     h1 {
@@ -254,5 +254,7 @@
 }
 
 .h1-header-banpages {
+  font-family: 'Sriracha', cursive;
   font-size: 54px;
+  font-style: italic;
 }

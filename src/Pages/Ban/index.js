@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import navLinks from "../../components/layout/partials/HeaderNav";
@@ -45,6 +45,9 @@ const Ban = ({ children, theme, className }) => {
   const handleSignUp = () => {
     setShowSignUpForm(!showSignUpForm);
   };
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [])
   return (
     <div className={className}>
       {showSignUpForm && <SignUpForm stateFunc={handleSignUp}></SignUpForm>}

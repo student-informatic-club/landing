@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import * as Yup from 'yup';
 import { Formik, Form, Field } from "formik";
@@ -12,12 +12,14 @@ const Login = () => {
     let history = useHistory();
     const account = Store((state) => state.account);
     const rememberCheck = useRef(null);
-    if(rememberCheck.current.checked === true){
-        Store.setState({remember: true})
-    }else {
-        Store.setState({remember: false})
-    }
-    const rememberStatus = Store((state) => state.remember);
+    useEffect(() => {
+        if(rememberCheck.current.checked === true){
+            Store.setState({remember: true})
+        }else {
+            Store.setState({remember: false})
+        }
+    }, [])
+    // const rememberStatus = Store((state) => state.remember);
     return (
         <div className="login-section">
             <div className="login-section-container">

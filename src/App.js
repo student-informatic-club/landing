@@ -16,7 +16,9 @@ import AdminPage from './admin/Admin';
 import Login from './views/Login';
 import BanHocTap from './Pages/Ban/BanHocTap';
 import login from './views/Login';
+import 'react-notifications/lib/notifications.css';
 import Store from './admin/store';
+import { NotificationContainer } from 'react-notifications';
 
 // Initialize Google Analytics
 ReactGA.initialize(process.env.REACT_APP_GA_CODE);
@@ -42,23 +44,26 @@ const App = () => {
   let loginStatus = JSON.parse(sessionStorage.getItem('LoginStatus'));
   console.log(loginStatus);
   return (
-    <ScrollReveal
-      ref={childRef}
-      children={() => (
-        <Switch>
-          <AppRoute exact path="/" component={Home} layout={LayoutDefault} />
-          <AppRoute exact path="/ban-hoc-tap" component={BanHocTap}/>
-          {
-            history.location.pathname === '/admin' && loginStatus === false && history.push('/loginAdmin')
-          }
-          <AppRoute exact path="/admin" component={AdminPage} layout={LayoutAdmin} />
-          (<AppRoute exact path="/loginAdmin" component={login}/>)
-          {/* <AppRoute exact path="/ban-ho-tro" component={BanHoTro} layout={LayoutDefault} />
-          <AppRoute exact path="/ban-truyen-thong" component={BanTruyenThong} layout={LayoutDefault} />
-          <AppRoute exact path="/ban-ky-thuat" component={BanKyThuat} layout={LayoutDefault} />
-          <AppRoute exact path="/ban-van-the" component={BanVanThe} layout={LayoutDefault} /> */}
-        </Switch>
-      )} />
+    <>
+      <ScrollReveal
+        ref={childRef}
+        children={() => (
+          <Switch>
+            <AppRoute exact path="/" component={Home} layout={LayoutDefault} />
+            <AppRoute exact path="/ban-hoc-tap" component={BanHocTap}/>
+            {
+              history.location.pathname === '/admin' && (loginStatus === false || loginStatus === null) && history.push('/loginAdmin')
+            }
+            <AppRoute exact path="/admin" component={AdminPage} layout={LayoutAdmin} />
+            (<AppRoute exact path="/loginAdmin" component={login}/>)
+            {/* <AppRoute exact path="/ban-ho-tro" component={BanHoTro} layout={LayoutDefault} />
+            <AppRoute exact path="/ban-truyen-thong" component={BanTruyenThong} layout={LayoutDefault} />
+            <AppRoute exact path="/ban-ky-thuat" component={BanKyThuat} layout={LayoutDefault} />
+            <AppRoute exact path="/ban-van-the" component={BanVanThe} layout={LayoutDefault} /> */}
+          </Switch>
+        )} />
+        <NotificationContainer />
+    </>
   );
 }
 

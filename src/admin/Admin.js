@@ -50,7 +50,7 @@ const Admin = ({
                             confirm("Bạn muốn đăng xuất?") && sessionStorage.setItem('LoginStatus', false)
                             setTimeout(() => {
                                 history.push('/loginAdmin');
-                            }, 1000)
+                            }, 500)
                         }}/>
                     </div>
                 </div>

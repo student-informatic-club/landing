@@ -2,9 +2,11 @@ import { SiGmail } from "react-icons/si";
 import { FaPhoneAlt } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
 const textMainBase = {
+  // Định dạng mẫu: 2022-12-24T00:00:00, input dạng chuỗi 2 kí tự 2=>02
     title: <h3>BECOME OUR TEAMMATE</h3>,
-    dayEnd: 30,
-    monthEnd: 7,
+    dayEnd: '02',
+    monthEnd: '07',
+    yearEnd: '2022',
     messageTitle: 'Mong muốn của bạn khi vào CLB'
 }
 const infoContact = [
@@ -24,45 +26,37 @@ const infoContact = [
     data: "175 Tây Sơn Đống Đa",
   },
 ];
-const signUpQues = [
-  // câu hỏi thông tin basic
+const basicQues = [
   {
-    func: "basic info",
-    ques: [
-      {
-        quesName: "fullName",
-        quesTitle: "Họ và tên",
-        quesExample: "Nguyễn Văn A",
-      },
-      {
-        quesName: "phone",
-        quesTitle: "Số điện thoại",
-        quesExample: "0123456789",
-      },
-      {
-        quesName: "email",
-        quesTitle: "Email",
-        quesExample: "example@gmail.com",
-      },
-      {
-        quesName: "class",
-        quesTitle: "Lớp",
-        quesExample: "63CNTT01",
-      },
-    ],
+    quesName: "fullName",
+    quesTitle: "Họ và tên",
+    quesExample: "Nguyễn Văn A",
   },
-  // câu hỏi lựa chọn đáp án
   {
-    func: "choose",
-    quesTitle: "Bạn muốn đăng kí vào (những) ban nào?",
-    quesName: "answer",
-    ans: [
-      "Ban truyền thông",
-      "Ban học tập",
-      "Ban kỹ thuật",
-      "Ban hỗ trợ",
-      "Ban văn thể",
-    ],
+    quesName: "phone",
+    quesTitle: "Số điện thoại",
+    quesExample: "0123456789",
   },
-];
-export { signUpQues, infoContact, textMainBase };
+  {
+    quesName: "email",
+    quesTitle: "Email",
+    quesExample: "example@gmail.com",
+  },
+  {
+    quesName: "class",
+    quesTitle: "Lớp",
+    quesExample: "63CNTT01",
+  },
+]
+
+const chooseQues = {
+  quesTitle: "Bạn muốn đăng kí vào (những) ban nào?",
+  quesName: "answer",
+  ans: [
+    "Ban truyền thông",
+    "Ban học tập",
+    "Ban kỹ thuật",
+    "Ban hỗ trợ",
+  ],
+}
+export { infoContact, textMainBase, basicQues, chooseQues };

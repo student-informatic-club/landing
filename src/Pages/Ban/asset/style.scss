@@ -1,0 +1,223 @@
+.Ban_section {
+  .Ban-main-content {
+  }
+  header {
+    width: 100%;
+    margin-top: 5px;
+    padding: 10px 0;
+    border-top: 1px solid #f1f1f184;
+    border-bottom: 1px solid #f1f1f184;
+    .Ban-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 1550px;
+      margin: 0 auto;
+      .navLinks {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        .navLink-item {
+          padding: 10px 15px;
+        }
+      }
+    }
+  }
+  .f_layout {
+    display: flex;
+    height: 600px;
+    border-bottom: 1px solid #fff;
+    @media screen and (max-width: 850px) {
+      flex-direction: column;
+      height: auto;
+    }
+    .f_layout-f {
+      display: flex;
+      flex-direction: column;
+      width: 64%;
+      @media screen and (max-width: 850px) {
+        width: 100%;
+        border-bottom: 1px solid #fff;
+      }
+      .f_layout-ff {
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        height: 400px;
+        text-align: center;
+        h1 {
+          position: relative;
+          letter-spacing: 3px;
+          margin-top: 158px;
+          display: inline-block;
+          span {
+            padding: 5px 0;
+            border-bottom: 1px solid #fff;
+            background: -webkit-linear-gradient(left, #f36430, #faa22f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: linear linear 2s infinite;
+          }
+        }
+        p {
+          position: absolute;
+          top: -35px;
+          right: 0;
+          font-size: 12px;
+          color: #ccc;
+          letter-spacing: 0;
+        }
+        @media screen and (max-width: 380px) {
+          h1,
+          span {
+            font-size: 40px !important;
+          }
+          p {
+            font-size: 10px;
+          }
+        }
+      }
+      .f_layout-fs {
+        border-right: 1px solid #ccc;
+        height: 200px;
+        display: flex;
+        gap: 8%;
+        justify-content: center;
+        align-items: center;
+        @media screen and (max-width: 530px) {
+          flex-direction: column;
+          .text_desc-ban {
+            min-width: 80% !important;
+            text-align: center;
+          }
+        }
+      }
+    }
+    .Ban-slides {
+      width: 36%;
+      height: 100%;
+      @media screen and (max-width: 850px) {
+        width: 100%;
+        .Ban-slides-container {
+          margin: 40px 0;
+        }
+      }
+    }
+  }
+}
+
+.italic {
+  font-style: italic;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+@keyframes linear {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.text_desc-ban {
+  max-width: 50%;
+}
+
+.btn_desc-ban {
+  padding: 12px 20px;
+  background-color: #6063fe;
+  color: #fff;
+  cursor: pointer;
+  font-size: 20px;
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: -10px;
+    border-top: 23px solid #6063fe;
+    border-bottom: 24px solid transparent;
+    border-left: 5px solid #6063fe;
+    border-right: 5px solid transparent;
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: -10px;
+    border-top: 24px solid transparent;
+    border-bottom: 24px solid #6063fe;
+    border-left: 5px solid transparent;
+    border-right: 5px solid #6063fe;
+  }
+}
+
+.Ban-register-btn {
+  position: relative;
+  overflow: hidden;
+  width: 180px;
+  display: flex;
+  justify-content: center;
+  .shine {
+    position: absolute;
+    width: 200px;
+    height: 25px;
+    transform: rotate(-130deg);
+    background-color: #fff;
+    left: -115px;
+    top: 42px;
+  }
+  &:hover {
+    .shine {
+      left: 100px;
+      top: -22px;
+      transition: 0.3s linear;
+    }
+  }
+}
+
+.Ban-slides {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &-container {
+    width: 90%;
+    height: 61%;
+  }
+  &-controls {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    width: 100%;
+    .Ban-slides-next {
+      cursor: pointer;
+    }
+    .Ban-slides-previous {
+      transform: rotate(180deg);
+      cursor: pointer;
+    }
+  }
+}
+
+.Slogan_page {
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 16px;
+  margin:0 5px;
+  @media screen and (max-width: 800px) {
+    h1 {
+      font-size: 40px !important;
+    }
+  }
+  @media screen and (max-width: 520px) {
+    h1 {
+      font-size: 30px !important;
+    }
+  }
+}

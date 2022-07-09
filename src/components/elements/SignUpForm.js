@@ -2,25 +2,48 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { SectionProps } from "../../utils/SectionProps";
-// import Input from "../elements/Input";
 import "./../../assets/css/style.css";
-import { Field, Form, Formik, useFormik } from "formik";
+import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
+import CountDown from "../../utils/CountDown";
+import { motion } from "framer-motion";
+
 import {
-  signUpQues,
   infoContact,
   textMainBase,
+  basicQues,
+  chooseQues,
 } from "../sections/signUpForm/signUpFormQues";
 import { AiFillCloseCircle } from "react-icons/ai";
-
 const propTypes = {
   ...SectionProps.types,
   status: PropTypes.bool,
 };
 
+function formatText(num) {
+  if (num < 10) {
+    return "0" + num;
+  }
+  return num;
+}
+
 const defaultProps = {
   ...SectionProps.defaults,
   status: false,
+};
+
+const signUpFormVariants = {
+  init: {
+    y: "-100vh",
+  },
+  ani: {
+    y: 0,
+    transition: {
+      type: "spring",
+      stiffness: 50,
+      duration: 0.2,
+    },
+  },
 };
 
 const SignUpForm = ({
@@ -34,172 +57,173 @@ const SignUpForm = ({
   status,
   ...props
 }) => {
-  // const formik = useFormik({
-  //   initialValues: {
-  //     fullName: "",
-  //     phone: "",
-  //     email: "",
-  //     class: "",
-  //     toggle: false,
-  //     ans: [],
-  //   },
-  //   validationSchema: Yup.object({
-  //     fullName: Yup.string().required("You need to fill this text"),
-  //     phone: Yup.string().required("You need to fill this text"),
-  //     email: Yup.string().required("You need to fill this text"),
-  //     class: Yup.string().required("You need to fill this text"),
-  //   }),
-
-  //   onSubmit: (values) => console.log(values),
-  // });
   const outerClasses = classNames(
     ` signUpForm
     `
-    // topOuterDivider && "has-top-divider",
-    // bottomOuterDivider && "has-bottom-divider",
-    // hasBgColor && "has-bg-color",
-    // invertColor && "invert-color",
-    // className
   );
+  // Định dạng mẫu: 2022-12-24T00:00:00
+  const dayOut =
+    textMainBase.yearEnd +
+    "-" +
+    textMainBase.monthEnd +
+    "-" +
+    textMainBase.dayEnd +
+    "T00:00:00";
+  const dateData = CountDown(dayOut);
 
-  const innerClasses = classNames(
-    "signUpForm-inner ",
-    // topDivider && "has-top-divider",
-    // bottomDivider && "has-bottom-divider",
-    // split && "cta-split"
-    status && 'appear'
-  );
+  const innerClasses = classNames("signUpForm-inner");
 
   return (
     <section className={outerClasses}>
-      <div className={innerClasses}>
-        <div className="signUpForm--left flex-col">
-          <div>
-            {/* <h3> */}
-            {textMainBase.title}
-            {/* </h3> */}
-            <p>
-              Hãy điền đầy đủ thông tin dưới đây để chúng mình có thể liên lạc
-              với bạn trong khoảng thời gian sớm nhất nhé!
-            </p>
-            <div className="contact">
-              {infoContact.map((info) => (
-                <a
-                  target="_blank"
-                  rel="noreferrer"
-                  className="contact__info"
-                  href={info.href || ""}
-                >
-                  {info.icon}
-                  <span>{info.data}</span>
-                </a>
-              ))}
+      <motion.div
+        className="container"
+        style={{ position: "relative" }}
+        variants={signUpFormVariants}
+        initial="init"
+        animate="ani"
+      >
+        <span className="closeBtn" onClick={props.stateFunc}>
+          <AiFillCloseCircle size="25px"></AiFillCloseCircle>
+        </span>
+        <div className={innerClasses}>
+          <div className="signUpForm--left flex-col">
+            <div>
+              {textMainBase.title}
+
+              <p>
+                Hãy điền đầy đủ thông tin dưới đây để chúng mình có thể liên lạc
+                với bạn trong khoảng thời gian sớm nhất nhé!
+              </p>
+              <div className="contact">
+                {infoContact.map((info) => (
+                  <a
+                    target="_blank"
+                    rel="noreferrer"
+                    className="contact__info"
+                    key={info.data}
+                    href={info.href || ""}
+                  >
+                    {info.icon}
+                    <span>{info.data}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+            <div className="signUpForm__footer">
+              {!dateData.isTimeOut ? (
+                <span style={{ fontSize: "15px" }}>
+                  Hạn đăng kí: Còn <strong>{formatText(dateData.days)}</strong>{" "}
+                  ngày <strong>{formatText(dateData.hours)}</strong> giờ{" "}
+                  <strong>{formatText(dateData.min)}</strong> phút{" "}
+                  <strong>{formatText(dateData.second)}</strong> giây{" "}
+                </span>
+              ) : (
+                <span style={{ fontSize: "15px" }}>Đã hết hạn đăng kí</span>
+              )}
             </div>
           </div>
-          <div className="signUpForm__footer">Còn x ngày đến han đăng kí</div>
-        </div>
-        <div className="signUpForm--right flex-col">
-          <span className="closeBtn" onClick={props.stateFunc}>
-            <AiFillCloseCircle size="25px"></AiFillCloseCircle>
-          </span>
-          <Formik
-            initialValues={{
-              fullName: "",
-              phone: "",
-              email: "",
-              class: "",
-              toggle: false,
-              answer: [],
-              message: "",
-            }}
-            validationSchema={Yup.object({
-              fullName: Yup.string().required("Vui Lòng Điền Trường Này"),
-              phone: Yup.string().required("Vui Lòng Điền Trường Này"),
-              email: Yup.string()
-                .email("E-mail của bạn không hợp lệ")
-                .required("Vui Lòng Điền Trường Này"),
-              class: Yup.string().required("Vui Lòng Điền Trường Này"),
-            })}
-            onSubmit={(values) => console.log(values)}
-          >
-            {({errors, touched}) => {
-              return (
-                <Form className="flex-col">
-                  <div className="basic-info gridCol-2">
-                    {/* <div> */}
-                    {signUpQues[0].ques.map((item) => (
-                      <div className="basic-info__item">
-                        <Field
-                          type="text"
-                          placeholder=" "
-                          name={item.quesName}
-                          id={item.quesName}
-                        />
-                        <label htmlFor={item.quesName} className="title">
-                          {item.quesTitle}
-                        </label>
-                        {errors[item.quesName] && touched[item.quesName] ? (
-                          <div className="errorMessage">{errors[item.quesName]}</div>
-                        ) : null}
-                        {/* Warning noti */}
-                        {/* {formik.touched[`${item.quesName}`] ? (
-                        <h4>{formik.errors[`${item.quesName}`]}</h4>
-                      ) : null} */}
-                      </div>
-                    ))}
-                  </div>
-                  <div
-                    className="choose-info"
-                    role="group"
-                    aria-labelledby="checkbox-group"
-                  >
-                    <label htmlFor={signUpQues[1].quesName} className="title">
-                      {signUpQues[1].quesTitle}
-                    </label>
-                    <div className="gridCol-2">
-                      {signUpQues[1].ans.map((item) => (
-                        <label style={{ color: "#000" }}>
+          <div className="signUpForm--right flex-col">
+            <Formik
+              initialValues={{
+                fullName: "",
+                phone: "",
+                email: "",
+                class: "",
+                answer: [],
+                message: "",
+              }}
+              validationSchema={Yup.object({
+                fullName: Yup.string().required("Vui Lòng Điền Trường Này"),
+                phone: Yup.string().required("Vui Lòng Điền Trường Này"),
+                email: Yup.string()
+                  .email("E-mail của bạn không hợp lệ")
+                  .required("Vui Lòng Điền Trường Này"),
+                class: Yup.string().required("Vui Lòng Điền Trường Này"),
+              })}
+              onSubmit={(values) => {
+                props.stateFunc();
+              }}
+            >
+              {({ errors, touched }) => {
+                return (
+                  <Form className="flex-col">
+                    <div className="basic-info gridCol-2">
+                      {basicQues.map((item) => (
+                        <div className="basic-info__item" key={item.quesTitle}>
                           <Field
-                            type="checkbox"
-                            name={signUpQues[1].quesName}
-                            value={item}
-                            // style={{display:'inline-flex', gap:'5px'}}
+                            type="text"
+                            placeholder=" "
+                            name={item.quesName}
+                            id={item.quesName}
                           />
-                          {item}
-                        </label>
+                          <label htmlFor={item.quesName} className="title">
+                            {item.quesTitle}
+                          </label>
+                          {errors[item.quesName] && touched[item.quesName] ? (
+                            <span className="errorMessage">
+                              {errors[item.quesName]}
+                            </span>
+                          ) : (
+                            ""
+                          )}
+                        </div>
                       ))}
                     </div>
-                    {/* </div> */}
-                  </div>
-                  <div className="message flex-col">
-                    <label className="title">{textMainBase.messageTitle}</label>
-                    <Field
-                      className="message__text"
-                      as="textarea"
-                      name="message"
-                      placeholder="Your message"
-                      cols={10}
-                      rows={7}
-                    ></Field>
-                  </div>
-                  {/* <div className="main-info"></div> */}
-                  <div className="signUpForm__footer ">
-                    <button className="button button-sm" onClick={props.stateFunc}>
-                      CANCEL
-                    </button>
-                    <button
-                      className="button button-primary button-sm"
-                      type="submit"
+                    <div
+                      className="choose-info"
+                      role="group"
+                      aria-labelledby="checkbox-group"
                     >
-                      Submit
-                    </button>
-                  </div>
-                </Form>
-              )
-            }}
-          </Formik>
+                      <label htmlFor={chooseQues.quesName} className="title">
+                        {chooseQues.quesTitle}
+                      </label>
+                      <div className="gridCol-2">
+                        {chooseQues.ans.map((item) => (
+                          <label style={{ color: "#000" }} key={item}>
+                            <Field
+                              type="checkbox"
+                              name={chooseQues.quesName}
+                              value={item}
+                            />
+                            {item}
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="message flex-col">
+                      <label className="title">
+                        {textMainBase.messageTitle}
+                      </label>
+                      <Field
+                        className="message__text"
+                        as="textarea"
+                        name="message"
+                        placeholder="Your message"
+                        rows={3}
+                      ></Field>
+                    </div>
+                    <div className="signUpForm__footer ">
+                      <button
+                        className="button button-sm"
+                        onClick={props.stateFunc}
+                      >
+                        CANCEL
+                      </button>
+                      <button
+                        className="button button-primary button-sm"
+                        disabled={dateData.isTimeOut}
+                        type="submit"
+                      >
+                        SUBMIT
+                      </button>
+                    </div>
+                  </Form>
+                );
+              }}
+            </Formik>
+          </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };

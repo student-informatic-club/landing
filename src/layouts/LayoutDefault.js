@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Header from "../components/layout/Header";
+import navLinks from "../components/layout/partials/HeaderNav";
 import Footer from "../components/layout/Footer";
 
 const LayoutDefault = ({ children }) => {
@@ -13,6 +14,7 @@ const LayoutDefault = ({ children }) => {
         navPosition="right"
         // className="reveal-from-bottom"
         scroll={scroll}
+        Nav={navLinks}
       />
       <main className="site-content">{children}</main>
       <Footer />

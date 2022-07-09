@@ -1,17 +1,3 @@
-@keyframes appear {
-  from {
-    opacity: 0;
-    transform: translateX(-130%);
-  }to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.appear {
-  animation: appear linear .3s;
-}
-
 .flex-col {
   display: flex !important;
   gap: 8px;
@@ -45,7 +31,6 @@ textarea {
 }
 
 .signUpForm {
-
   * {
     margin: 0;
     padding: 0;
@@ -57,6 +42,21 @@ textarea {
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.5);
+  .closeBtn {
+    position: absolute;
+    right: 0;
+    transform: translateX(50%);
+    top: 0;
+    margin: 2% 4%;
+    // margin-right: 8%;
+    font-size: 25px;
+    transition: all 0.2s linear;
+    z-index: 10000;
+    cursor: pointer;
+    &:hover {
+      color: #373888;
+    }
+  }
   .signUpForm__footer {
     flex: 1;
     display: flex;
@@ -72,17 +72,16 @@ textarea {
     border-radius: 10px;
     overflow: hidden;
     margin: 0 auto;
-    width: 70%;
+    width: 100% !important;
     background-color: #fff;
-    height: 85vh;
-    min-height: 85vh;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(11, 1fr);
     text-align: left;
+    position: relative;
   }
   .signUpForm--left {
-    grid-column: 1/ 3;
-    padding: 6% 8%;
+    grid-column: 1/ 5;
+    padding: 30px 40px;
     background: url("../../../images/signUpLeft.png") bottom center/ cover
       no-repeat;
     h3 {
@@ -121,33 +120,21 @@ textarea {
   }
   .signUpForm--right {
     form.flex-col {
+      margin-top: 30px;
       gap: 30px;
     }
-    padding: 6% 8%;
-    grid-column: 3/ 6;
+    padding: 30px 40px;
+    grid-column: 5/ 12;
     position: relative;
     input {
       width: auto !important;
       font-size: 14px !important;
-      &[type="checkbox"]{
+      &[type="checkbox"] {
         margin-right: 10px;
-      }
-    }
-    .closeBtn {
-      position: absolute;
-      right: 0;
-      top: 0;
-      margin: 4% 4%;
-      font-size: 25px;
-      transition: all 0.2s linear;
-      cursor: pointer;
-      &:hover {
-        color: #373888;
       }
     }
 
     .basic-info {
-      margin-top: 40px;
       gap: 35px;
     }
 
@@ -155,20 +142,25 @@ textarea {
       position: relative;
       display: flex;
       flex-direction: column;
+      .errorMessage {
+        position: absolute;
+        bottom: -70%;
+        left: 0;
+      }
       .title {
         position: absolute;
         left: 10px;
         top: 6px;
-        transition: .2s linear;
+        transition: 0.2s linear;
         cursor: text;
       }
       input:not(:placeholder-shown) + .title,
       input:focus + .title {
-        top: -15px;
+        top: -8px;
         display: inline-block;
-        // padding: 10px;
         color: #000;
         background-color: #fff;
+        line-height: 1 !important;
         cursor: default;
       }
     }
@@ -177,6 +169,64 @@ textarea {
       width: 100%;
       resize: none;
       padding: 12px 10px;
+    }
+  }
+}
+@media screen and (max-width: 1080px) {
+  .signUpForm {
+    // .signUpForm-inner {
+    //   width: 90%;
+    // }
+    .signUpForm--left,
+    .signUpForm--right {
+      padding: 15px 20px;
+    }
+    .signUpForm--left {
+      grid-column: 1/ 4;
+    }
+    .signUpForm--right {
+      grid-column: 4/ 12;
+      margin-left: 20px;
+    }
+  }
+}
+@media screen and (max-width: 850px) {
+  .closeBtn {
+    right: 0 !important;
+    svg {
+      fill: #fff;
+    }
+    // background-color: #fff;
+  }
+  .signUpForm {
+    .signUpForm-inner {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      border-radius: 0;
+    }
+    .signUpForm--left {
+      width: 100%;
+    }
+    .signUpForm--right {
+      overflow-y: scroll;
+      padding: 15px;
+      margin: 0;
+      .gridCol-2 {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+    .contact {
+      flex-direction: row !important;
+      gap: 20px;
+      span {
+        display: none;
+      }
+    }
+    .errorMessage {
+      font-size: 14px;
+      color: red;
     }
   }
 }

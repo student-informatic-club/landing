@@ -109,7 +109,7 @@ const Testimonial = ({
                 <div className="testimonial-item-footer text-xs mt-32 mb-0 has-top-divider">
                   <span className="testimonial-item-link">
                     <div className="fb-icon">
-                      <a href="https://www.facebook.com/huynguyen.990" target="_blank" rel="noopener noreferrer">
+                      <a href="https://www.facebook.com/pn.tuanannh" target="_blank" rel="noopener noreferrer">
                         <FaFacebook className="fb-icon" />
                       </a>
                     </div>
@@ -136,7 +136,7 @@ const Testimonial = ({
                 <div className="testimonial-item-footer text-xs mt-32 mb-0 has-top-divider">
                   <span className="testimonial-item-link">
                     <div className="fb-icon">
-                      <a href="https://www.facebook.com/huynguyen.990" target="_blank" rel="noopener noreferrer">
+                      <a href="https://www.facebook.com/ngha219" target="_blank" rel="noopener noreferrer">
                         <FaFacebook className="fb-icon" />
                       </a>
                     </div>

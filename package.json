@@ -5,19 +5,23 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "formik": "^2.2.9",
+    "framer-motion": "^6.3.16",
     "lodash": "^4.17.15",
-    "node-sass": "^6.0.1",
+    "node-sass": "^7.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-ga": "^2.7.0",
     "react-icons": "^4.4.0",
     "react-messenger-customer-chat": "^0.8.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "^4.0.3",
+    "react-scripts": "^5.0.1",
     "react-simple-image-slider": "^2.1.2",
+    "react-slick": "^0.29.0",
     "react-slideshow-image": "^3.5.0",
     "request": "^2.79.0",
-    "yup": "^0.32.11"
+    "slick-carousel": "^1.8.1",
+    "yup": "^0.32.11",
+    "zustand": "^4.0.0-rc.1"
   },
   "repository": {
     "type": "git",
@@ -43,5 +47,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.6",
+    "@babel/preset-env": "^7.18.6",
+    "babel-loader": "^8.2.5",
+    "webpack": "^5.73.0"
   }
 }

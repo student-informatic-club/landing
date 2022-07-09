@@ -204,3 +204,11 @@ a.active {
 		height: $header-height__desktop;
 	}
 }
+
+@media screen and (max-width: 850px) {
+	.site-header-inner {
+		justify-content: space-between;
+	}
+}
+
+@import '../elements/containers'

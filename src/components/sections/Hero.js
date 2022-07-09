@@ -33,6 +33,7 @@ const Hero = ({
   const handleSignUp = () => {
     setShowSignUpForm(!showSignUpForm)
   }
+
   const openModal = (e) => {
     e.preventDefault();
     setVideomodalactive(true);
@@ -58,9 +59,15 @@ const Hero = ({
     bottomDivider && "has-bottom-divider"
   );
 
+  window.addEventListener('keyup', function(e) {
+    if(e.key === 'Escape'){
+      setShowSignUpForm(false);
+    }
+  });
+
   return (
     <section {...props} className={outerClasses}>
-      {showSignUpForm && <SignUpForm stateFunc={handleSignUp} status={showSignUpForm}></SignUpForm>}
+      {showSignUpForm && <SignUpForm stateFunc={handleSignUp} ></SignUpForm>}
       <div className="container-sm">
         <div className={innerClasses}>
           <div className="hero-content">

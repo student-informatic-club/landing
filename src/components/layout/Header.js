@@ -4,11 +4,11 @@ import classNames from "classnames";
 import { Link } from "react-router-dom";
 import Logo from "./partials/Logo";
 import MessengerCustomerChat from "react-messenger-customer-chat";
-import navLinks from "./partials/HeaderNav";
 import DropDown from "../elements/dropdown";
 import {VscTriangleDown} from 'react-icons/vsc';
 
 const propTypes = {
+  Nav: PropTypes.array,
   navPosition: PropTypes.string,
   hideNav: PropTypes.bool,
   hideSignin: PropTypes.bool,
@@ -18,6 +18,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+  Nav: null,
   navPosition: "",
   hideNav: false,
   hideSignin: false,
@@ -28,6 +29,7 @@ const defaultProps = {
 
 const Header = ({
   className,
+  Nav,
   navPosition,
   hideNav,
   hideSignin,
@@ -86,9 +88,10 @@ const Header = ({
     className
   );
 
+
   return (
     <header {...props} className={classes}>
-      <div className="container-nav">
+      <div className=" container container-nav">
         <div
           className={classNames(
             "site-header-inner",
@@ -119,7 +122,7 @@ const Header = ({
                       navPosition && `header-nav-${navPosition}`
                     )}
                   >
-                    {navLinks.map((navLink, index) => {
+                    {Nav && Nav.map((navLink, index) => {
                       return (
                         <li
                           key={index}

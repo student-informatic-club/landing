@@ -6,6 +6,10 @@ import { createBrowserHistory } from "history";
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+// import slick-carousel
+import '../node_modules/slick-carousel/slick/slick.scss';
+import '../node_modules/slick-carousel/slick/slick-theme.scss';
+
 //import './App.css';
 import './assets/scss/style.scss';
 

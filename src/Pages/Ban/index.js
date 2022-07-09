@@ -49,7 +49,7 @@ const Ban = ({ children, theme, className }) => {
     <div className={className}>
       {showSignUpForm && <SignUpForm stateFunc={handleSignUp}></SignUpForm>}
       <section className={classes}>
-        <header>
+        <header className="Header-ban-pages">
           <div className="Ban-nav">
             <div className="navLinks">
               {navLinks.map((item, i) => {
@@ -115,7 +115,7 @@ const Ban = ({ children, theme, className }) => {
             </div>
           </div>
           <div className="Slogan_page uppercase">
-            <h1>"sinh viên giúp sinh viên làm chủ công nghệ"</h1>
+            <h1 className="h1-header-banpages">sinh viên giúp sinh viên làm chủ công nghệ</h1>
           </div>
           <div></div>
         </section>

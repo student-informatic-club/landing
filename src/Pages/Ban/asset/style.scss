@@ -60,7 +60,7 @@
         h1 {
           position: relative;
           letter-spacing: 3px;
-          margin-top: 158px;
+          margin-top: 202px;
           display: inline-block;
           span {
             padding: 5px 0;
@@ -138,7 +138,7 @@
 }
 
 .text_desc-ban {
-  max-width: 50%;
+  max-width: 20%;
 }
 
 .btn_desc-ban {
@@ -219,11 +219,28 @@
 }
 
 .Slogan_page {
-  font-size: 12px;
+  font-size: 16px;
   text-align: center;
   border-bottom: 1px solid #ccc;
   padding-bottom: 16px;
   margin:0 5px;
+  
+  position: relative;
+  &::before{
+    content: ',,';
+    position: absolute;
+    font-size: 62px;
+    bottom: 105%;
+    left: 13%;
+    transform: rotateY(180deg);
+  }
+  &::after{
+    content: ',,';
+    position: absolute;
+    font-size: 62px;
+    top: 16%;
+    right: 13%;
+  }
   @media screen and (max-width: 800px) {
     h1 {
       font-size: 40px !important;
@@ -234,4 +251,8 @@
       font-size: 30px !important;
     }
   }
+}
+
+.h1-header-banpages {
+  font-size: 54px;
 }

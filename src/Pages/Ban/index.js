@@ -10,6 +10,9 @@ import Slide from "../../components/elements/Slider";
 import Slider from "react-slick";
 import { MdOutlineDoubleArrow } from "react-icons/md";
 import SignUpForm from "../../components/elements/SignUpForm";
+import Circle from "../../components/elements/texture/Circle";
+import Rectangle from "../../components/elements/texture/Rectangle";
+import Polyline from "../../components/elements/texture/Polyline";
 
 const propTypes = {
   children: Object,
@@ -21,6 +24,17 @@ const defaultProps = {
   theme: "dark",
 };
 
+const TextureGroup = function () {
+  return (
+    <>
+      <Circle rad={80} top={100} left={-34}></Circle>
+      <Circle rad={30} top={300} right={150} fill="#f26031"></Circle>
+      <Circle rad={60} top={70} right={50} fill="none"></Circle>
+      <Rectangle fill="none" top={70} left={35} h={30}></Rectangle>
+      <Polyline edge={60} top={108} left={-1}></Polyline>
+    </>
+  );
+};
 const Ban = ({ children, theme, className }) => {
   const opts = {
     dots: false,
@@ -69,6 +83,7 @@ const Ban = ({ children, theme, className }) => {
           <div className="f_layout">
             <div className="f_layout-f">
               <div className="f_layout-ff">
+                <TextureGroup></TextureGroup>
                 <h1 className="italic">
                   <span>{children.title}</span> {children.name}
                   <p className="uppercase">{children.clb}</p>

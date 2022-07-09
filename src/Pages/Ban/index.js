@@ -10,6 +10,9 @@ import Slide from "../../components/elements/Slider";
 import Slider from "react-slick";
 import { MdOutlineDoubleArrow } from "react-icons/md";
 import SignUpForm from "../../components/elements/SignUpForm";
+import Circle from "../../components/elements/texture/Circle";
+import Rectangle from "../../components/elements/texture/Rectangle";
+import Polyline from "../../components/elements/texture/Polyline";
 
 const propTypes = {
   children: Object,
@@ -20,7 +23,17 @@ const defaultProps = {
   children: {},
   theme: "dark",
 };
-
+const TextureGroup = function () {
+  return (
+    <>
+      <Circle rad={80} top={100} left={-34}></Circle>
+      <Circle rad={30} top={300} right={150} fill="#f26031"></Circle>
+      <Circle rad={60} top={80} right={50} fill="none"></Circle>
+      <Rectangle fill="none" top={80} left={20} h={30}></Rectangle>
+      <Polyline edge={60} top={108} left={-1}></Polyline>
+    </>
+  );
+};
 const Ban = ({ children, theme, className }) => {
   const opts = {
     dots: false,
@@ -47,7 +60,7 @@ const Ban = ({ children, theme, className }) => {
   };
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [])
+  }, []);
   return (
     <div className={className}>
       {showSignUpForm && <SignUpForm stateFunc={handleSignUp}></SignUpForm>}
@@ -72,6 +85,7 @@ const Ban = ({ children, theme, className }) => {
           <div className="f_layout">
             <div className="f_layout-f">
               <div className="f_layout-ff">
+                <TextureGroup></TextureGroup>
                 <h1 className="italic">
                   <span>{children.title}</span> {children.name}
                   <p className="uppercase">{children.clb}</p>
@@ -118,7 +132,9 @@ const Ban = ({ children, theme, className }) => {
             </div>
           </div>
           <div className="Slogan_page uppercase">
-            <h1 className="h1-header-banpages">sinh viên giúp sinh viên làm chủ công nghệ</h1>
+            <h1 className="h1-header-banpages">
+              sinh viên giúp sinh viên làm chủ công nghệ
+            </h1>
           </div>
           <div></div>
         </section>

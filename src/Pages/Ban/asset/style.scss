@@ -57,6 +57,7 @@
         border-bottom: 1px solid #ccc;
         height: 400px;
         text-align: center;
+        position: relative;
         h1 {
           position: relative;
           letter-spacing: 3px;
@@ -67,6 +68,7 @@
             border-bottom: 1px solid #fff;
             background: -webkit-linear-gradient(left, #f36430, #faa22f);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             background-size: 200% auto;
             animation: linear linear 2s infinite;
@@ -223,19 +225,19 @@
   text-align: center;
   border-bottom: 1px solid #ccc;
   padding-bottom: 16px;
-  margin:0 5px;
-  
+  margin: 0 5px;
+
   position: relative;
-  &::before{
-    content: ',,';
+  &::before {
+    content: ",,";
     position: absolute;
     font-size: 62px;
     bottom: 105%;
     left: 15%;
     transform: rotateY(180deg);
   }
-  &::after{
-    content: ',,';
+  &::after {
+    content: ",,";
     position: absolute;
     font-size: 62px;
     top: 16%;
@@ -254,7 +256,13 @@
 }
 
 .h1-header-banpages {
-  font-family: 'Sriracha', cursive;
+  font-family: "Sriracha", cursive;
   font-size: 54px;
   font-style: italic;
+}
+
+.texture {
+  position: absolute;
+  z-index: -1;
+  opacity: 0.8;
 }

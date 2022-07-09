@@ -1,4 +1,6 @@
 .Ban_section {
+  .Ban-main-content {
+  }
   header {
     width: 100%;
     margin-top: 5px;
@@ -24,11 +26,19 @@
   .f_layout {
     display: flex;
     height: 600px;
+    border-bottom: 1px solid #fff;
+    @media screen and (max-width: 850px) {
+      flex-direction: column;
+      height: auto;
+    }
     .f_layout-f {
       display: flex;
       flex-direction: column;
       width: 64%;
-
+      @media screen and (max-width: 850px) {
+        width: 100%;
+        border-bottom: 1px solid #fff;
+      }
       .f_layout-ff {
         border-right: 1px solid #ccc;
         border-bottom: 1px solid #ccc;
@@ -38,6 +48,7 @@
           position: relative;
           letter-spacing: 3px;
           margin-top: 158px;
+          display: inline-block;
           span {
             padding: 5px 0;
             border-bottom: 1px solid #fff;
@@ -51,26 +62,46 @@
         p {
           position: absolute;
           top: -35px;
-          right: 34%;
+          right: 0;
           font-size: 12px;
           color: #ccc;
           letter-spacing: 0;
         }
+        @media screen and (max-width: 380px) {
+          h1,
+          span {
+            font-size: 40px !important;
+          }
+          p {
+            font-size: 10px;
+          }
+        }
       }
       .f_layout-fs {
         border-right: 1px solid #ccc;
-        border-bottom: 1px solid #ccc;
         height: 200px;
         display: flex;
-        gap: 12%;
+        gap: 8%;
         justify-content: center;
         align-items: center;
+        @media screen and (max-width: 530px) {
+          flex-direction: column;
+          .text_desc-ban {
+            min-width: 80% !important;
+            text-align: center;
+          }
+        }
       }
-
     }
     .Ban-slides {
       width: 36%;
       height: 100%;
+      @media screen and (max-width: 850px) {
+        width: 100%;
+        .Ban-slides-container {
+          margin: 40px 0;
+        }
+      }
     }
   }
 }
@@ -94,10 +125,8 @@
 }
 
 .text_desc-ban {
-  width: 20%;
+  max-width: 50%;
 }
-
-
 
 .btn_desc-ban {
   padding: 12px 20px;
@@ -105,10 +134,9 @@
   color: #fff;
   cursor: pointer;
   font-size: 20px;
-  // border-radius: 28px 26px;
   position: relative;
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
     right: -10px;
@@ -118,7 +146,7 @@
     border-right: 5px solid transparent;
   }
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
     left: -10px;
@@ -136,32 +164,29 @@
   display: flex;
   justify-content: center;
   .shine {
-   position: absolute;
-   width: 200px;
-   height: 25px;
-   transform: rotate(-130deg);
-   background-color: #fff;
-   left: -115px;
+    position: absolute;
+    width: 200px;
+    height: 25px;
+    transform: rotate(-130deg);
+    background-color: #fff;
+    left: -115px;
     top: 42px;
   }
   &:hover {
     .shine {
       left: 100px;
-    top: -22px;
-      transition: .3s linear;
+      top: -22px;
+      transition: 0.3s linear;
     }
   }
 }
 
 .Ban-slides {
-  width: 100%;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 1px solid #ccc;
   &-container {
-    width: 80%;
+    width: 90%;
     height: 61%;
   }
   &-controls {
@@ -173,9 +198,26 @@
     .Ban-slides-next {
       cursor: pointer;
     }
-    .Ban-slides-previous{
+    .Ban-slides-previous {
       transform: rotate(180deg);
       cursor: pointer;
+    }
+  }
+}
+
+.Slogan_page {
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 16px;
+  margin:0 5px;
+  @media screen and (max-width: 800px) {
+    h1 {
+      font-size: 40px !important;
+    }
+  }
+  @media screen and (max-width: 520px) {
+    h1 {
+      font-size: 30px !important;
     }
   }
 }

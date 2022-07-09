@@ -10,10 +10,10 @@ const Ban = () => {
     slidesToScroll: 1,
   };
   const Bans = [
-    { title: "Ban Kỹ Thuật", theme: "#A149FA" },
-    { title: "Ban Truyền Thông", theme: "#3B44F6" },
-    { title: "Ban Hỗ Trợ", theme: "#3EC70B" },
-    { title: "Ban Học Tập", theme: "#F7EC09" },
+    { title: "Ban Kỹ Thuật", theme: "#A149FA", href: "/ban-ky-thuat" },
+    { title: "Ban Truyền Thông", theme: "#3B44F6", href: "/ban-truyen-thong" },
+    { title: "Ban Hỗ Trợ", theme: "#3EC70B", href: "/ban-ho-tro" },
+    { title: "Ban Học Tập", theme: "#F7EC09", href: "/ban-hoc-tap"},
   ];
   return (
     <div className="container">

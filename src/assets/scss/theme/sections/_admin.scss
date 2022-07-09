@@ -13,9 +13,6 @@
 .minimize {
     transform: translateX(-40px);
     .minimize-icon {
-        height: 100vh !important;
-        top: 0 !important;
-        border-radius: 0 !important;
         svg {
             transform: rotate(-180deg);
         }
@@ -23,7 +20,11 @@
 }
 
 .side_bar.minimize {
+    padding: 0px;
     width: 0px;
+    .minimize-icon {
+        transform: translateX(50px);
+    }
 }
 
 .side_bar {
@@ -36,9 +37,9 @@
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     .minimize-icon {
         position: absolute;
-        right: -40px;
+        right: -10px;
         top: 40%;
-        width: 40px;
+        width: 20px;
         height: 100px;
         border-top-right-radius: 16px;
         border-bottom-right-radius: 16px;
@@ -46,7 +47,7 @@
         justify-content: center;
         align-items: center;
         background-color: var(--bg-nav-scroll);
-        transition: .2s linear;
+        transition: .6s ease-in;
         cursor: pointer;
         svg {
             transition-delay: .2s;
@@ -129,5 +130,8 @@
             overflow: hidden;
             cursor: pointer;
         }
+    }
+    .admin-icon--logout, .admin-icons {
+        cursor: pointer;
     }
 }

@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { useLocation, Switch } from 'react-router-dom';
+import { useLocation, Switch, useHistory } from 'react-router-dom';
 import AppRoute from './utils/AppRoute';
 import ScrollReveal from './utils/ScrollReveal';
 import ReactGA from 'react-ga';
@@ -15,6 +15,8 @@ import Home from './views/Home';
 import AdminPage from './admin/Admin';
 import Login from './views/Login';
 import BanHocTap from './Pages/Ban/BanHocTap';
+import login from './views/Login';
+import Store from './admin/store';
 
 // Initialize Google Analytics
 ReactGA.initialize(process.env.REACT_APP_GA_CODE);
@@ -36,15 +38,21 @@ const App = () => {
     trackPage(page);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
-
+  let history = useHistory();
+  let loginStatus = JSON.parse(sessionStorage.getItem('LoginStatus'));
+  console.log(loginStatus);
   return (
     <ScrollReveal
       ref={childRef}
       children={() => (
         <Switch>
           <AppRoute exact path="/" component={Home} layout={LayoutDefault} />
-          <AppRoute exact path="/admin" component={AdminPage} layout={LayoutAdmin} />
           <AppRoute exact path="/ban-hoc-tap" component={BanHocTap}/>
+          {
+            history.location.pathname === '/admin' && loginStatus === false && history.push('/loginAdmin')
+          }
+          <AppRoute exact path="/admin" component={AdminPage} layout={LayoutAdmin} />
+          (<AppRoute exact path="/loginAdmin" component={login}/>)
           {/* <AppRoute exact path="/ban-ho-tro" component={BanHoTro} layout={LayoutDefault} />
           <AppRoute exact path="/ban-truyen-thong" component={BanTruyenThong} layout={LayoutDefault} />
           <AppRoute exact path="/ban-ky-thuat" component={BanKyThuat} layout={LayoutDefault} />

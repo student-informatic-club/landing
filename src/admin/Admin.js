@@ -6,6 +6,8 @@ import Image from "../components/elements/Image";
 import avatar from '../assets/images/admin/avatar.png';
 import {FaBell} from 'react-icons/fa';
 import {HiOutlineLogout} from 'react-icons/hi';
+import Store from "./store";
+import { useHistory } from "react-router-dom";
 const propTypes = {
     children: PropTypes.node
 }
@@ -29,6 +31,7 @@ const Admin = ({
         'site-admin',
         className
     )
+    const history = useHistory();
     return (
         <section className={classes}>
             <SideBar children={sideBarAdmin}/>
@@ -41,7 +44,14 @@ const Admin = ({
                         <div className="user-avatar">
                             <Image src={avatar} width={35} height={35} alt="user"/>
                         </div>
-                        <HiOutlineLogout className="admin-icon"/>
+                        <HiOutlineLogout className="admin-icon--logout" onClick={() => {
+                            Store.setState({status: false})
+                            // eslint-disable-next-line no-restricted-globals
+                            confirm("Bạn muốn đăng xuất?") && sessionStorage.setItem('LoginStatus', false)
+                            setTimeout(() => {
+                                history.push('/loginAdmin');
+                            }, 1000)
+                        }}/>
                     </div>
                 </div>
                 {children}

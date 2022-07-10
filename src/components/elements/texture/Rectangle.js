@@ -1,11 +1,18 @@
 import React from "react";
 
-const Rectangle = ({ top = 0, left, right, fill = "#6163ff", h = 10 }) => {
+const Rectangle = ({
+  top = 0,
+  left,
+  right,
+  fill = "#6163ff",
+  h = 10,
+  ani = "rushBottom",
+}) => {
   return (
     <svg
       width={h * 3}
       height={h}
-      className="texture"
+      className={`texture ${ani} `}
       style={{
         top: `${top}%`,
         left: `${left}%`,

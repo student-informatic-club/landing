@@ -35,7 +35,7 @@ textarea {
     margin: 0;
     padding: 0;
   }
-  z-index: 9999;
+  z-index: 10000;
   position: fixed;
   inset: 0;
   display: flex;
@@ -51,7 +51,7 @@ textarea {
     // margin-right: 8%;
     font-size: 25px;
     transition: all 0.2s linear;
-    z-index: 10000;
+    z-index: 10001;
     cursor: pointer;
     &:hover {
       color: #373888;

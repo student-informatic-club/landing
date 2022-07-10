@@ -19,6 +19,7 @@ import login from './views/Login';
 import 'react-notifications/lib/notifications.css';
 import Store from './admin/store';
 import { NotificationContainer } from 'react-notifications';
+import Dashboard from './admin/components/Dashboard/index';
 
 // Initialize Google Analytics
 ReactGA.initialize(process.env.REACT_APP_GA_CODE);
@@ -54,7 +55,7 @@ const App = () => {
             {
               history.location.pathname === '/admin' && (loginStatus === false || loginStatus === null) && history.push('/loginAdmin')
             }
-            <AppRoute exact path="/admin" component={AdminPage} layout={LayoutAdmin} />
+            <AppRoute exact path="/admin/Dashboard" component={<AdminPage children={Dashboard}/>} layout={LayoutAdmin} />
             (<AppRoute exact path="/loginAdmin" component={login}/>)
             {/* <AppRoute exact path="/ban-ho-tro" component={BanHoTro} layout={LayoutDefault} />
             <AppRoute exact path="/ban-truyen-thong" component={BanTruyenThong} layout={LayoutDefault} />

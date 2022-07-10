@@ -40,7 +40,7 @@ const Login = () => {
                             Store.setState({status: true});
                             sessionStorage.setItem('LoginStatus', true);
                             setTimeout(() => {
-                                history.push('/admin');
+                                history.push('/admin/Dashboard');
                             }, 500);
                         }else {
                             createNotification('error', 'Lỗi Đăng Nhập')

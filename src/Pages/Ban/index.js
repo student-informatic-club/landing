@@ -173,6 +173,26 @@ const Ban = ({ children, theme, className }) => {
               ))}
             </div>
           </div>
+          <div className="Ban-mission Ban-advantages">
+            <Circle
+              rad={30}
+              top={300}
+              right={150}
+              fill="#f26031"
+              ani="rushLeft"
+            ></Circle>
+            <h1 className="italic">Nhiệm vụ</h1>
+            <div className="flex-Col">
+              {children.mission.map((item) => (
+                <div className="mission-item" key={item}>
+                  <div className="icon">
+                    <Image src={icon02} alt="Mission" width={64} height={64} />
+                  </div>
+                  <p>{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
 
           <div className="Ban_activity">
             <div className="f_layout">

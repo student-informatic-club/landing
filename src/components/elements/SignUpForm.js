@@ -197,7 +197,7 @@ const SignUpForm = ({
                         className="message__text"
                         as="textarea"
                         name="message"
-                        placeholder="Your message"
+                        placeholder="Câu trả lời của bạn . . ."
                         rows={3}
                       ></Field>
                     </div>
@@ -206,14 +206,14 @@ const SignUpForm = ({
                         className="button button-sm"
                         onClick={props.stateFunc}
                       >
-                        CANCEL
+                        HUỶ
                       </button>
                       <button
                         className="button button-primary button-sm"
                         disabled={dateData.isTimeOut}
                         type="submit"
                       >
-                        SUBMIT
+                        NỘP
                       </button>
                     </div>
                   </Form>

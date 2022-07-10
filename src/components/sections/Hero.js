@@ -83,7 +83,7 @@ const Hero = ({
                 className="m-0 mb-32 reveal-from-bottom"
                 data-reveal-delay="400"
               >
-                Sinh viên giúp sinh viên làm chủ công nghệ.
+                ''Sinh viên giúp sinh viên làm chủ công nghệ.''
               </p>
               <div className="reveal-from-bottom" data-reveal-delay="600">
                 <ButtonGroup>

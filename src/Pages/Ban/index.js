@@ -195,7 +195,7 @@ const Ban = ({ children, theme, className }) => {
                   <Slider {...opts} ref={slider}>
                     {children.imagesIntro.map((item, i) => {
                       return (
-                        <div className="Ban-slide-item" key={item}>
+                        <div className="Ban-slide-item" key={i}>
                           <img src={item} alt="" />
                         </div>
                       );

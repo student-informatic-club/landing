@@ -13,6 +13,24 @@
 }
 
 .Ban_section {
+  .Ban_activity {
+    .Ban-slides {
+      width: 50%;
+      position: relative;
+    }
+    .Ban-slides-container {
+      width: 90%;
+      height: 90%;
+      overflow: hidden;
+    }
+    .Ban-slides-controls {
+      top: 42%;
+      position: absolute;
+      width: 98%;
+      justify-content: space-between;
+      left: 10px;
+    }
+  }
   .Ban-main-content {
   }
   header {

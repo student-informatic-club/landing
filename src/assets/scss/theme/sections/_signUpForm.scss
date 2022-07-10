@@ -48,7 +48,6 @@ textarea {
     transform: translateX(50%);
     top: 0;
     margin: 2% 4%;
-    // margin-right: 8%;
     font-size: 25px;
     transition: all 0.2s linear;
     z-index: 10001;
@@ -200,17 +199,18 @@ textarea {
   }
   .signUpForm {
     .signUpForm-inner {
-      height: 95vh;
-      max-height: 95vh;
+      height: 100vh;
+      max-height: 100vh;
       display: flex;
       flex-direction: column;
       border-radius: 0;
+      overflow-y: scroll;
     }
     .signUpForm--left {
       width: 100%;
     }
     .signUpForm--right {
-      overflow-y: scroll;
+      // overflow-y: scroll;
       padding: 15px;
       margin: 0;
       .gridCol-2 {

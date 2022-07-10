@@ -11,6 +11,15 @@ const BanHocTap = {
   clb: "student informatic club",
   btn: "Đăng kí CTV",
   imagesIntro: [hocTap1, hocTap2, hocTap3, hocTap4, hocTap5],
+  mission: [
+    `Xây dựng kế hoạch và tổ chức thực hiện các hoạt động nhằm hỗ
+    trợ, thúc đẩy tinh thần học tập của sinh viên`,
+    `Tổ chức các buổi sinh hoạt, buổi học tập theo yêu cầu nhằm
+    giúp sinh viên nâng cao trình độ`,
+    `Hỗ trợ giải đáp thắc mắc của sinh viên trong quá trình học tập`,
+  ],
+  activity: `Các buổi học offline, online trên nhiều nền tảng giúp sinh
+  viên nâng cao kiến thức`,
 };
 
 export default BanHocTap;

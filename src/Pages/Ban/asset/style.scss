@@ -1,106 +1,127 @@
-.Ban_section {
-  .Ban-main-content {
+.Header-ban-pages {
+  top: 0;
+  width: 100%;
+  z-index: 9998;
+  background-color: var(--bg-nav-scroll);
+  transition: 0.3s linear;
+  animation: scrollDown linear 0.2s;
+  border-bottom:1px solid #fff;
+  background-color: var(--bg-nav-scroll) !important;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  &.site-header {
+    position: relative !important;
   }
-  header {
-    width: 100%;
-    margin-top: 5px;
-    padding: 10px 0;
-    border-top: 1px solid #f1f1f184;
-    border-bottom: 1px solid #f1f1f184;
-    .Ban-nav {
+}
+
+// .Ban_section {
+//   header {
+//     margin-top: 0px;
+//     padding: 10px 0;
+//     border-top: 2px solid #f1f1f184;
+//     border-bottom: 1px solid #f1f1f184;
+//     .Ban-nav {
+//       display: flex;
+//       justify-content: space-between;
+//       align-items: center;
+//       width: 1550px;
+//       margin: 0 auto;
+//       .navLinks {
+//         display: flex;
+//         align-items: center;
+//         gap: 20px;
+//         .navLink-item {
+//           padding: 10px 15px;
+//         }
+//       }
+//     }
+//   }
+// }
+
+.f_layout {
+  display: flex;
+  height: 600px;
+  border-bottom: 1px solid #fff;
+  @media screen and (max-width: 850px) {
+    flex-direction: column;
+    height: auto;
+  }
+  .f_layout-f {
+    display: flex;
+    flex-direction: column;
+    width: 64%;
+    @media screen and (max-width: 850px) {
+      width: 100% !important;
+      border-bottom: 1px solid #fff;
+    }
+    .f_layout-ff {
+      border-right: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+      height: 400px;
+      text-align: center;
+      position: relative;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      width: 1550px;
-      margin: 0 auto;
-      .navLinks {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        .navLink-item {
-          padding: 10px 15px;
+      justify-content: center;
+      h1 {
+        position: relative;
+        letter-spacing: 3px;
+        display: inline-block;
+        span {
+          padding: 5px 0;
+          border-bottom: 1px solid #fff;
+          background: -webkit-linear-gradient(left, #f36430, #faa22f);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-size: 200% auto;
+          animation: linear linear 2s infinite;
         }
       }
-    }
-  }
-  .f_layout {
-    display: flex;
-    height: 600px;
-    border-bottom: 1px solid #fff;
-    @media screen and (max-width: 850px) {
-      flex-direction: column;
-      height: auto;
-    }
-    .f_layout-f {
-      display: flex;
-      flex-direction: column;
-      width: 64%;
-      @media screen and (max-width: 850px) {
-        width: 100%;
-        border-bottom: 1px solid #fff;
+      p {
+        position: absolute;
+        top: -35px;
+        right: 0;
+        font-size: 12px;
+        color: #ccc;
+        letter-spacing: 0;
       }
-      .f_layout-ff {
-        border-right: 1px solid #ccc;
-        border-bottom: 1px solid #ccc;
-        height: 400px;
-        text-align: center;
-        h1 {
-          position: relative;
-          letter-spacing: 3px;
-          margin-top: 158px;
-          display: inline-block;
-          span {
-            padding: 5px 0;
-            border-bottom: 1px solid #fff;
-            background: -webkit-linear-gradient(left, #f36430, #faa22f);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-size: 200% auto;
-            animation: linear linear 2s infinite;
-          }
+      @media screen and (max-width: 380px) {
+        h1,
+        span {
+          font-size: 40px !important;
         }
         p {
-          position: absolute;
-          top: -35px;
-          right: 0;
-          font-size: 12px;
-          color: #ccc;
-          letter-spacing: 0;
-        }
-        @media screen and (max-width: 380px) {
-          h1,
-          span {
-            font-size: 40px !important;
-          }
-          p {
-            font-size: 10px;
-          }
-        }
-      }
-      .f_layout-fs {
-        border-right: 1px solid #ccc;
-        height: 200px;
-        display: flex;
-        gap: 8%;
-        justify-content: center;
-        align-items: center;
-        @media screen and (max-width: 530px) {
-          flex-direction: column;
-          .text_desc-ban {
-            min-width: 80% !important;
-            text-align: center;
-          }
+          font-size: 10px;
         }
       }
     }
-    .Ban-slides {
-      width: 36%;
-      height: 100%;
-      @media screen and (max-width: 850px) {
-        width: 100%;
-        .Ban-slides-container {
-          margin: 40px 0;
+    .f_layout-fs {
+      border-right: 1px solid #ccc;
+      height: 200px;
+      display: flex;
+      gap: 8%;
+      justify-content: center;
+      align-items: center;
+      @media screen and (max-width: 530px) {
+        flex-direction: column;
+        .text_desc-ban {
+          min-width: 80% !important;
+          text-align: center;
         }
+      }
+    }
+  }
+  .Ban-slides {
+    width: 36%;
+    flex: 1;
+    height: 100%;
+    display: flex;
+    // align-items: center;
+    justify-content: center;
+    @media screen and (max-width: 850px) {
+      width: 100% !important;
+      .Ban-slides-container {
+        margin: 40px 0;
       }
     }
   }
@@ -108,6 +129,43 @@
 
 .italic {
   font-style: italic;
+}
+.flex-Col {
+  display: flex;
+  column-gap: 40px;
+  justify-content: space-between;
+  @media screen and (max-width: 650px) {
+    flex-direction: column;
+    row-gap: 40px;
+  }
+}
+.icon {
+  display: inline-flex;
+  border-radius: 50%;
+  background-color: #6063fe;
+}
+.mission-item, .advantage-item {
+  flex: 1 0;
+}
+.advantage-item {
+  min-width: 250px;
+  background-color: rgb(30, 41, 59);
+  padding: 8px 15px;
+  border-radius:10px;
+  color: #fff;
+  opacity:0.7;
+}
+.Ban-mission {
+  text-align: center;
+  padding: 50px 8%;
+  position: relative;
+  border-bottom: 1px solid #fff;
+  h1 {
+    padding-bottom: 40px;
+  }
+  p {
+    padding-top: 20px;
+  }
 }
 
 .underline {
@@ -125,7 +183,7 @@
 }
 
 .text_desc-ban {
-  max-width: 50%;
+  width: 50%;
 }
 
 .btn_desc-ban {
@@ -206,10 +264,11 @@
 }
 
 .Slogan_page {
+  font-size: 16px;
   text-align: center;
   border-bottom: 1px solid #ccc;
   padding-bottom: 16px;
-  margin:0 5px;
+  margin: 0 5px;
   @media screen and (max-width: 800px) {
     h1 {
       font-size: 40px !important;
@@ -221,3 +280,85 @@
     }
   }
 }
+
+.h1-header-banpages {
+  font-family: "Sriracha", cursive;
+  font-size: 54px;
+  font-style: italic;
+}
+
+.texture {
+  position: absolute;
+  z-index: -1;
+  opacity: 0.8;
+}
+.rushRight {
+  animation: rushRight 40s linear infinite;
+}
+.rushLeft {
+  animation: rushLeft 30s linear infinite;
+}
+.rushBottom {
+  animation: rushBottom 50s linear infinite;
+}
+@keyframes rushBottom {
+  from {
+    opacity: 0.3;
+    transform: translate(0);
+  }
+  65% {
+    opacity: 0.6;
+    transform: translate(1000%, 1000%) scale(0.9) rotate(-65deg);
+  }
+  100% {
+    opacity: 0.3;
+    transform: translate(0) scale(1) rotate(0);
+  }
+}
+@keyframes rushLeft {
+  from {
+    opacity: 0.3;
+    transform: translate(0);
+  }
+  30% {
+    opacity: 0.6;
+    transform: translate(-200%, -20%) rotate(65deg);
+  }
+  65% {
+    opacity: 0.1;
+    transform: translate(-20%, -200%) scale(0.9);
+  }
+
+  100% {
+    opacity: 0.3;
+    transform: translate(0) scale(1) rotate(0);
+  }
+}
+@keyframes rushRight {
+  from {
+    opacity: 0.3;
+    transform: translate(0);
+  }
+  10% {
+    opacity: 0.6;
+    transform: translate(20%, 20%);
+  }
+  20% {
+    opacity: 0.1;
+    transform: translate(50%, 30%) scale(0.9) rotate(65deg);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translate(150%, 20%) scale(0.8);
+  }
+  90% {
+    opacity: 0.4;
+    transform: translate(20%, 0) scale(0.9) rotate(0);
+  }
+  100% {
+    opacity: 0.3;
+    transform: translate(0) scale(1);
+  }
+}
+
+// @import "../../../assets/scss/core/elements/containers";

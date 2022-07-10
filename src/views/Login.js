@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import { Formik, Form, Field } from "formik";
 import Logo from "../components/layout/partials/Logo";
 import Store from "../admin/store";
+// import createNotification from "../components/elements/Nofication";
 const SchemaLogin = Yup.object().shape({
     username: Yup.string().required("Vui lòng điền trường này"),
     password: Yup.string().required("Vui lòng điền trường này")
@@ -35,13 +36,14 @@ const Login = () => {
                     validationSchema={SchemaLogin}
                     onSubmit = {(values) => {
                         if(values.username === account.username && values.password === account.password){
+                            // createNotification('success', 'Đăng Nhập Thành Công')
                             Store.setState({status: true});
                             sessionStorage.setItem('LoginStatus', true);
                             setTimeout(() => {
                                 history.push('/admin');
-                            }, 1000);
+                            }, 500);
                         }else {
-                            console.log(false);
+                            // createNotification('error', 'Lỗi Đăng Nhập')
                         }
                         console.log(values)
                         console.log(account)

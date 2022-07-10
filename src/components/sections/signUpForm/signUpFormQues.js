@@ -11,9 +11,9 @@ const textMainBase = {
 }
 const infoContact = [
   {
-    href: "mailto:sic@gmail.com",
+    href: "mailto:sic@wru.vn",
     icon: <SiGmail className="contact__icon"></SiGmail>,
-    data: "sic@gmail.com",
+    data: "sic@wru.vn",
   },
   {
     href: "tel:0123456789",

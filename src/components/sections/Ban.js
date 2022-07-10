@@ -20,7 +20,6 @@ const Ban = () => {
       <Slide
         children={Bans}
         option={options}
-        // {...options}
         style={{ textAlign: "left", marginBottom: "30px", marginLeft: "0" }}
         label="Các Ban Trong SIC"
       />

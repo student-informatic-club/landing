@@ -162,7 +162,7 @@ const Ban = ({ children, theme, className }) => {
               ani="rushLeft"
             ></Circle>
             <h1 className="italic">Nhiệm vụ</h1>
-            <div className="flex-Col3">
+            <div className="flex-Col">
               {children.mission.map((item) => (
                 <div className="mission-item" key={item}>
                   <div className="icon">
@@ -185,8 +185,7 @@ const Ban = ({ children, theme, className }) => {
                 </div>
                 <div className="f_layout-fs">
                   <div className="text_desc-ban" style={{ minWidth: "80%" }}>
-                    Các buổi học offline, online trên nhiều nền tảng giúp sinh
-                    viên nâng cao kiến thức
+                    {children.activity}
                   </div>
                 </div>
               </div>

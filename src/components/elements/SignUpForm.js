@@ -86,7 +86,7 @@ const SignUpForm = ({
         </span>
         <div className={innerClasses}>
           <div className="signUpForm--left flex-col">
-            <div>
+            <div className="flex-child">
               {textMainBase.title}
 
               <p>
@@ -108,7 +108,7 @@ const SignUpForm = ({
                 ))}
               </div>
             </div>
-            <div className="signUpForm__footer">
+            <div className="signUpForm__footer flex-child">
               {!dateData.isTimeOut ? (
                 <span style={{ fontSize: "15px" }}>
                   Hạn đăng kí: Còn <strong>{formatText(dateData.days)}</strong>{" "}
@@ -146,7 +146,7 @@ const SignUpForm = ({
               {({ errors, touched }) => {
                 return (
                   <Form className="flex-col">
-                    <div className="basic-info gridCol-2">
+                    <div className="basic-info gridCol-2 flex-child">
                       {basicQues.map((item) => (
                         <div className="basic-info__item" key={item.quesTitle}>
                           <Field
@@ -169,7 +169,7 @@ const SignUpForm = ({
                       ))}
                     </div>
                     <div
-                      className="choose-info"
+                      className="choose-info flex-child"
                       role="group"
                       aria-labelledby="checkbox-group"
                     >
@@ -190,11 +190,11 @@ const SignUpForm = ({
                       </div>
                     </div>
                     <div className="message flex-col">
-                      <label className="title">
+                      <label className="title flex-child">
                         {textMainBase.messageTitle}
                       </label>
                       <Field
-                        className="message__text"
+                        className="message__text flex-child"
                         as="textarea"
                         name="message"
                         placeholder="Câu trả lời của bạn . . ."

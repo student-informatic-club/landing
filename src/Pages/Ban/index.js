@@ -73,9 +73,9 @@ const Ban = ({ children, theme, className }) => {
   const handleSignUp = () => {
     setShowSignUpForm(!showSignUpForm);
   };
-  // useLayoutEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, []);
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className={className}>
       {showSignUpForm && <SignUpForm stateFunc={handleSignUp}></SignUpForm>}

@@ -4,10 +4,11 @@ import navLinks from "../components/layout/partials/HeaderNav";
 import Footer from "../components/layout/Footer";
 
 const LayoutDefault = ({ children }) => {
-  const [scroll, setScroll] = useState(false);
-  window.addEventListener("scroll", () => {
-    window.pageYOffset >= 100 ? setScroll(true) : setScroll(false);
-  });
+  // const [scroll, setScroll] = useState(false);
+  const [scroll, setScroll] = useState(true);
+  // window.addEventListener("scroll", () => {
+  //   window.pageYOffset >= 100 ? setScroll(true) : setScroll(false);
+  // });
   return (
     <>
       <Header

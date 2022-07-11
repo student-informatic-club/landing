@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import classNames from "classnames";
 import navLinks from "../../components/layout/partials/HeaderNav";
-import Logo from "../../components/layout/partials/Logo";
+// import Logo from "../../components/layout/partials/Logo";
 import Cta from "../../components/sections/Cta";
 import Footer from "../../components/layout/Footer";
 import "./asset/style.scss";
-import Slide from "../../components/elements/Slider";
+// import Slide from "../../components/elements/Slider";
 import Slider from "react-slick";
 import { MdOutlineDoubleArrow } from "react-icons/md";
 import SignUpForm from "../../components/elements/SignUpForm";
@@ -16,6 +16,7 @@ import Polyline from "../../components/elements/texture/Polyline";
 import Image from "../../components/elements/Image";
 // import icon02 from './../../assets/images/feature-tile-icon-02.svg';
 import icon02 from "../../assets/images/feature-tile-icon-02.svg";
+import Header from "../../components/layout/Header";
 
 const propTypes = {
   children: Object,
@@ -50,6 +51,7 @@ const TextureGroup = function () {
     </>
   );
 };
+
 const Ban = ({ children, theme, className }) => {
   const opts = {
     dots: false,
@@ -76,28 +78,17 @@ const Ban = ({ children, theme, className }) => {
   };
   useEffect(() => {
     window.scrollTo(0, 0);
+    console.log(true);
   }, []);
-  console.log(children);
   return (
     <div className={className}>
       {showSignUpForm && <SignUpForm stateFunc={handleSignUp}></SignUpForm>}
       <section className={classes}>
-        <header className="Header-ban-pages">
-          <div className="Ban-nav">
-            <div className="navLinks">
-              {navLinks.map((item, i) => {
-                return (
-                  <div className="navLink-item" key={item.name}>
-                    {item.name}
-                  </div>
-                );
-              })}
-            </div>
-            <div>
-              <Logo />
-            </div>
-          </div>
-        </header>
+        <Header
+          navPosition="right"
+          Nav={navLinks}
+          className="Header-ban-pages"
+        />
         <section className="Ban-main-content">
           <div className="f_layout">
             <div className="f_layout-f">
@@ -162,7 +153,7 @@ const Ban = ({ children, theme, className }) => {
               ani="rushLeft"
             ></Circle>
             <h1 className="italic">Nhiệm vụ</h1>
-            <div className="flex-Col3">
+            <div className="flex-Col">
               {children.mission.map((item) => (
                 <div className="mission-item" key={item}>
                   <div className="icon">
@@ -185,8 +176,7 @@ const Ban = ({ children, theme, className }) => {
                 </div>
                 <div className="f_layout-fs">
                   <div className="text_desc-ban" style={{ minWidth: "80%" }}>
-                    Các buổi học offline, online trên nhiều nền tảng giúp sinh
-                    viên nâng cao kiến thức
+                    {children.activity}
                   </div>
                 </div>
               </div>

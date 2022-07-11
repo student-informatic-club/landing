@@ -63,6 +63,8 @@
   cursor: pointer;
   transform: translateY(200px);
   padding: 10px 0px;
+  background-color: #000;
+
   &::after {
     position: absolute;
     content: "";
@@ -88,7 +90,7 @@
   .slide-title {
     word-spacing: 2px;
     letter-spacing: 2px;
-    background-color: #000;
+    // background-color: #000;
     &::after {
       transform: scale(1);
       display: none !important;

@@ -54,8 +54,6 @@ const Slide = ({ children, option, name, label, className }) => {
       },
     ],
   };
-  // console.log(option);
-  console.log(children);
   return (
     <div className="Ban-section">
       {label !== "" && <h2 className="Ban-section-header">{label}</h2>}

@@ -41,7 +41,7 @@ const App = () => {
   }, [location]);
   let history = useHistory();
   let loginStatus = JSON.parse(sessionStorage.getItem("LoginStatus"));
-  console.log(loginStatus);
+
   return (
     <>
       <ScrollReveal

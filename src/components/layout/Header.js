@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Logo from "./partials/Logo";
 import MessengerCustomerChat from "react-messenger-customer-chat";
 import DropDown from "../elements/dropdown";
-import {VscTriangleDown} from 'react-icons/vsc';
+import { VscTriangleDown } from "react-icons/vsc";
 
 const propTypes = {
   Nav: PropTypes.array,
@@ -88,14 +88,13 @@ const Header = ({
     className
   );
 
-
   return (
     <header {...props} className={classes}>
       <div className=" container container-nav">
         <div
           className={classNames(
             "site-header-inner",
-            bottomDivider && "has-bottom-divider"
+            bottomDivider ? "has-bottom-divider" : ""
           )}
         >
           <Logo />
@@ -113,32 +112,47 @@ const Header = ({
               </button>
               <nav
                 ref={nav}
-                className={classNames("header-nav", isActive && "is-active")}
+                className={classNames(
+                  "header-nav",
+                  isActive ? "is-active" : ""
+                )}
               >
                 <div className="header-nav-inner">
                   <ul
                     className={classNames(
                       "list-reset text-xs",
-                      navPosition && `header-nav-${navPosition}`
+                      navPosition ? `header-nav-${navPosition}` : ""
                     )}
                   >
-                    {Nav && Nav.map((navLink, index) => {
-                      return (
-                        <li
-                          key={index}
-                          className={navLink.dropdown && "hover-dropdown"}
-                        >
-                          {navLink.dropdown ? (
-                            <>
-                              <span>{navLink.name} <VscTriangleDown style={{display: 'inline-block'}} className="dropdown-icon"/></span>
-                              <DropDown children={navLink.dropdown} />
-                            </>
-                          ) : (
-                            <Link to={navLink.href ? navLink.href : ''} className={navLink.status && 'active'}>{navLink.name}</Link>
-                          )}
-                        </li>
-                      );
-                    })}
+                    {Nav &&
+                      Nav.map((navLink, index) => {
+                        return (
+                          <li
+                            key={index}
+                            className={navLink.dropdown ? "hover-dropdown" : ""}
+                          >
+                            {navLink.dropdown ? (
+                              <>
+                                <span>
+                                  {navLink.name}{" "}
+                                  <VscTriangleDown
+                                    style={{ display: "inline-block" }}
+                                    className="dropdown-icon"
+                                  />
+                                </span>
+                                <DropDown children={navLink.dropdown} />
+                              </>
+                            ) : (
+                              <Link
+                                to={navLink.href ? navLink.href : ""}
+                                className={navLink.status && "active"}
+                              >
+                                {navLink.name}
+                              </Link>
+                            )}
+                          </li>
+                        );
+                      })}
                   </ul>
                   {/* {!hideSignin && (
                     <ul className="list-reset header-nav-right">

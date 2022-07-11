@@ -187,53 +187,6 @@ const Ban = ({ children, theme, className }) => {
               ))}
             </div>
           </div>
-
-          {/* <div className="Ban_activity">
-            <div className="f_layout">
-              <div className="f_layout-f" style={{ width: "50%" }}>
-                <div className="f_layout-ff">
-                  <TextureGroup></TextureGroup>
-                  <h1 className="italic">
-                    <span>Hoạt động</span> của ban
-                  </h1>
-                </div>
-                <div className="f_layout-fs">
-                  <div className="text_desc-ban" style={{ minWidth: "80%" }}>
-                    {children.activity}
-                  </div>
-                </div>
-              </div>
-              <div className="Ban-slides">
-                <div className="Ban-slides-container">
-                  <Slider {...opts} ref={slider}>
-                    {children.imagesIntro.map((item, i) => {
-                      return (
-                        <div className="Ban-slide-item" key={item}>
-                          <img src={item} alt="" />
-                        </div>
-                      );
-                    })}
-                  </Slider>
-                  <div className="Ban-slides-controls">
-                    <div
-                      className="Ban-slides-previous"
-                      onClick={() => slider.current.slickPrev()}
-                    >
-                      <MdOutlineDoubleArrow />
-                    </div>
-                    <div
-                      className="Ban-slides-next"
-                      onClick={() => slider.current.slickNext()}
-                    >
-                      <MdOutlineDoubleArrow />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
-
-          {/* <div></div> */}
         </section>
         <Cta />
         <Footer />

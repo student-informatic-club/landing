@@ -45,8 +45,6 @@ const Login = () => {
                         }else {
                             // createNotification('error', 'Lỗi Đăng Nhập')
                         }
-                        console.log(values)
-                        console.log(account)
                     }}
                 >
                     {({errors, touched}) => (

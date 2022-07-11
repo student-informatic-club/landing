@@ -15,7 +15,13 @@ const banTruyenThong = {
     `Là đầu mối chịu trách nghiệm quản lí và truyền tải các thông tin chính thức của câu lạc bộ`,
     `Xây dựng, duy trì và phát triển hình ảnh của CLB, phụ trách thiết kế ấn phẩm hình ảnh, clip cho các nền tảng truyền thông của câu lạc bộ `,
   ],
-  activity: `Các ấn phẩm truyền thông`,
+  advantage: [
+    `Nâng cao kiến thức, hoàn thiện bản thân`,
+    `Trau dồi khả năng tổ chức và lên kế hoạch`,
+    `Rèn luyện tinh thần học hỏi, tinh thần trách nghiệm`,
+    `Thoả đam mê sáng tạo với 2 tiểu ban chính là content và design`,
+    `Là nơi lý tưởng để tìm kiếm tri kỉ cùng chung tâm hồn nghệ thuật`,
+  ],
 };
 
 export default banTruyenThong;

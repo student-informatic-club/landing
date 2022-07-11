@@ -15,7 +15,12 @@ const banHoTro = {
     `Quản lí và giữ gìn phòng máy của thư viện `,
     `Hỗ trợ các hoạt động của các phòng ban khác, của câu lạc bộ`,
   ],
-  activity: `Hỗ trợ các ban khác trong việc tổ chức các hoạt động`,
+  advantage: [
+    `Trau dồi khả năng tổ chức và lên kế hoạch`,
+    `Rèn luyện tinh thần học hỏi, tinh thần trách nghiệm`,
+    `Có cơ hội được tiếp xúc, trải nghiệm với nhiều loại hình công việc`,
+    `Được làm quen với nhiều học sinh, sinh viên, anh chị từ những chuyên ngành khác nhau`,
+  ],
 };
 
 export default banHoTro;

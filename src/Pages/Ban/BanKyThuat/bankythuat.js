@@ -16,7 +16,12 @@ const banKyThuat = {
     `Tổ chức các sự kiện sửa máy tính, vệ sinh laptop miễn phí`,
     `Bổ sung kiến thức cần thiết về máy tính, đặc biệt là về phần cứng cho sinh viên`,
   ],
-  activity: `Ban kỹ thuật và chương trình hỗ trợ kiểm tra và vệ sinh laptop miễn phí`,
+  advantage: [
+    `Nâng cao kiến thức, hoàn thiện bản thân`,
+    `Rèn luyện tinh thần học hỏi, tinh thần trách nghiệm`,
+    `Đặc biệt được tiếp xúc, trau dồi kiến thức và kĩ năng liên quan đến máy tính`,
+    `Là nơi lý tưởng để tìm kiếm tri kỉ cùng chung sở thích về máy móc`,
+  ],
 };
 
 export default banKyThuat;

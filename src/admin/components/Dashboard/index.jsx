@@ -1,24 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import './assets/style.scss';
+import { AdminDashboard } from "../../store";
+import { useHistory } from "react-router-dom";
 
 const Dashboard = () => {
+    const tabDashboard = AdminDashboard((state) => state.dashboard)
+    console.log(tabDashboard);
+    const history = useHistory();
     return (
         <section>
             <div className="select-options">
-                <div id="shift-manager" className="option">
-                    <span>Quản Lý Lịch Trực</span>
-                </div>
-                <div id="blog-manager" className="option">
-                    <span>Quản Lý Bài Viết</span>
-                </div>
-                <div id="event-manager" className="option">
-                    <span>Quản Lý Sự Kiện</span>
-                </div>
-                <div id="Ban-manager" className="option">
-                    <span>Quản Lý Ban</span>
-                </div>
+                {tabDashboard.map((item, i) => {
+                    return (
+                        <div className={item.status ? 'option option--active' : 'option'} key={i} onClick={() => {
+                            tabDashboard.map((it) => it.id === item.id ? it.status = true : it.status = false)
+                            AdminDashboard.setState({dashboard: tabDashboard})
+                            history.push("/admin/Dashboard")
+                            console.log(tabDashboard);
+                        }}>
+                            <span>{item.name}</span>
+                        </div>
+                    )
+                })}
             </div>
-            <div>
+            <div className="Dashboard-main-content">
 
             </div>
         </section>

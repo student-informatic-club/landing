@@ -1,11 +1,22 @@
 .select-options {
     display: flex;
-    justify-content: space-between;
-    padding: 0px 15px;
+    justify-content: space-around;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
     .option {
         padding: 15px 30px;
-        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
         border-radius: 8px;
         border: 1px solid #f1f1f1;
+        color: #000;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 16px;
+    }
+    .option--active {
+        color: #fff;
+        background-color: #f36430;
+        box-shadow: none !important;
     }
 }

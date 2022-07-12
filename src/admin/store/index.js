@@ -18,10 +18,15 @@ export const sideBar = create((set, get) => ({
 
 export const AdminDashboard = create((set, get) => ({
     dashboard: [
-        {name: 'Quản Lý Lịch Trực', status: true, id: 1},
-        {name: 'Quản Lý Bài Viết', status: false, id: 2},
+        {name: 'Quản Lý Phòng Máy', status: true, id: 1},
+        {name: 'Quản Lý CTV', status: false, id: 2},
         {name: 'Quản Lý Sự Kiện', status: false, id: 3},
         {name: 'Quản Lý Bài Viết', status: false, id: 4},
+    ],
+    tabs : [
+        {id: 1, tab: [
+            
+        ]}
     ]
 }))
 

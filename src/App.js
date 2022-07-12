@@ -22,6 +22,9 @@ import Dashboard from './admin/components/Dashboard/index';
 import QTV from './admin/components/QuanTriVien/index'
 import Blog from "./admin/components/Blog";
 import Event from "./admin/components/Events";
+
+import { Provider } from 'react-redux';
+import configureStore from './components/Scanner/store/configStore';
 // Initialize Google Analytics
 ReactGA.initialize(process.env.REACT_APP_GA_CODE);
 
@@ -29,6 +32,8 @@ const trackPage = (page) => {
   ReactGA.set({ page });
   ReactGA.pageview(page);
 };
+
+const config = configureStore();
 
 const App = () => {
   const childRef = useRef();
@@ -46,6 +51,7 @@ const App = () => {
   console.log(loginStatus);
   return (
     <>
+    <Provider {...config}>
       <ScrollReveal
         ref={childRef}
         children={() => (
@@ -91,6 +97,7 @@ const App = () => {
         )}
       />
       <NotificationContainer />
+    </Provider>
     </>
   );
 };

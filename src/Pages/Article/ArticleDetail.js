@@ -1,16 +1,20 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import Header from "../../components/layout/Header";
 import navLinks from "../../components/layout/partials/HeaderNav";
 import { eventsData } from "../../components/sections/events/eventsData";
 import { BsFillCalendarFill } from "react-icons/bs";
 import { FaUser } from "react-icons/fa";
-import demoImg from "../../assets/images/events/recovery12072022.jpg";
 import Cta from "../../components/sections/Cta";
 import Footer from "../../components/layout/Footer";
-const ArticleDetail = (item) => {
-  //   const {postID} = useParams();
-  item = eventsData[1];
+import { useParams } from "react-router-dom";
+const ArticleDetail = () => {
+  const { postID } = useParams();
+  const index = eventsData.findIndex((para) => para.id === postID);
+  const item = eventsData[index];
   const { title, image, content, tags, updatedAt, author } = item;
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>

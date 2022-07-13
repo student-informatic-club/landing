@@ -6,49 +6,104 @@ import {BarcodeScanner, enableBarcodeScanner, disableBarcodeScanner, setHistoryI
 import {connect} from 'react-redux';
 import config from "../../../components/Scanner/config";
 import { STORE_MEMBER } from "../../store/constant";
+import { string } from "yup";
 
 const DashboardTab = ({props, indexTab}) => {
+    const DateTime = new Date().toLocaleString([], {hour: '2-digit', minute:'2-digit'});
     const regex = /\n|\r\n|\n\r|\r/gm;
     const getHtml = (data) => data.replace(regex, '');
     const svID = useRef(null);
-    const storeMember = localStorage.getItem(STORE_MEMBER)
+    const storeMember = JSON.parse(localStorage.getItem(STORE_MEMBER)) || [];
+    const [name, setName] = useState('');
+    const [date, setDate] = useState('');
+    const [classes, setClasses] = useState('');
+    const [closeForm, setCloseForm] = useState(false);
+    const handleAddRoom = (obj) => {
+        const newStoreMember = storeMember;
+        newStoreMember.push(obj);
+        localStorage.setItem(STORE_MEMBER, JSON.stringify(newStoreMember));
+    }
+    let existMember;
+    const checkSV = (id) => {
+        existMember = storeMember.filter((item) => item.svId === id);
+        console.log(existMember);
+        return existMember
+    }
     switch(indexTab) {
         case 1: return (
             <div className="Dashboard-room">
-                <div className="over-lay"></div>
                 <BarcodeScanner config = {config}/>
                 { props.isBusy ? <p>Scanning...</p> : (props.data !== '' && (
                     <div className="form-add-room">
-                        <div className="form-input">
-                            <label>Mã Sinh Viên: </label>
-                            <div className="sv-id" dangerouslySetInnerHTML={{ __html: getHtml(props.data) }} ref={svID}/>
+                        <div className="group-input">
+                            <div className="form-input">
+                                <label>Mã Sinh Viên: </label>
+                                <div className="sv-id" dangerouslySetInnerHTML={{ __html: getHtml(props.data) }} ref={svID}/>
+                            </div>
+                            <div className="form-input">
+                                <label>Họ Tên: </label>
+                                <input type="text" onChange={(e) => {
+                                    console.log(e.target.value);
+                                    setName(e.target.value)
+                                    console.log(name);
+                                }} value={
+                                    checkSV(props.data).length !== 0 ? checkSV(props.data).map(item => item.name) : name
+                                }/>
+                            </div>
                         </div>
-                        <div className="form-input">
-                            <label>Họ Tên: </label>
-                            <input type="text" value={storeMember && storeMember.map((item, i) => {
-                                return (
-                                    item.id === props.data ? item.name : ''
-                                )
-                            })}/>
+                        <div className="group-input">
+                            <div className="form-input">
+                                <label>Ngày Sinh: </label>
+                                <input type="text" onChange={(e) => setDate(e.target.value)} value={checkSV(props.data).length !== 0 ? checkSV(props.data).map(item => item.date) : date}/>
+                            </div>
+                            <div className="form-input">
+                                <label>Lớp: </label>
+                                <input type="text" onChange={(e) => setClasses(e.target.value)} value={checkSV(props.data).length !== 0 ? checkSV(props.data).map(item => item.class) : classes}/>
+                            </div>
                         </div>
-                        <div className="form-input">
-                            <label>Ngày Sinh: </label>
-                            <input type="text" value={storeMember && storeMember.map((item, i) => {
-                                return (
-                                    item.id === props.data ? item.date : ''
-                                )
-                            })}/>
-                        </div>
-                        <div className="form-input">
-                            <label>Lớp: </label>
-                            <input type="text" value={storeMember && storeMember.map((item, i) => {
-                                return (
-                                    item.id === props.data ? item.class : ''
-                                )
-                            })}/>
+                        <div className="group-input">
+                            <button className="confirm-btn" onClick={() => {handleAddRoom({
+                                svId: props.data,
+                                name: name,
+                                date: date,
+                                class: classes,
+                                time: DateTime
+                            })
+                                console.log('success');
+                            }}>Xác Nhận</button>
+                            <button className="cancel-btn">Hủy Bỏ</button>
                         </div>
                     </div>
                 ))}
+                <div className="inner-room">
+                    <h3 className="inner-room-form--heading">
+                        Danh Sách Sinh Viên Vào Phòng
+                    </h3>
+                    <div className="inner-room-content">
+                        <div className="inner-form-heading">
+                            <div>Mã Sinh Viên</div>
+                            <div>Họ Tên</div>
+                            <div>Ngày Sinh</div>
+                            <div>Lớp</div>
+                            <div>Thời Gian Vào</div>
+                        </div>
+                        <div className="inner-room-form">
+                            <div className="inner-room-main">
+                                {storeMember && storeMember.map((item, i) => {
+                                    return (
+                                        <div className="inner-room-member">
+                                            <div>{item.svId}</div>
+                                            <div>{item.name}</div>
+                                            <div>{item.date}</div>
+                                            <div>{item.class}</div>
+                                            <div>{DateTime}</div>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
         case 2: return (

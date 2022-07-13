@@ -1,3 +1,7 @@
+import icdl from "../../../assets/images/events/icdl.jpg";
+import recovery12072022 from "../../../assets/images/events/recovery12072022.jpg";
+import recruit2021 from "../../../assets/images/events/recruit2021.jpg";
+import trian from "../../../assets/images/events/trian.png";
 export const eventsData = [
   {
     id: "1",
@@ -7,7 +11,7 @@ export const eventsData = [
     createdAt: "2022-07-12T00:0:00.261+00:00",
     updatedAt: "2022-07-12T00:0:00.261+00:00",
     author: "Nguyen Van A",
-    image: "/icdl.jpg",
+    image: <img src={icdl} alt=""></img>,
     content: `    ICDL Việt Nam là một thành viên trực thuộc ICDL Foundation - tổ chức quản lý, điều hành toàn cầu bộ chứng chỉ Kỹ năng sử dụng CNTT chuẩn quốc tế ICDL - Bộ chứng chỉ đã được công nhận tại hơn 100 quốc gia và vùng lãnh thổ, cùng hơn 24.000 trung tâm khảo thí trên toàn cầu và có hàng triệu thí sinh trên khắp thế giới mỗi năm.
     Nhiều năm qua, với sự nỗ lực không ngừng, ICDL đã tạo ra những giá trị THỰC trong ứng dụng tin học văn phòng và vinh dự trở thành thương hiệu được sinh viên tin tưởng. Tại TLU, sinh viên có thể sử dụng ICDL như một tấm vé để được miễn học, miễn thi và đổi điểm 10 môn tin học cơ bản, đồng thời đạt chuẩn đầu ra về tin học tại trường Đại học Thủy Lợi. ICDL cũng là điểm sáng trong hồ sơ xin việc vào các doanh nghiệp, tập đoàn lớn trên thế giới nói chung và tại Việt Nam nói riêng.
     Thời gian tới đây, CLB Tin học sinh viên và ICDL Việt Nam vinh dự có hoạt động hợp tác để mang lại những chương trình thú vị và bổ ích cho sinh viên về nâng cao kĩ năng sử dụng tin học văn phòng, hứa hẹn một mùa hè đáng mong đợi. Bạn hãy cùng chờ đón nhé!
@@ -24,7 +28,7 @@ export const eventsData = [
     createdAt: "2022-07-12T00:0:00.261+00:00",
     updatedAt: "2022-07-12T00:0:00.261+00:00",
     author: "Nguyen Van A",
-    image: "/recovery12072022.jpg",
+    image: <img src={recovery12072022} alt="" />,
     content: `	Bạn là người “low-tech”? Bạn gặp phải những rắc rối về máy tính mà không biết phải làm sao?
         Có quá nhiều chương trình khởi động cùng với máy, có nhiều tập tin rác làm đầy bộ nhớ… nhưng bạn không biết cách xử lý?
         Bạn muốn cài lại win mà không muốn đem ra quán nhưng lại không biết bắt đầu từ đâu?
@@ -65,7 +69,7 @@ export const eventsData = [
     createdAt: "2022-07-12T00:0:00.261+00:00",
     updatedAt: "2022-07-12T00:0:00.261+00:00",
     author: "Nguyen Van A",
-    image: "/recruit2021.jpg",
+    image: <img src={recruit2021} alt="" />,
     content: `
     📣📣THÔNG BÁO TUYỂN CỘNG TÁC VIÊN📣📣
 🔥 CLB Tin học sinh viên chính thức mở đơn TUYỂN CỘNG TÁC VIÊN 🔥
@@ -123,7 +127,7 @@ Hãy cùng SIC nắm lấy cơ hội này nhé! Và đừng quên chia sẻ cho 
     createdAt: "2022-07-12T00:0:00.261+00:00",
     updatedAt: "2022-07-12T00:0:00.261+00:00",
     author: "Nguyen Van A",
-    image: "/trian.png",
+    image: <img src={trian} alt="" />,
     content: `CLB Tin học sinh viên xin gửi lời cảm ơn sâu sắc đến tất cả mọi người. Cảm ơn mọi người đã quan tâm, theo dõi và ủng hộ fanpage❤️❤️❤️
 
     👉👉Fanpage xin gửi tặng món quà nho nhỏ dành cho bạn đầu tiên chụp lại được khoảnh khắc fanpage CLB đạt mốc 3.000 lượt yêu thích. Mọi người hãy chụp ảnh có hiển thị thời gian và gửi cho fanpage để nhận phần quà tri ân từ CLB Tin học sinh viên.

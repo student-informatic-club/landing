@@ -9,7 +9,7 @@ import Cta from "../../components/sections/Cta";
 import Footer from "../../components/layout/Footer";
 const ArticleDetail = (item) => {
   //   const {postID} = useParams();
-  item = eventsData[0];
+  item = eventsData[1];
   const { title, image, content, tags, updatedAt, author } = item;
 
   return (
@@ -23,7 +23,8 @@ const ArticleDetail = (item) => {
         <h2>{title}</h2>
         <div className="grid-3">
           <div className="article-left">
-            <img src={demoImg} alt="" className="article-img" />
+            {/* <img src={demoImg} alt="" className="article-img" /> */}
+            {image}
             <p>{content}</p>
             {tags && (
               <div className="article-tags">

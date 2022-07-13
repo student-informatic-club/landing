@@ -10,6 +10,10 @@
 .article-left {
   grid-column: 1/ 3;
   padding-right: 20px;
+  img {
+    width: 100%;
+    margin-bottom: 32px;
+  }
 }
 .article-img {
   width: 100%;
@@ -27,7 +31,7 @@
   font-size: 12px;
   background-color: #555555;
   padding: 0 12px;
-  margin:4px 0;
+  margin: 4px 0;
   margin-right: 10px;
   &.primary {
     background-color: #6163ff;
@@ -35,25 +39,26 @@
 }
 .article-right {
   padding-left: 20px;
-  .article-info{
+  .article-info {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
   }
-  .article-item{
-    padding:15px;
+  .article-item {
+    padding: 15px;
   }
 }
 
-@media screen and (max-width:800px) {
-    .grid-3{
-        display: flex;
-        flex-direction: column;
-    }
-    .article-right, .article-left{
-        padding:0;
-    }
-    .article-right{
-        padding-top:20px
-    }
+@media screen and (max-width: 800px) {
+  .grid-3 {
+    display: flex;
+    flex-direction: column;
+  }
+  .article-right,
+  .article-left {
+    padding: 0;
+  }
+  .article-right {
+    padding-top: 20px;
+  }
 }

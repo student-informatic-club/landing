@@ -19,6 +19,8 @@ import login from "./views/Login";
 import "react-notifications/lib/notifications.css";
 import Store from "./admin/store";
 import { NotificationContainer } from "react-notifications";
+import Article from "./Pages/Article/Article";
+import ArticleDetail from "./Pages/Article/ArticleDetail";
 
 // Initialize Google Analytics
 ReactGA.initialize(process.env.REACT_APP_GA_CODE);
@@ -49,6 +51,8 @@ const App = () => {
         children={() => (
           <Switch>
             <AppRoute exact path="/" component={Home} layout={LayoutDefault} />
+            <AppRoute exact path="/event" component={Article} />
+            <AppRoute exact path="/event/:postID" component={ArticleDetail} />
             <AppRoute exact path="/ban-hoc-tap" component={BanHocTap} />
             <AppRoute exact path="/ban-ky-thuat" component={BanKyThuat} />
             <AppRoute exact path="/ban-ho-tro" component={BanHoTro} />
@@ -67,10 +71,6 @@ const App = () => {
               layout={LayoutAdmin}
             />
             (<AppRoute exact path="/loginAdmin" component={login} />)
-            {/* <AppRoute exact path="/ban-ho-tro" component={BanHoTro} layout={LayoutDefault} />
-            <AppRoute exact path="/ban-truyen-thong" component={BanTruyenThong} layout={LayoutDefault} />
-            <AppRoute exact path="/ban-ky-thuat" component={BanKyThuat} layout={LayoutDefault} />
-            <AppRoute exact path="/ban-van-the" component={BanVanThe} layout={LayoutDefault} /> */}
           </Switch>
         )}
       />

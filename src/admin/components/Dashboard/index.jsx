@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import './assets/style.scss';
 import { AdminDashboard } from "../../store";
 import { useHistory } from "react-router-dom";
@@ -6,9 +6,12 @@ import {BarcodeScanner, enableBarcodeScanner, disableBarcodeScanner, setHistoryI
 import {connect} from 'react-redux';
 import config from "../../../components/Scanner/config";
 import { STORE_MEMBER } from "../../store/constant";
-import { string } from "yup";
+//  import icons
+import { MdRemoveCircle } from 'react-icons/md';
+// import { string } from "yup";
 
 const DashboardTab = ({props, indexTab}) => {
+    const history = useHistory();
     const DateTime = new Date().toLocaleString([], {hour: '2-digit', minute:'2-digit'});
     const regex = /\n|\r\n|\n\r|\r/gm;
     const getHtml = (data) => data.replace(regex, '');
@@ -17,7 +20,7 @@ const DashboardTab = ({props, indexTab}) => {
     const [name, setName] = useState('');
     const [date, setDate] = useState('');
     const [classes, setClasses] = useState('');
-    const [closeForm, setCloseForm] = useState(false);
+    // const [closeForm, setCloseForm] = useState(false);
     const handleAddRoom = (obj) => {
         const newStoreMember = storeMember;
         newStoreMember.push(obj);
@@ -29,6 +32,19 @@ const DashboardTab = ({props, indexTab}) => {
         console.log(existMember);
         return existMember
     }
+    const deleteMember = (id) => {
+        const index = storeMemberToday.indexOf(storeMemberToday.filter((ite) => ite.svId.replace('\\n', '') === `${id}`))
+        if(index > -1) {
+            storeMemberToday.splice(index, 1);
+        }
+        // storeMemberToday.map((item) => {
+        //     console.log(item.svId.replace('\\n', ''));
+        // })
+        console.log(index);
+        console.log(storeMemberToday.filter((ite) => ite.svId.replace('\\n', '') === `${id}`));
+        // console.log(`${id}` + '\\n');
+    }
+    const storeMemberToday = storeMember;
     switch(indexTab) {
         case 1: return (
             <div className="Dashboard-room">
@@ -47,18 +63,18 @@ const DashboardTab = ({props, indexTab}) => {
                                     setName(e.target.value)
                                     console.log(name);
                                 }} value={
-                                    checkSV(props.data).length !== 0 ? checkSV(props.data).map(item => item.name) : name
+                                    checkSV(props.data).length !== 0 ? checkSV(props.data).map(item => item.name).join('') : name
                                 }/>
                             </div>
                         </div>
                         <div className="group-input">
                             <div className="form-input">
                                 <label>Ngày Sinh: </label>
-                                <input type="text" onChange={(e) => setDate(e.target.value)} value={checkSV(props.data).length !== 0 ? checkSV(props.data).map(item => item.date) : date}/>
+                                <input type="text" onChange={(e) => setDate(e.target.value)} value={checkSV(props.data).length !== 0 ? checkSV(props.data).map(item => item.date).join('') : date}/>
                             </div>
                             <div className="form-input">
                                 <label>Lớp: </label>
-                                <input type="text" onChange={(e) => setClasses(e.target.value)} value={checkSV(props.data).length !== 0 ? checkSV(props.data).map(item => item.class) : classes}/>
+                                <input type="text" onChange={(e) => setClasses(e.target.value)} value={checkSV(props.data).length !== 0 ? checkSV(props.data).map(item => item.class).join('') : classes}/>
                             </div>
                         </div>
                         <div className="group-input">
@@ -69,9 +85,9 @@ const DashboardTab = ({props, indexTab}) => {
                                 class: classes,
                                 time: DateTime
                             })
-                                console.log('success');
+                                history.push('/admin/Dashboard')
                             }}>Xác Nhận</button>
-                            <button className="cancel-btn">Hủy Bỏ</button>
+                            <button className="cancel-btn" onClick={() => history.push('/admin/Dashboard')}>Hủy Bỏ</button>
                         </div>
                     </div>
                 ))}
@@ -86,10 +102,11 @@ const DashboardTab = ({props, indexTab}) => {
                             <div>Ngày Sinh</div>
                             <div>Lớp</div>
                             <div>Thời Gian Vào</div>
+                            <div>Chức Năng</div>
                         </div>
                         <div className="inner-room-form">
                             <div className="inner-room-main">
-                                {storeMember && storeMember.map((item, i) => {
+                                {storeMemberToday.map((item, i) => {
                                     return (
                                         <div className="inner-room-member">
                                             <div>{item.svId}</div>
@@ -97,6 +114,11 @@ const DashboardTab = ({props, indexTab}) => {
                                             <div>{item.date}</div>
                                             <div>{item.class}</div>
                                             <div>{DateTime}</div>
+                                            <div>
+                                                <MdRemoveCircle onClick={() => {
+                                                    deleteMember(item.svId)
+                                                }}/>
+                                            </div>
                                         </div>
                                     )
                                 })}

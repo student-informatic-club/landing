@@ -60,7 +60,7 @@ const ArticleDetail = () => {
           </div>
         </div>
       </div>
-      <Cta />
+      <Cta center/>
       <Footer />
     </>
   );

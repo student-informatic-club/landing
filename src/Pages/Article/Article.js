@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
 import Header from "../../components/layout/Header";
@@ -13,7 +13,19 @@ import { MdOutlineDoubleArrow } from "react-icons/md";
 // FOR BLOG AND EVENT PAGE
 
 const Article = () => {
+
+  const [articleCurrent, setArticleCurrent] = useState(6);
+
+  const loadMore = () => {
+    if(eventsData.length > articleCurrent) {
+      setArticleCurrent(articleCurrent+3);
+    }
+  }
+
+  const sliceArticle = eventsData.slice(0, articleCurrent);
+
   const classes = classNames(`Article_section`);
+
   const settings = {
     dots: false,
     infinite: true,
@@ -39,7 +51,7 @@ const Article = () => {
             <h2 className="text-center">Sự Kiện</h2>
             <Slider {...settings} ref={slider}>
               {eventsData?.map((item) => (
-                <div className="article-slider">
+                <div className="article-slider" key={item.id}>
                   <img
                     src={require(`../../assets/images/events/${item.image}`)}
                     alt=""
@@ -93,7 +105,7 @@ const Article = () => {
               </form>
             </div>
             <div className="article-lists">
-              {eventsData.map((article) => (
+              {sliceArticle.map((article) => (
                 <div className="article-item" key={article.id}>
                   <div className="container">
                     <div className="article-main-img">
@@ -129,12 +141,12 @@ const Article = () => {
                 </div>
               )).reverse()}
             </div>
-            {/* <div className="load-more-btn">
-              <button type="button">Tải thêm</button>
-            </div> */}
+            <div className="load-more-btn">
+              <button type="button" onClick={() => loadMore()}>Tải thêm</button>
+            </div>
           </div>
         </section>
-        <Cta />
+        <Cta center/>
         <Footer />
       </section>
     </div>

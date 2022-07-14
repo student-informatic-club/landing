@@ -1,12 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
-// import PropTypes from "prop-types";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import navLinks from "../../components/layout/partials/HeaderNav";
-// import Logo from "../../components/layout/partials/Logo";
 import Cta from "../../components/sections/Cta";
 import Footer from "../../components/layout/Footer";
 import "./asset/style.scss";
-// import Slide from "../../components/elements/Slider";
 import Slider from "react-slick";
 import { MdOutlineDoubleArrow } from "react-icons/md";
 import SignUpForm from "../../components/elements/SignUpForm";
@@ -14,7 +11,7 @@ import Circle from "../../components/elements/texture/Circle";
 import Rectangle from "../../components/elements/texture/Rectangle";
 import Polyline from "../../components/elements/texture/Polyline";
 import Image from "../../components/elements/Image";
-// import icon02 from './../../assets/images/feature-tile-icon-02.svg';
+import icon01 from "../../assets/images/feature-tile-icon-01.svg";
 import icon02 from "../../assets/images/feature-tile-icon-02.svg";
 import Header from "../../components/layout/Header";
 
@@ -76,7 +73,7 @@ const Ban = ({ children, theme, className }) => {
   const handleSignUp = () => {
     setShowSignUpForm(!showSignUpForm);
   };
-  useEffect(() => {
+  useLayoutEffect(() => {
     window.scrollTo(0, 0);
     console.log(true);
   }, []);
@@ -165,52 +162,32 @@ const Ban = ({ children, theme, className }) => {
             </div>
           </div>
 
-          <div className="Ban_activity">
-            <div className="f_layout">
-              <div className="f_layout-f" style={{ width: "50%" }}>
-                <div className="f_layout-ff">
-                  <TextureGroup></TextureGroup>
-                  <h1 className="italic">
-                    <span>Hoạt động</span> của ban
-                  </h1>
-                </div>
-                <div className="f_layout-fs">
-                  <div className="text_desc-ban" style={{ minWidth: "80%" }}>
-                    {children.activity}
+          <div className="Ban-advantages">
+            <TextureGroup></TextureGroup>
+            <Circle
+              rad={30}
+              top={200}
+              left={300}
+              fill="none"
+              ani="rushRight"
+            ></Circle>
+            <h1 className="italic">Lợi ích khi tham gia</h1>
+            <div className="flex-Col">
+              {children.advantage.map((item) => (
+                <div className="advantage-item" key={item}>
+                  <div className="icon">
+                    <Image
+                      src={icon01}
+                      alt="Advantage"
+                      width={64}
+                      height={64}
+                    />
                   </div>
+                  <p>{item}</p>
                 </div>
-              </div>
-              <div className="Ban-slides">
-                <div className="Ban-slides-container">
-                  <Slider {...opts} ref={slider}>
-                    {children.imagesIntro.map((item, i) => {
-                      return (
-                        <div className="Ban-slide-item" key={i}>
-                          <img src={item} alt="" />
-                        </div>
-                      );
-                    })}
-                  </Slider>
-                  <div className="Ban-slides-controls">
-                    <div
-                      className="Ban-slides-previous"
-                      onClick={() => slider.current.slickPrev()}
-                    >
-                      <MdOutlineDoubleArrow />
-                    </div>
-                    <div
-                      className="Ban-slides-next"
-                      onClick={() => slider.current.slickNext()}
-                    >
-                      <MdOutlineDoubleArrow />
-                    </div>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
-
-          <div></div>
         </section>
         <Cta />
         <Footer />

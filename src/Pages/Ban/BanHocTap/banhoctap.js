@@ -18,8 +18,13 @@ const BanHocTap = {
     giúp sinh viên nâng cao trình độ`,
     `Hỗ trợ giải đáp thắc mắc của sinh viên trong quá trình học tập`,
   ],
-  activity: `Các buổi học offline, online trên nhiều nền tảng giúp sinh
-  viên nâng cao kiến thức`,
+  advantage: [
+    `Nâng cao kiến thức, hoàn thiện bản thân`,
+    `Trau dồi khả năng tổ chức và lên kế hoạch`,
+    `Rèn luyện tinh thần học hỏi, tinh thần trách nghiệm`,
+    `"Level up" khả năng diễn đạt và truyền tải kiến thức`,
+    `Có cơ hội được tiếp xúc với nhiều học sinh sinh viên từ những chuyên ngành khác nhau`,
+  ],
 };
 
 export default BanHocTap;

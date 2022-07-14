@@ -1,8 +1,8 @@
 const navLinks = [
-    {name: 'Trang Chủ', status: true, href: '#'},
-    {name: 'Về Chúng Tôi', status: false, href: '#'},
-    {name: 'Bài Viết', status: false, href: '#'},
-    {name: 'Sự Kiện', status: false, href: '#'}
-]
+  { name: "Trang Chủ", href: "/" },
+  { name: "Về Chúng Tôi", href: "/us" },
+  { name: "Bài Viết", href: "/blog" },
+  { name: "Sự Kiện", href: "/event" },
+];
 
-export default navLinks
+export default navLinks;

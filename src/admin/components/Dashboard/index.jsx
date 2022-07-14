@@ -20,37 +20,47 @@ const DashboardTab = ({props, indexTab}) => {
     const [name, setName] = useState('');
     const [date, setDate] = useState('');
     const [classes, setClasses] = useState('');
+    const nameRef = useRef(null);
+    const dateRef = useRef(null);
+    const classRef = useRef(null);
+    const formAddMember = useRef(null);
     // const [closeForm, setCloseForm] = useState(false);
-    const handleAddRoom = (obj) => {
+    const handleAddNewMember = (obj) => {
         const newStoreMember = storeMember;
         newStoreMember.push(obj);
         localStorage.setItem(STORE_MEMBER, JSON.stringify(newStoreMember));
     }
+
+    const handleAddNOldMember = (id) => {
+        storeMember.map((item) => {
+            return (
+                item.svId.replace('\\n', '') === id && (item.EnterRoom = true)
+            )
+        })
+        localStorage.setItem(STORE_MEMBER, JSON.stringify(storeMember))
+        console.log(id);
+    }
+
     let existMember;
     const checkSV = (id) => {
         existMember = storeMember.filter((item) => item.svId === id);
-        console.log(existMember);
         return existMember
     }
     const deleteMember = (id) => {
-        const index = storeMemberToday.indexOf(storeMemberToday.filter((ite) => ite.svId.replace('\\n', '') === `${id}`))
-        if(index > -1) {
-            storeMemberToday.splice(index, 1);
-        }
-        // storeMemberToday.map((item) => {
-        //     console.log(item.svId.replace('\\n', ''));
-        // })
-        console.log(index);
-        console.log(storeMemberToday.filter((ite) => ite.svId.replace('\\n', '') === `${id}`));
-        // console.log(`${id}` + '\\n');
+        storeMember.map((item) => {
+            return (
+                item.svId === id && (item.EnterRoom = false)
+            )
+        })
+        localStorage.setItem(STORE_MEMBER, JSON.stringify(storeMember))
+        console.log(storeMember);
     }
-    const storeMemberToday = storeMember;
     switch(indexTab) {
         case 1: return (
             <div className="Dashboard-room">
                 <BarcodeScanner config = {config}/>
                 { props.isBusy ? <p>Scanning...</p> : (props.data !== '' && (
-                    <div className="form-add-room">
+                    <div className="form-add-room" ref={formAddMember}>
                         <div className="group-input">
                             <div className="form-input">
                                 <label>Mã Sinh Viên: </label>
@@ -64,30 +74,32 @@ const DashboardTab = ({props, indexTab}) => {
                                     console.log(name);
                                 }} value={
                                     checkSV(props.data).length !== 0 ? checkSV(props.data).map(item => item.name).join('') : name
-                                }/>
+                                } ref={nameRef}/>
                             </div>
                         </div>
                         <div className="group-input">
                             <div className="form-input">
                                 <label>Ngày Sinh: </label>
-                                <input type="text" onChange={(e) => setDate(e.target.value)} value={checkSV(props.data).length !== 0 ? checkSV(props.data).map(item => item.date).join('') : date}/>
+                                <input type="text" ref={dateRef} onChange={(e) => setDate(e.target.value)} value={checkSV(props.data).length !== 0 ? checkSV(props.data).map(item => item.date).join('') : date}/>
                             </div>
                             <div className="form-input">
                                 <label>Lớp: </label>
-                                <input type="text" onChange={(e) => setClasses(e.target.value)} value={checkSV(props.data).length !== 0 ? checkSV(props.data).map(item => item.class).join('') : classes}/>
+                                <input type="text" ref={classRef} onChange={(e) => setClasses(e.target.value)} value={checkSV(props.data).length !== 0 ? checkSV(props.data).map(item => item.class).join('') : classes}/>
                             </div>
                         </div>
                         <div className="group-input">
-                            <button className="confirm-btn" onClick={() => {handleAddRoom({
+                            <button className="confirm-btn" onClick={() => {storeMember.filter((item) => item.svId === props.data).length === 0 ? handleAddNewMember({
                                 svId: props.data,
                                 name: name,
                                 date: date,
                                 class: classes,
-                                time: DateTime
-                            })
+                                time: DateTime,
+                                EnterRoom: true
+                            }) : handleAddNOldMember(props.data)
+                                formAddMember.current.style.display = 'none';
                                 history.push('/admin/Dashboard')
                             }}>Xác Nhận</button>
-                            <button className="cancel-btn" onClick={() => history.push('/admin/Dashboard')}>Hủy Bỏ</button>
+                            <button className="cancel-btn" onClick={() => formAddMember.current.style.display = 'none'}>Hủy Bỏ</button>
                         </div>
                     </div>
                 ))}
@@ -106,7 +118,7 @@ const DashboardTab = ({props, indexTab}) => {
                         </div>
                         <div className="inner-room-form">
                             <div className="inner-room-main">
-                                {storeMemberToday.map((item, i) => {
+                                {storeMember.filter(item => item.EnterRoom === true).map((item, i) => {
                                     return (
                                         <div className="inner-room-member">
                                             <div>{item.svId}</div>
@@ -117,6 +129,7 @@ const DashboardTab = ({props, indexTab}) => {
                                             <div>
                                                 <MdRemoveCircle onClick={() => {
                                                     deleteMember(item.svId)
+                                                    history.push('/admin/Dashboard')
                                                 }}/>
                                             </div>
                                         </div>

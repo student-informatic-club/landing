@@ -4,6 +4,10 @@
     border-radius: 2px;
   }
 }
+input {
+  background-color: #fff !important;
+  margin-bottom: 10px !important;
+}
 
 .cta-inner {
   padding-left: 16px;
@@ -14,18 +18,14 @@
   background-size: cover;
   background-position: right bottom;
 }
-.cta-group-input {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
+
 .group-input {
   display: flex !important;
   flex-direction: column;
   position: relative !important;
   .errorMessage {
     position: absolute;
-    bottom: -60%;
+    bottom: -5px;
   }
   textarea {
     padding: 11px 15px;

@@ -16,6 +16,8 @@ import BanTruyenThong from "./Pages/Ban/BanTruyenThong";
 import login from "./views/Login";
 import "react-notifications/lib/notifications.css";
 import { NotificationContainer } from "react-notifications";
+import Article from "./Pages/Article/Article";
+import ArticleDetail from "./Pages/Article/ArticleDetail";
 
 // Admin
 import Dashboard from './admin/components/Dashboard/index';
@@ -48,7 +50,7 @@ const App = () => {
   }, [location]);
   let history = useHistory();
   let loginStatus = JSON.parse(sessionStorage.getItem("LoginStatus"));
-  console.log(loginStatus);
+
   return (
     <>
     <Provider {...config}>
@@ -57,6 +59,9 @@ const App = () => {
         children={() => (
           <Switch>
             <AppRoute exact path="/" component={Home} layout={LayoutDefault} />
+            <AppRoute exact path="/home" component={Home} layout={LayoutDefault} />
+            <AppRoute exact path="/event" component={Article} />
+            <AppRoute exact path="/event/:postID" component={ArticleDetail} />
             <AppRoute exact path="/ban-hoc-tap" component={BanHocTap} />
             <AppRoute exact path="/ban-ky-thuat" component={BanKyThuat} />
             <AppRoute exact path="/ban-ho-tro" component={BanHoTro} />

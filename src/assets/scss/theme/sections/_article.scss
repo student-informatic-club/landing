@@ -153,7 +153,7 @@
     grid-column: span 4;
     background-color: #25222d !important;
     border-radius: 10px;
-    margin:15px;
+    margin: 15px;
 
     .container {
       width: 100%;
@@ -170,7 +170,7 @@
       }
       .article-main-content {
         padding-right: 10px;
-        flex:1;
+        flex: 1;
         .article-title {
           font-size: 22px;
           line-height: 30px;
@@ -241,19 +241,18 @@
       outline: none;
     }
   }
+  @media screen and (max-width: 900px) {
+    .article-item {
+      grid-column: span 6;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    .article-item {
+      grid-column: span 12;
+    }
+  }
 }
 ::placeholder {
   color: #fff !important;
   font-size: 24px !important;
-}
-
-@media screen and (max-width: 900px) {
-  .article-item {
-    grid-column: span 6;
-  }
-}
-@media screen and (max-width: 600px) {
-  .article-item {
-    grid-column: span 12;
-  }
 }

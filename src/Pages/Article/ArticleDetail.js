@@ -36,7 +36,7 @@ const ArticleDetail = () => {
               <div className="article-tags">
                 <span className="article-item primary">TAGS</span>
                 {tags.map((tag) => (
-                  <span className="article-item">{tag}</span>
+                  <span className="article-item" key={tag}>{tag}</span>
                 ))}
               </div>
             )}

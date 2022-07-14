@@ -14,7 +14,11 @@ import { MdOutlineDoubleArrow } from "react-icons/md";
 
 const Article = () => {
   const [articleCurrent, setArticleCurrent] = useState(eventsData.length - 6);
-
+  const [searchValue, setSearchValue] = useState("");
+  const handleSearch = (e) => {
+    setSearchValue(e.target.value);
+    console.log(searchValue);
+  };
   const loadMore = () => {
     if (articleCurrent > 3) {
       setArticleCurrent(articleCurrent - 3);
@@ -95,6 +99,7 @@ const Article = () => {
                   className="input-search"
                   type="text"
                   placeholder="Tìm kiếm..."
+                  onChange={handleSearch}
                 />
                 <button type="button" className="search-btn">
                   <svg
@@ -110,6 +115,17 @@ const Article = () => {
             </div>
             <div className="article-lists">
               {sliceArticle
+                .filter((value) => {
+                  if (searchValue === "") {
+                    return value;
+                  } else if (
+                    value.title
+                      .toLowerCase()
+                      .includes(searchValue.toLowerCase())
+                  ) {
+                    return value;
+                  }
+                })
                 .map((article) => (
                   <div className="article-item" key={article.id}>
                     <div className="container">
@@ -153,7 +169,9 @@ const Article = () => {
                   Tải thêm
                 </button>
               </div>
-            ) : ''}
+            ) : (
+              ""
+            )}
           </div>
         </section>
         <Cta center />

@@ -5,8 +5,8 @@ export const eventsData = [
     title: "Tri ân page đạt mốc 3000 lượt yêu thích",
     overview:
       "CLB Tin học sinh viên Đại học Thuỷ Lợi mở chuỗi hoạt động tri ân page đạt 3000 lượt yêu thích",
-    createdAt: "2022-07-12T00:0:00.261+00:00",
-    updatedAt: "2022-07-12T00:0:00.261+00:00",
+    createdAt: "2021-09-24T00:0:00.261+00:00",
+    updatedAt: "2021-09-24T00:0:00.261+00:00",
     author: "CLB Tin học sinh viên",
     image: "trian.png",
     content: `CLB Tin học sinh viên xin gửi lời cảm ơn sâu sắc đến tất cả mọi người. Cảm ơn mọi người đã quan tâm, theo dõi và ủng hộ fanpage❤️❤️❤️
@@ -26,8 +26,8 @@ export const eventsData = [
     title: "Thông báo tuyển Cộng tác viên năm 2021",
     overview:
       "CLB Tin học sinh viên Đại học Thuỷ Lợi chính thức mở đơn đăng kí Cộng tác viên năm 2021",
-    createdAt: "2022-07-12T00:0:00.261+00:00",
-    updatedAt: "2022-07-12T00:0:00.261+00:00",
+    createdAt: "2021-10-23T00:0:00.261+00:00",
+    updatedAt: "2021-10-23T00:0:00.261+00:00",
     author: "CLB Tin học sinh viên",
     image: "recruit2021.jpg",
     content: `
@@ -103,8 +103,7 @@ Hãy cùng SIC nắm lấy cơ hội này nhé! Và đừng quên chia sẻ cho 
   {
     id: "4",
     title: "[Hỗ trợ truyền thông] - SHOOTING STARS tuyển thành viên",
-    overview:
-      "CLB Tin học sinh viên Đại học Thuỷ Lợi hỗ trợ truyền thông",
+    overview: "CLB Tin học sinh viên Đại học Thuỷ Lợi hỗ trợ truyền thông",
     createdAt: "2022-04-21T00:0:00.261+00:00",
     updatedAt: "2022-04-21T00:0:00.261+00:00",
     author: "CLB Tin học sinh viên",

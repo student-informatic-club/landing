@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Logo from "./partials/Logo";
 import MessengerCustomerChat from "react-messenger-customer-chat";
 import DropDown from "../elements/dropdown";
@@ -143,12 +144,15 @@ const Header = ({
                                 <DropDown children={navLink.dropdown} />
                               </>
                             ) : (
-                              <Link
+                              <NavLink
+                                className={({ isActive }) =>
+                                  isActive ? "active" : ""
+                                }
                                 to={navLink.href ? navLink.href : ""}
-                                className={navLink.status && "active"}
+                                exact={true}
                               >
                                 {navLink.name}
-                              </Link>
+                              </NavLink>
                             )}
                           </li>
                         );

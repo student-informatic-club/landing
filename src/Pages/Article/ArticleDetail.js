@@ -7,7 +7,6 @@ import { FaUser } from "react-icons/fa";
 import Cta from "../../components/sections/Cta";
 import Footer from "../../components/layout/Footer";
 import { useParams } from "react-router-dom";
-// import image from '../../assets/images/'
 const ArticleDetail = () => {
   const { postID } = useParams();
   const index = eventsData.findIndex((para) => para.id === postID);
@@ -28,7 +27,6 @@ const ArticleDetail = () => {
         <h2>{title}</h2>
         <div className="grid-3">
           <div className="article-left">
-            {/* <img src={demoImg} alt="" className="article-img" /> */}
             <img
               src={require(`../../assets/images/events/${image}`)}
               alt=""

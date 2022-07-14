@@ -6,6 +6,7 @@ import Footer from "../../components/layout/Footer";
 import Cta from "../../components/sections/Cta";
 import navLinks from "../../components/layout/partials/HeaderNav";
 import { eventsData } from "../../components/sections/events/eventsData";
+import image from "../../assets/images/logo.png";
 import Slider from "react-slick";
 import { MdOutlineDoubleArrow } from "react-icons/md";
 
@@ -16,14 +17,15 @@ const Article = () => {
   const settings = {
     dots: false,
     infinite: true,
-    speed:500,
-    autoplay:true,
-    autoplaySpeed:3000,
+    speed: 500,
+    autoplay: true,
+    autoplaySpeed: 3000,
     slideToShow: 1,
     slideToScroll: 1,
   };
   const slider = useRef(null);
 
+  // console.log(require('../../assets/images/logo.png'))
   return (
     <div>
       <section className={classes}>
@@ -38,7 +40,10 @@ const Article = () => {
             <Slider {...settings} ref={slider}>
               {eventsData?.map((item) => (
                 <div className="article-slider">
-                  {item.image}
+                  <img
+                    src={require(`../../assets/images/events/${item.image}`)}
+                    alt=""
+                  />
                   <div className="slider-content">
                     <h2>{item.title}</h2>
                     <p>{item.overview}</p>
@@ -52,7 +57,7 @@ const Article = () => {
                     </Link>
                   </div>
                 </div>
-              ))}
+              )).reverse()}
             </Slider>
             <div className="slider-controls">
               <div
@@ -91,7 +96,12 @@ const Article = () => {
               {eventsData.map((article) => (
                 <div className="article-item" key={article.id}>
                   <div className="container">
-                    <div className="article-main-img">{article.image}</div>
+                    <div className="article-main-img">
+                      <img
+                        src={require(`../../assets/images/events/${article.image}`)}
+                        alt=""
+                      />
+                    </div>
                     <div className="article-main-content">
                       <h4 className="article-title">{article.title}</h4>
                       <span className="article-time">
@@ -117,7 +127,7 @@ const Article = () => {
                     </div>
                   </div>
                 </div>
-              ))}
+              )).reverse()}
             </div>
             {/* <div className="load-more-btn">
               <button type="button">Tải thêm</button>

@@ -45,15 +45,17 @@ const Header = ({
   const hamburger = useRef(null);
 
   useEffect(() => {
+    alert("render");
     isActive && openMenu();
     document.addEventListener("keydown", keyPress);
     document.addEventListener("click", clickOutside);
     return () => {
       document.removeEventListener("keydown", keyPress);
       document.removeEventListener("click", clickOutside);
+      alert("render");
       closeMenu();
     };
-  });
+  }, []);
 
   const openMenu = () => {
     document.body.classList.add("off-nav-is-active");
@@ -158,18 +160,6 @@ const Header = ({
                         );
                       })}
                   </ul>
-                  {/* {!hideSignin && (
-                    <ul className="list-reset header-nav-right">
-                      <li>
-                        <Link
-                          to="#0"
-                          className="button button-primary button-wide-mobile button-sm"
-                        >
-                          Sign up
-                        </Link>
-                      </li>
-                    </ul>
-                  )} */}
                 </div>
               </nav>
             </>

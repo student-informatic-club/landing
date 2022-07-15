@@ -15,12 +15,6 @@ const ArticleDetail = ({ type }) => {
   const index = articleData.findIndex((para) => para.id === postID);
   const item = articleData[index];
   const { title, image, content, tags, updatedAt, author } = item;
-  useLayoutEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-
-
   return (
     <>
       <Header

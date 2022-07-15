@@ -52,10 +52,10 @@ const App = () => {
 
   return (
     <>
-      <ScrollReveal
-        ref={childRef}
-        children={() => (
-          <Loading>
+      <Loading>
+        <ScrollReveal
+          ref={childRef}
+          children={() => (
             <ScrollToTop>
               <Switch>
                 <AppRoute
@@ -94,10 +94,10 @@ const App = () => {
                 (<AppRoute exact path="/loginAdmin" component={login} />)
               </Switch>
             </ScrollToTop>
-          </Loading>
-        )}
-      />
-      {/* <NotificationContainer /> */}
+          )}
+        />
+        {/* <NotificationContainer /> */}
+      </Loading>
     </>
   );
 };

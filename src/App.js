@@ -9,18 +9,23 @@ import LayoutDefault from "./layouts/LayoutDefault";
 import LayoutAdmin from "./layouts/LayoutAdmin";
 // Views
 import Home from "./views/Home";
+// ADMIN
 import AdminPage from "./admin/Admin";
 import Login from "./views/Login";
-import BanHocTap from "./Pages/Ban/BanHocTap";
-import BanKyThuat from "./Pages/Ban/BanKyThuat";
-import BanHoTro from "./Pages/Ban/BanHoTro";
-import BanTruyenThong from "./Pages/Ban/BanTruyenThong";
 import login from "./views/Login";
 import "react-notifications/lib/notifications.css";
 import Store from "./admin/store";
 import { NotificationContainer } from "react-notifications";
-import Article from "./Pages/Article/Article";
-import ArticleDetail from "./Pages/Article/ArticleDetail";
+// BAN
+import BanHocTap from "./Pages/Ban/BanHocTap";
+import BanKyThuat from "./Pages/Ban/BanKyThuat";
+import BanHoTro from "./Pages/Ban/BanHoTro";
+import BanTruyenThong from "./Pages/Ban/BanTruyenThong";
+// BLOG AND EVENT
+import Blog from "./Pages/Article/blog/Blog";
+import Event from "./Pages/Article/events/Event";
+import BlogDetail from "./Pages/Article/blog/BlogDetail";
+import EventDetail from "./Pages/Article/events/EventDetail";
 
 // Initialize Google Analytics
 ReactGA.initialize(process.env.REACT_APP_GA_CODE);
@@ -51,9 +56,16 @@ const App = () => {
         children={() => (
           <Switch>
             <AppRoute exact path="/" component={Home} layout={LayoutDefault} />
-            <AppRoute exact path="/home" component={Home} layout={LayoutDefault} />
-            <AppRoute exact path="/event" component={Article} />
-            <AppRoute exact path="/event/:postID" component={ArticleDetail} />
+            <AppRoute
+              exact
+              path="/home"
+              component={Home}
+              layout={LayoutDefault}
+            />
+            <AppRoute exact path="/event" component={Event} />
+            <AppRoute exact path="/event/:postID" component={EventDetail} />
+            <AppRoute exact path="/blog" component={Blog} />
+            <AppRoute exact path="/blog/:postID" component={BlogDetail} />
             <AppRoute exact path="/ban-hoc-tap" component={BanHocTap} />
             <AppRoute exact path="/ban-ky-thuat" component={BanKyThuat} />
             <AppRoute exact path="/ban-ho-tro" component={BanHoTro} />

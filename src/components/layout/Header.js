@@ -43,35 +43,34 @@ const Header = ({
 
   const nav = useRef(null);
   const hamburger = useRef(null);
-  console.log('render')
   useEffect(() => {
     isActive && openMenu();
-    document.querySelector('.header-nav-toggle').addEventListener("keydown", keyPress);
-    document.querySelector('.header-nav-toggle').addEventListener("click", clickOutside);
+    document.addEventListener("keydown", keyPress);
+    document.addEventListener("click", clickOutside);
     return () => {
-      document.querySelector('.header-nav-toggle').removeEventListener("keydown", keyPress);
-      document.querySelector('.header-nav-toggle').removeEventListener("click", clickOutside);
+      document.removeEventListener("keydown", keyPress);
+      document.removeEventListener("click", clickOutside);
       closeMenu();
     };
   }, []);
 
-  const openMenu = () => {
+  function openMenu () {
     document.body.classList.add("off-nav-is-active");
     nav.current.style.maxHeight = nav.current.scrollHeight + "px";
     setIsactive(true);
   };
 
-  const closeMenu = () => {
+  function closeMenu () {
     document.body.classList.remove("off-nav-is-active");
     nav.current && (nav.current.style.maxHeight = null);
     setIsactive(false);
   };
 
-  const keyPress = (e) => {
+  function keyPress (e) {
     isActive && e.keyCode === 27 && closeMenu();
   };
 
-  const clickOutside = (e) => {
+  function clickOutside (e) {
     if (!nav.current) return;
     if (
       !isActive ||

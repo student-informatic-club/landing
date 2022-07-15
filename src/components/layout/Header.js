@@ -43,16 +43,14 @@ const Header = ({
 
   const nav = useRef(null);
   const hamburger = useRef(null);
-
+  console.log('render')
   useEffect(() => {
-    alert("render");
     isActive && openMenu();
-    document.addEventListener("keydown", keyPress);
-    document.addEventListener("click", clickOutside);
+    document.querySelector('.header-nav-toggle').addEventListener("keydown", keyPress);
+    document.querySelector('.header-nav-toggle').addEventListener("click", clickOutside);
     return () => {
-      document.removeEventListener("keydown", keyPress);
-      document.removeEventListener("click", clickOutside);
-      alert("render");
+      document.querySelector('.header-nav-toggle').removeEventListener("keydown", keyPress);
+      document.querySelector('.header-nav-toggle').removeEventListener("click", clickOutside);
       closeMenu();
     };
   }, []);

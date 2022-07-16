@@ -17,7 +17,6 @@ const Article = () => {
   const [searchValue, setSearchValue] = useState("");
   const handleSearch = (e) => {
     setSearchValue(e.target.value);
-    console.log(searchValue);
   };
   const loadMore = () => {
     if (articleCurrent > 3) {
@@ -25,7 +24,6 @@ const Article = () => {
     } else {
       setArticleCurrent(0);
     }
-    console.log(articleCurrent);
   };
 
   const sliceArticle = eventsData.slice(articleCurrent, eventsData.length);

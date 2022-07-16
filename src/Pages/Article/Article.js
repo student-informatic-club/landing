@@ -5,15 +5,18 @@ import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
 import Cta from "../../components/sections/Cta";
 import navLinks from "../../components/layout/partials/HeaderNav";
-import { eventsData } from "../../components/sections/events/eventsData";
-import image from "../../assets/images/logo.png";
+import { eventsData } from "../../components/sections/event/eventsData";
+import { blogData } from "../../components/sections/blog/blogData";
 import Slider from "react-slick";
 import { MdOutlineDoubleArrow } from "react-icons/md";
 
 // FOR BLOG AND EVENT PAGE
 
-const Article = () => {
-  const [articleCurrent, setArticleCurrent] = useState(eventsData.length - 6);
+const Article = ({ type, title }) => {
+  const articleData = type === "event" ? eventsData : blogData;
+  let initialCurrent =
+    articleData.length > 6 ? articleData.length - 6 : articleData.length;
+  const [articleCurrent, setArticleCurrent] = useState(initialCurrent);
   const [searchValue, setSearchValue] = useState("");
   const handleSearch = (e) => {
     setSearchValue(e.target.value);
@@ -26,7 +29,10 @@ const Article = () => {
     }
   };
 
-  const sliceArticle = eventsData.slice(articleCurrent, eventsData.length);
+  const sliceArticle =
+    articleData.length > 6
+      ? articleData.slice(articleCurrent, articleData.length)
+      : articleData;
 
   const classes = classNames(`Article_section`);
 
@@ -40,8 +46,6 @@ const Article = () => {
     slideToScroll: 1,
   };
   const slider = useRef(null);
-
-  // console.log(require('../../assets/images/logo.png'))
   return (
     <div>
       <section className={classes}>
@@ -52,25 +56,24 @@ const Article = () => {
         />
         <section className="article-main-content">
           <div className="container">
-            <h2 className="text-center">Sự Kiện</h2>
+            <h2 className="text-center">{title}</h2>
             <Slider {...settings} ref={slider}>
-              {eventsData
+              {articleData
                 ?.map((item) => (
                   <div className="article-slider" key={item.id}>
                     <img
-                      src={require(`../../assets/images/events/${item.image}`)}
+                      src={require(`../../assets/images/${type}/${item.image}`)}
                       alt=""
                     />
                     <div className="slider-content">
                       <h2>{item.title}</h2>
                       <p>{item.overview}</p>
-                      <Link to={(location) => `/event/${item.id}`}>
-                        <button
-                          className="button button-primary button-sm"
-                          type="submit"
-                        >
-                          Xem thêm
-                        </button>
+
+                      <Link
+                        className="button button-primary button-sm"
+                        to={(location) => `/${type}/${item.id}`}
+                      >
+                        Xem thêm
                       </Link>
                     </div>
                   </div>
@@ -129,7 +132,7 @@ const Article = () => {
                     <div className="container">
                       <div className="article-main-img">
                         <img
-                          src={require(`../../assets/images/events/${article.image}`)}
+                          src={require(`../../assets/images/${type}/${article.image}`)}
                           alt=""
                         />
                       </div>
@@ -151,7 +154,7 @@ const Article = () => {
                       <div className="see-detail">
                         <Link
                           className="see-detail-btn"
-                          to={(location) => `/event/${article.id}`}
+                          to={(location) => `/${type}/${article.id}`}
                         >
                           Xem thêm
                         </Link>

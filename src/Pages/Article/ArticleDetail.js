@@ -1,21 +1,20 @@
 import React, { useLayoutEffect } from "react";
 import Header from "../../components/layout/Header";
 import navLinks from "../../components/layout/partials/HeaderNav";
-import { eventsData } from "../../components/sections/events/eventsData";
+import { eventsData } from "../../components/sections/event/eventsData";
+import { blogData } from "../../components/sections/blog/blogData";
 import { BsFillCalendarFill } from "react-icons/bs";
 import { FaUser } from "react-icons/fa";
 import Cta from "../../components/sections/Cta";
 import Footer from "../../components/layout/Footer";
 import { useParams } from "react-router-dom";
-const ArticleDetail = () => {
+import { Markup } from 'interweave' // for converting string to html
+const ArticleDetail = ({ type }) => {
   const { postID } = useParams();
-  const index = eventsData.findIndex((para) => para.id === postID);
-  const item = eventsData[index];
+  const articleData = type === "event" ? eventsData : blogData;
+  const index = articleData.findIndex((para) => para.id === postID);
+  const item = articleData[index];
   const { title, image, content, tags, updatedAt, author } = item;
-  useLayoutEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   return (
     <>
       <Header
@@ -27,16 +26,18 @@ const ArticleDetail = () => {
         <h2>{title}</h2>
         <div className="grid-3">
           <div className="article-left">
-            <img
-              src={require(`../../assets/images/events/${image}`)}
-              alt=""
-            />
-            <p>{content}</p>
+            <img src={require(`../../assets/images/${type}/${image}`)} alt="" />
+            {/* <p>{content}</p> */}
+            <p>
+            <Markup content={content} />
+            </p>
             {tags && (
               <div className="article-tags">
                 <span className="article-item primary">TAGS</span>
                 {tags.map((tag) => (
-                  <span className="article-item" key={tag}>{tag}</span>
+                  <span className="article-item" key={tag}>
+                    {tag}
+                  </span>
                 ))}
               </div>
             )}
@@ -58,7 +59,7 @@ const ArticleDetail = () => {
           </div>
         </div>
       </div>
-      <Cta center/>
+      <Cta center />
       <Footer />
     </>
   );

@@ -140,7 +140,13 @@
 # Article Detail
 --------------------------------------------------------------*/
 
-@import "theme/sections/article"
+@import "theme/sections/article";
+
+/*--------------------------------------------------------------
+# Loading Animation
+--------------------------------------------------------------*/
+
+@import "theme/elements/loading"
 
 // @import "core/elements/notification";
 

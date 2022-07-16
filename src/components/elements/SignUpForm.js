@@ -7,7 +7,6 @@ import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import CountDown from "../../utils/CountDown";
 import { motion } from "framer-motion";
-import { create } from '../../backend/controllers/ctv.controller';
 import {
   infoContact,
   textMainBase,
@@ -15,10 +14,18 @@ import {
   chooseQues,
 } from "../sections/signUpForm/signUpFormQues";
 import { AiFillCloseCircle } from "react-icons/ai";
+import axios from "axios";
 const propTypes = {
   ...SectionProps.types,
   status: PropTypes.bool,
 };
+
+// Create create component
+
+function onSubmit(obj) {
+  axios.post('http://localhost:4000/ctv/add', obj)
+  .then(res => console.log(res.data));
+}
 
 function formatText(num) {
   if (num < 10) {
@@ -141,7 +148,7 @@ const SignUpForm = ({
                 class: Yup.string().required("Vui Lòng Điền Trường Này"),
               })}
               onSubmit={(values) => {
-                create(values)
+                onSubmit(values);
                 props.stateFunc();
               }}
             >

@@ -31,7 +31,7 @@ export const eventsData = [
     author: "CLB Tin học sinh viên",
     image: "recruit2021.jpg",
     content: `
-    📣📣THÔNG BÁO TUYỂN CỘNG TÁC VIÊN📣📣
+    <h5>📣📣THÔNG BÁO TUYỂN CỘNG TÁC VIÊN📣📣</h5>
 🔥 CLB Tin học sinh viên chính thức mở đơn TUYỂN CỘNG TÁC VIÊN 🔥
 
 ❓ Vậy là một năm học mới đã bắt đầu, bạn đã sẵn sàng cho những dự định mới chưa?
@@ -44,7 +44,7 @@ export const eventsData = [
 
 ⭐ SIC sẽ giúp các bạn khám phá một nguồn năng lượng tích cực. Tại đây các bạn sẽ tìm thấy một nguồn năng lượng riêng cho chính mình qua những cơ hội tham gia các sự kiện mà SIC tổ chức. Từ đó, các bạn sẽ khẳng định giá trị của bản thân và sẽ không còn những “chưa đủ” trong bản thân.
 
-🔗🔗🔗 Link đơn: https://bit.ly/TuyenCTV2021
+🔗🔗🔗 Link đơn: <a href="https://bit.ly/TuyenCTV2021" target='_blank'>https://bit.ly/TuyenCTV2021</a>
 
 ⭐ Quyền lợi chung khi trở thành một phần của SIC:
 👉 Được học tập, rèn luyện, làm việc và cháy hết mình với những thành viên đầy nhiệt huyết, vui tính và có cùng đam mê sở thích.
@@ -96,8 +96,7 @@ Hãy cùng SIC nắm lấy cơ hội này nhé! Và đừng quên chia sẻ cho 
     CLB TIN HỌC SINH VIÊN 
     ~~SINH VIÊN GIÚP SINH VIÊN LÀM CHỦ CÔNG NGHỆ ~~
     Địa điểm: P204-Thư viện Đại học Thủy Lợi
-    Fanpage: fb.com/clbtinhocsinhvien
-    Website: https://sic-tlu.club/`,
+    Fanpage: <a href="fb.com/clbtinhocsinhvien" target='_blank'>fb.com/clbtinhocsinhvien</a>`,
     tags: ["2022", "quoc te phu nu"],
   },
   {
@@ -108,7 +107,7 @@ Hãy cùng SIC nắm lấy cơ hội này nhé! Và đừng quên chia sẻ cho 
     updatedAt: "2022-04-21T00:0:00.261+00:00",
     author: "CLB Tin học sinh viên",
     image: "shooting-star-2022.jpg",
-    content: `𝐒𝐇𝐎𝐎𝐓𝐈𝐍𝐆 𝐒𝐓𝐀𝐑𝐒 - TUYỂN TV HUB NETWORK
+    content: `<h5>𝐒𝐇𝐎𝐎𝐓𝐈𝐍𝐆 𝐒𝐓𝐀𝐑𝐒 - TUYỂN TV HUB NETWORK</h5>
     “Tôi luôn biết tôi là một ngôi sao lớn chờ ngày tỏa sáng” - Oprah Winfrey
     ⁉️ Có bao nhiêu người trong chúng ta luôn tin rằng mình là một ngôi sao chờ ngày tỏa sáng? Có bao nhiêu người trong chúng ta luôn biết rằng mình đặc biệt, rằng mình khác thường, rằng mình có thể đem lại những thay đổi vĩ đại cho cuộc đời?
     🌟 Đừng ngần ngại tạo cho mình cơ hội tìm hiểu bản thân, tìm hiểu điều mình mong muốn và bạn sẽ trở nên đặc biệt như những ngôi sao ngoài kia khi trở thành một phần của 𝐇𝐔𝐁 𝐍𝐄𝐓𝐖𝐎𝐑𝐊.
@@ -129,11 +128,11 @@ Hãy cùng SIC nắm lấy cơ hội này nhé! Và đừng quên chia sẻ cho 
     _______________________________
     𝐒𝐇𝐎𝐎𝐓𝐈𝐍𝐆 𝐒𝐓𝐀𝐑𝐒 - TUYỂN TV HUB NETWORK
     Đừng ngần ngại tạo cho mình cơ hội tìm hiểu bản thân, tìm hiểu điều mình mong muốn và bạn sẽ trở nên đặc biệt như những ngôi sao ngoài kia khi trở thành một phần của 𝐇𝐔𝐁 𝐍𝐄𝐓𝐖𝐎𝐑𝐊.
-    👉 Link đăng ký: https://bit.ly/tuyen-CTV-HUB
-    👉 Link booklet: https://bit.ly/booklet-HUB-NETWORK
+    👉 Link đăng ký: <a href="https://bit.ly/tuyen-CTV-HUB">https://bit.ly/tuyen-CTV-HUB</a>
+    👉 Link booklet:  <a href="https://bit.ly/booklet-HUB-NETWORK">https://bit.ly/booklet-HUB-NETWORK</a>
     _______________________________
      𝐇𝐔𝐁 𝐍𝐄𝐓𝐖𝐎𝐑𝐊
-    ⬜ 𝑭𝒂𝒏𝒑𝒂𝒈𝒆: https://www.facebook.com/unihubnetwork
+    ⬜ 𝑭𝒂𝒏𝒑𝒂𝒈𝒆: <a href="https://www.facebook.com/unihubnetwork">https://www.facebook.com/unihubnetwork</a>
      𝑬𝒎𝒂𝒊𝒍: hubnetwork.hsv@gmail.com
      𝑯𝒐𝒕𝒍𝒊𝒏𝒆: 0928188095 (Ms. Thu Phuong)`,
     tags: ["2022", "ho tro truyen thong", "tuyen thanh vien"],
@@ -155,8 +154,7 @@ Hãy cùng SIC nắm lấy cơ hội này nhé! Và đừng quên chia sẻ cho 
     CLB TIN HỌC SINH VIÊN 
     ~~SINH VIÊN GIÚP SINH VIÊN LÀM CHỦ CÔNG NGHỆ ~~
     Địa điểm: P204-Thư viện Đại học Thủy Lợi
-    Fanpage: fb.com/clbtinhocsinhvien
-    Website: https://sic-tlu.club/`,
+    Fanpage: <a href="fb.com/clbtinhocsinhvien" target='_blank'>fb.com/clbtinhocsinhvien</a>`,
     tags: ["2022", "ngay giai phong"],
   },
   {
@@ -184,7 +182,7 @@ Hãy cùng SIC nắm lấy cơ hội này nhé! Và đừng quên chia sẻ cho 
     Địa điểm: Sân D1 - Học viện Ngân hàng
         Mọi thắc mắc xin liên hệ:
     💻 CLB Tin học Ngân hàng BIT - BAV
-    ( https://www.facebook.com/BIT.BAV )
+    ( <a href="https://www.facebook.com/BIT.BAV">https://www.facebook.com/BIT.BAV</a> )
     📧 Email : bit.mis@bav.edu.vn
     ☎️ Điện thoại :
     1. 0332 820 150 (Dương Thu Thủy)
@@ -212,8 +210,8 @@ Hãy cùng SIC nắm lấy cơ hội này nhé! Và đừng quên chia sẻ cho 
     content: `    ICDL Việt Nam là một thành viên trực thuộc ICDL Foundation - tổ chức quản lý, điều hành toàn cầu bộ chứng chỉ Kỹ năng sử dụng CNTT chuẩn quốc tế ICDL - Bộ chứng chỉ đã được công nhận tại hơn 100 quốc gia và vùng lãnh thổ, cùng hơn 24.000 trung tâm khảo thí trên toàn cầu và có hàng triệu thí sinh trên khắp thế giới mỗi năm.
     Nhiều năm qua, với sự nỗ lực không ngừng, ICDL đã tạo ra những giá trị THỰC trong ứng dụng tin học văn phòng và vinh dự trở thành thương hiệu được sinh viên tin tưởng. Tại TLU, sinh viên có thể sử dụng ICDL như một tấm vé để được miễn học, miễn thi và đổi điểm 10 môn tin học cơ bản, đồng thời đạt chuẩn đầu ra về tin học tại trường Đại học Thủy Lợi. ICDL cũng là điểm sáng trong hồ sơ xin việc vào các doanh nghiệp, tập đoàn lớn trên thế giới nói chung và tại Việt Nam nói riêng.
     Thời gian tới đây, CLB Tin học sinh viên và ICDL Việt Nam vinh dự có hoạt động hợp tác để mang lại những chương trình thú vị và bổ ích cho sinh viên về nâng cao kĩ năng sử dụng tin học văn phòng, hứa hẹn một mùa hè đáng mong đợi. Bạn hãy cùng chờ đón nhé!
-    👉 Cùng tìm hiểu nhiều thông tin bổ ích về ICDL tại fanpage: https://www.facebook.com/ICDL.NEU
-    👉 Lịch thi chứng chỉ ICDL được cập nhật liên tục tại: http://ims.icdlvietnam.vn/Candidate/Calendar
+    👉 Cùng tìm hiểu nhiều thông tin bổ ích về ICDL tại fanpage: <a href="https://www.facebook.com/ICDL.NEU">https://www.facebook.com/ICDL.NEU</a>
+    👉 Lịch thi chứng chỉ ICDL được cập nhật liên tục tại: <a href="http://ims.icdlvietnam.vn/Candidate/Calendar">http://ims.icdlvietnam.vn/Candidate/Calendar</a>
     `,
     tags: ["dai hoc thuy loi", "icdl", "don vi hop tac", "2022"],
   },

@@ -43,7 +43,6 @@ const Header = ({
 
   const nav = useRef(null);
   const hamburger = useRef(null);
-
   useEffect(() => {
     isActive && openMenu();
     document.addEventListener("keydown", keyPress);
@@ -53,25 +52,25 @@ const Header = ({
       document.removeEventListener("click", clickOutside);
       closeMenu();
     };
-  });
+  }, []);
 
-  const openMenu = () => {
+  function openMenu () {
     document.body.classList.add("off-nav-is-active");
     nav.current.style.maxHeight = nav.current.scrollHeight + "px";
     setIsactive(true);
   };
 
-  const closeMenu = () => {
+  function closeMenu () {
     document.body.classList.remove("off-nav-is-active");
     nav.current && (nav.current.style.maxHeight = null);
     setIsactive(false);
   };
 
-  const keyPress = (e) => {
+  function keyPress (e) {
     isActive && e.keyCode === 27 && closeMenu();
   };
 
-  const clickOutside = (e) => {
+  function clickOutside (e) {
     if (!nav.current) return;
     if (
       !isActive ||
@@ -158,18 +157,6 @@ const Header = ({
                         );
                       })}
                   </ul>
-                  {/* {!hideSignin && (
-                    <ul className="list-reset header-nav-right">
-                      <li>
-                        <Link
-                          to="#0"
-                          className="button button-primary button-wide-mobile button-sm"
-                        >
-                          Sign up
-                        </Link>
-                      </li>
-                    </ul>
-                  )} */}
                 </div>
               </nav>
             </>

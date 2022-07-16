@@ -1,20 +1,28 @@
-module.exports = mongoose => {
-    const schema = mongoose.Schema(
-        {
-            fullName: String,
-            email: String,
-            phone: String,
-            class: String,
-            answer: String,
-            message: String
-        },
-        { timestamps: true }
-    )
-    schema.method("toJSON", function () {
-        const { _v, _id, ...object } = this.toOject();
-        object.id = _id;
-        return object;
-    })
-    const CTV = mongoose.model("CTV", schema);
-    return CTV;
-};
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+// Define collection and schema for Business
+let CTV = new Schema({
+    fullName: {
+        type: String
+    },
+    email: {
+        type: String
+    },
+    phone: {
+        type: String
+    },
+    class: {
+        type: String
+    },
+    answer: {
+        type: Array
+    },
+    message: {
+        type: String
+    }
+}, {
+    collection: 'CTV'
+});
+
+module.exports = mongoose.model('CTV', CTV);

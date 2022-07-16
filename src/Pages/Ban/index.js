@@ -50,6 +50,7 @@ const TextureGroup = function () {
 };
 
 const Ban = ({ children, theme, className }) => {
+  // alert('render')
   const opts = {
     dots: false,
     infinite: true,
@@ -73,10 +74,6 @@ const Ban = ({ children, theme, className }) => {
   const handleSignUp = () => {
     setShowSignUpForm(!showSignUpForm);
   };
-  useLayoutEffect(() => {
-    window.scrollTo(0, 0);
-    console.log(true);
-  }, []);
   return (
     <div className={className}>
       {showSignUpForm && <SignUpForm stateFunc={handleSignUp}></SignUpForm>}

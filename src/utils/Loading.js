@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 const Loading = (props) => {
   const [loading, setLoading] = useState(false);
   const location = useLocation();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);

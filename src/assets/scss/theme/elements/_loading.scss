@@ -1,8 +1,12 @@
 .loading-container {
-  margin: auto;
-  text-align: center;
+  height:100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 .lds-ripple {
+  // margin: auto;
   display: inline-block;
   position: relative;
   width: 80px;

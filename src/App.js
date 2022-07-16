@@ -14,7 +14,7 @@ import Home from "./views/Home";
 // ADMIN
 import AdminPage from "./admin/Admin";
 import Login from "./views/Login";
-import login from "./views/Login";
+// import login from "./views/Login";
 import "react-notifications/lib/notifications.css";
 import Store from "./admin/store";
 import { NotificationContainer } from "react-notifications";
@@ -28,6 +28,7 @@ import Blog from "./Pages/Article/blog/Blog";
 import Event from "./Pages/Article/events/Event";
 import BlogDetail from "./Pages/Article/blog/BlogDetail";
 import EventDetail from "./Pages/Article/events/EventDetail";
+import LoginUser from "./user/LoginUser";
 
 // Initialize Google Analytics
 ReactGA.initialize(process.env.REACT_APP_GA_CODE);
@@ -41,32 +42,32 @@ const App = () => {
   const childRef = useRef();
   let location = useLocation();
 
-  // useEffect(() => {
-  //   const page = location.pathname;
-  //   document.body.classList.add("is-loaded");
-  //   childRef.current.init();
-  //   trackPage(page);
-  // }, [location]);
+  useEffect(() => {
+    const page = location.pathname;
+    document.body.classList.add("is-loaded");
+    childRef.current.init();
+    trackPage(page);
+  }, [location]);
   let history = useHistory();
   let loginStatus = JSON.parse(sessionStorage.getItem("LoginStatus"));
+  let loginStatusUser = JSON.parse(sessionStorage.getItem("LoginStatusUser"));
 
   return (
     <>
-      <Loading>
-        <ScrollReveal
-          ref={childRef}
-          children={() => (
-            <ScrollToTop>
-              <Switch>
+      <ScrollReveal
+        ref={childRef}
+        children={() => (
+          <ScrollToTop>
+            <Switch>
+              <Loading>
+              {/* {history.location.pathname === "/:slug" &&
+                  (loginStatusUser === false || loginStatusUser === null) &&
+                  history.push("/")} */}
+                {/* <AppRoute exact path="/" component={LoginUser}/> */}
+
                 <AppRoute
                   exact
                   path="/"
-                  component={Home}
-                  layout={LayoutDefault}
-                />
-                <AppRoute
-                  exact
-                  path="/home"
                   component={Home}
                   layout={LayoutDefault}
                 />
@@ -91,13 +92,14 @@ const App = () => {
                   component={AdminPage}
                   layout={LayoutAdmin}
                 />
-                (<AppRoute exact path="/loginAdmin" component={login} />)
-              </Switch>
-            </ScrollToTop>
-          )}
-        />
-        {/* <NotificationContainer /> */}
-      </Loading>
+                <AppRoute exact path="/loginAdmin" component={Login} />
+              </Loading>
+            </Switch>
+          </ScrollToTop>
+        )}
+      />
+      <NotificationContainer />
+      {/* </Loading> */}
     </>
   );
 };

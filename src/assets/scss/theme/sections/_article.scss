@@ -252,6 +252,12 @@
     }
   }
 }
+.article-comment{
+  margin:10px 0 20px;
+}
+textarea {
+  resize:none;
+}
 ::placeholder {
   color: #fff !important;
   font-size: 24px !important;

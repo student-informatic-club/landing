@@ -7,6 +7,7 @@ import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import CountDown from "../../utils/CountDown";
 import { motion } from "framer-motion";
+import { create } from '../../backend/controllers/ctv.controller';
 import {
   infoContact,
   textMainBase,
@@ -140,6 +141,7 @@ const SignUpForm = ({
                 class: Yup.string().required("Vui Lòng Điền Trường Này"),
               })}
               onSubmit={(values) => {
+                create(values)
                 props.stateFunc();
               }}
             >

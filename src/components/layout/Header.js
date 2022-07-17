@@ -8,11 +8,7 @@ import Logo from "./partials/Logo";
 import MessengerCustomerChat from "react-messenger-customer-chat";
 import DropDown from "../elements/dropdown";
 import { VscTriangleDown } from "react-icons/vsc";
-import { HiOutlineLogout } from "react-icons/hi";
-import avatar from "../../assets/images/admin/avatar.png";
-import { FaBell, FaUserAlt } from "react-icons/fa";
-import Store from "../../user/store";
-import Image from "../elements/Image";
+
 
 const propTypes = {
   Nav: PropTypes.array,
@@ -52,11 +48,11 @@ const Header = ({
   const hamburger = useRef(null);
   useEffect(() => {
     isActive && openMenu();
-    document.addEventListener("keydown", keyPress);
-    document.addEventListener("click", clickOutside);
+    document.querySelector('.header-nav-toggle').addEventListener("keydown", keyPress);
+    document.querySelector('.header-nav-toggle').addEventListener("click", clickOutside);
     return () => {
-      document.removeEventListener("keydown", keyPress);
-      document.removeEventListener("click", clickOutside);
+      document.querySelector('.header-nav-toggle').removeEventListener("keydown", keyPress);
+      document.querySelector('.header-nav-toggle').removeEventListener("click", clickOutside);
       closeMenu();
     };
   }, []);
@@ -164,22 +160,7 @@ const Header = ({
                         );
                       })}
 
-                    {/* <div className="user-controller">
-                      <div className="user-avatar">
-                        <FaUserAlt />
-                      </div>
-                      <HiOutlineLogout
-                        className="user-logout"
-                        onClick={() => {
-                          Store.setState({ status: false });
-                          confirm("Bạn muốn đăng xuất?") &&
-                            sessionStorage.setItem("LoginStatusUser", false);
-                          setTimeout(() => {
-                            history.push("/");
-                          }, 500);
-                        }}
-                      />
-                    </div> */}
+                    
                   </ul>
                 </div>
               </nav>

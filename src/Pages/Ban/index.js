@@ -24,7 +24,7 @@ const defaultProps = {
   children: {},
   theme: "dark",
 };
-const TextureGroup = function () {
+function TextureGroup() {
   return (
     <>
       <Circle rad={80} top={100} left={-34} ani="rushRight"></Circle>
@@ -47,10 +47,20 @@ const TextureGroup = function () {
       <Polyline edge={80} top={200} right={-2} ani="rushLeft"></Polyline>
     </>
   );
-};
+}
 
+// function TextureGroup() {
+//   return (
+//     <>
+//       <Circle rad={80} top={100} left={-34}></Circle>
+//       <Circle rad={30} top={300} right={150} fill="#f26031"></Circle>
+//       <Circle rad={60} top={70} right={50} fill="none"></Circle>
+//       <Rectangle fill="none" top={70} left={35} h={30}></Rectangle>
+//       <Polyline edge={60} top={108} left={-1}></Polyline>
+//     </>
+//   );
+// }
 const Ban = ({ children, theme, className }) => {
-  // alert('render')
   const opts = {
     dots: false,
     infinite: true,

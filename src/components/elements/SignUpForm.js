@@ -14,10 +14,28 @@ import {
   chooseQues,
 } from "../sections/signUpForm/signUpFormQues";
 import { AiFillCloseCircle } from "react-icons/ai";
+import axios from "axios";
+import createNotification from "./Nofication";
 const propTypes = {
   ...SectionProps.types,
   status: PropTypes.bool,
 };
+
+
+// Create create component
+
+function onSubmit(obj) {
+  axios.post(`http://localhost:3000/ctv/add`, obj)
+  .then((res) => {
+    if(res.status === 200) {
+      createNotification('success' , 'Đã Đăng Ký CTV Thành Công')
+    }else {
+      createNotification('error' , 'Lỗi Đăng Ký')
+    }
+    console.log(res.data)
+  })
+  .catch(err => console.log(err));
+}
 
 function formatText(num) {
   if (num < 10) {
@@ -140,6 +158,7 @@ const SignUpForm = ({
                 class: Yup.string().required("Vui Lòng Điền Trường Này"),
               })}
               onSubmit={(values) => {
+                onSubmit(values);
                 props.stateFunc();
               }}
             >

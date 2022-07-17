@@ -17,7 +17,7 @@ const ArticleDetail = ({ type }) => {
   const index = articleData.findIndex((para) => para.id === postID);
   const item = articleData[index];
   const { title, image, content, tags, updatedAt, author } = item;
-  const urlPost = `http://localhost:3000/${type}/${postID} `
+  const urlPost = `https://dev-web-sic.vercel.app/${type}/${postID} `
   return (
     <>
       <Header

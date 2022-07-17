@@ -6,6 +6,14 @@
     overflow: hidden;
 }
 
+.main-admin-content {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 16px;
+    margin: 20px;
+    height: 90vh;
+}
+
 .header-admin {
     width: 100%;
 }
@@ -25,6 +33,10 @@
     .minimize-icon {
         transform: translateX(50px);
     }
+}
+
+.side_bar_item--active {
+    background-color: #DD483A !important;
 }
 
 .side_bar {
@@ -73,9 +85,8 @@
         position: relative;
         overflow: hidden;
         cursor: pointer;
-        a{
+        span {
             z-index: 99;
-            // font-size: 14px;
         }
         &::before {
             position: absolute;
@@ -86,6 +97,7 @@
             top: 0;
             left: 0;
             transition: .4s linear;
+            z-index: 0;
         }
         &:hover {
             &::before {

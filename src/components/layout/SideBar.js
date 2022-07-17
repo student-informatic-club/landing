@@ -4,10 +4,11 @@ import classNames from "classnames";
 import Logo from "./partials/Logo";
 import { Link } from "react-router-dom";
 import {FaAngleDoubleLeft} from 'react-icons/fa';
+import { sideBar } from "../../admin/store";
 const propTypes = {
-  children: PropTypes.array,
-  isHide: PropTypes.bool,
-  theme: PropTypes.string
+    children: PropTypes.array,
+    isHide: PropTypes.bool,
+    theme: PropTypes.string
 }
 
 const defaultProps = {
@@ -33,9 +34,17 @@ const SideBar = ({
     const innerclasses = classNames(
         'side_bar_inner'
     )
-  const handleMinimize = () => {
-    setMinimize(!minimize)
-  }
+
+    const handleMinimize = () => {
+        setMinimize(!minimize)
+    }
+
+    const sideBarAdmin = sideBar((state) => state.admin);
+
+    // const handleChangeSideBar = (href) => {
+    //     sideBarAdmin.map(item => item.href === href ? item.status = true : item.status = false);
+    //     sideBar.setState({admin: sideBarAdmin});
+    // }
 
     return (
         <div className={outerclasses} id="sidebar">
@@ -46,9 +55,11 @@ const SideBar = ({
                 <div className="side_bar_list">
                     {children && children.map((item, i) => {
                         return (
-                            <div className={item.status ? "side_bar_item--active side_bar_item" : "side_bar_item"}>
-                                <Link to={item.href}>{item.name}</Link>
-                            </div>
+                            <Link to={item.href} className={item.status ? "side_bar_item--active side_bar_item" : "side_bar_item"} onClick={() => {sideBarAdmin.map((it) => {
+                                it.href === item.href ? it.status = true : it.status = false;
+                            })
+                                sideBar.setState({admin: sideBarAdmin})
+                            }}><span>{item.name}</span></Link>
                         )
                     })}
                 </div>

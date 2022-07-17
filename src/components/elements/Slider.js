@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
+// import ban_hoc_tap from "../../"
 
 const propTypes = {
   children: PropTypes.node,
@@ -53,17 +54,18 @@ const Slide = ({ children, option, name, label, className }) => {
       },
     ],
   };
-  console.log(option);
   return (
     <div className="Ban-section">
-      {label !== "" && (<h2 className="Ban-section-header">{label}</h2>)}
+      {label !== "" && <h2 className="Ban-section-header">{label}</h2>}
       <Slider {...option} className="Ban-section-slider">
         {children.map((item, i) => {
           return (
             <div key={i}>
               <Link to={item.href && item.href}>
                 <div
-                  style={item.theme && { backgroundColor: `${item.theme}` }}
+                  style={{
+                    background: `url("${item.theme}") top center/ cover no-repeat`,
+                  }}
                   className="slide-item"
                 >
                   <div className="overlay"></div>

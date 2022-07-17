@@ -7,7 +7,6 @@ import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import CountDown from "../../utils/CountDown";
 import { motion } from "framer-motion";
-
 import {
   infoContact,
   textMainBase,
@@ -15,10 +14,28 @@ import {
   chooseQues,
 } from "../sections/signUpForm/signUpFormQues";
 import { AiFillCloseCircle } from "react-icons/ai";
+import axios from "axios";
+import createNotification from "./Nofication";
 const propTypes = {
   ...SectionProps.types,
   status: PropTypes.bool,
 };
+
+
+// Create create component
+
+function onSubmit(obj) {
+  axios.post(`http://localhost:3000/ctv/add`, obj)
+  .then((res) => {
+    if(res.status === 200) {
+      createNotification('success' , 'Đã Đăng Ký CTV Thành Công')
+    }else {
+      createNotification('error' , 'Lỗi Đăng Ký')
+    }
+    console.log(res.data)
+  })
+  .catch(err => console.log(err));
+}
 
 function formatText(num) {
   if (num < 10) {
@@ -87,7 +104,7 @@ const SignUpForm = ({
         </span>
         <div className={innerClasses}>
           <div className="signUpForm--left flex-col">
-            <div>
+            <div className="flex-child">
               {textMainBase.title}
 
               <p>
@@ -109,7 +126,7 @@ const SignUpForm = ({
                 ))}
               </div>
             </div>
-            <div className="signUpForm__footer">
+            <div className="signUpForm__footer flex-child">
               {!dateData.isTimeOut ? (
                 <span style={{ fontSize: "15px" }}>
                   Hạn đăng kí: Còn <strong>{formatText(dateData.days)}</strong>{" "}
@@ -141,13 +158,14 @@ const SignUpForm = ({
                 class: Yup.string().required("Vui Lòng Điền Trường Này"),
               })}
               onSubmit={(values) => {
+                onSubmit(values);
                 props.stateFunc();
               }}
             >
               {({ errors, touched }) => {
                 return (
                   <Form className="flex-col">
-                    <div className="basic-info gridCol-2">
+                    <div className="basic-info gridCol-2 flex-child">
                       {basicQues.map((item) => (
                         <div className="basic-info__item" key={item.quesTitle}>
                           <Field
@@ -170,7 +188,7 @@ const SignUpForm = ({
                       ))}
                     </div>
                     <div
-                      className="choose-info"
+                      className="choose-info flex-child"
                       role="group"
                       aria-labelledby="checkbox-group"
                     >
@@ -191,14 +209,14 @@ const SignUpForm = ({
                       </div>
                     </div>
                     <div className="message flex-col">
-                      <label className="title">
+                      <label className="title flex-child">
                         {textMainBase.messageTitle}
                       </label>
                       <Field
-                        className="message__text"
+                        className="message__text flex-child"
                         as="textarea"
                         name="message"
-                        placeholder="Your message"
+                        placeholder="Câu trả lời của bạn . . ."
                         rows={3}
                       ></Field>
                     </div>
@@ -207,14 +225,14 @@ const SignUpForm = ({
                         className="button button-sm"
                         onClick={props.stateFunc}
                       >
-                        CANCEL
+                        HUỶ
                       </button>
                       <button
                         className="button button-primary button-sm"
                         disabled={dateData.isTimeOut}
                         type="submit"
                       >
-                        SUBMIT
+                        NỘP
                       </button>
                     </div>
                   </Form>

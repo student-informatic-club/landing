@@ -1,18 +1,19 @@
-import React, { useRef, useState } from "react";
-import PropTypes from "prop-types";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import navLinks from "../../components/layout/partials/HeaderNav";
-import Logo from "../../components/layout/partials/Logo";
 import Cta from "../../components/sections/Cta";
 import Footer from "../../components/layout/Footer";
 import "./asset/style.scss";
-import Slide from "../../components/elements/Slider";
 import Slider from "react-slick";
 import { MdOutlineDoubleArrow } from "react-icons/md";
 import SignUpForm from "../../components/elements/SignUpForm";
 import Circle from "../../components/elements/texture/Circle";
 import Rectangle from "../../components/elements/texture/Rectangle";
 import Polyline from "../../components/elements/texture/Polyline";
+import Image from "../../components/elements/Image";
+import icon01 from "../../assets/images/feature-tile-icon-01.svg";
+import icon02 from "../../assets/images/feature-tile-icon-02.svg";
+import Header from "../../components/layout/Header";
 
 const propTypes = {
   children: Object,
@@ -23,18 +24,42 @@ const defaultProps = {
   children: {},
   theme: "dark",
 };
-
-const TextureGroup = function () {
+function TextureGroup() {
   return (
     <>
-      <Circle rad={80} top={100} left={-34}></Circle>
-      <Circle rad={30} top={300} right={150} fill="#f26031"></Circle>
-      <Circle rad={60} top={70} right={50} fill="none"></Circle>
-      <Rectangle fill="none" top={70} left={35} h={30}></Rectangle>
+      <Circle rad={80} top={100} left={-34} ani="rushRight"></Circle>
+      <Circle
+        rad={30}
+        top={300}
+        right={150}
+        fill="#f26031"
+        ani="rushLeft"
+      ></Circle>
+      <Circle rad={60} top={80} right={50} fill="none"></Circle>
+      <Rectangle
+        fill="none"
+        top={80}
+        left={20}
+        h={30}
+        ani="rushLeft"
+      ></Rectangle>
       <Polyline edge={60} top={108} left={-1}></Polyline>
+      <Polyline edge={80} top={200} right={-2} ani="rushLeft"></Polyline>
     </>
   );
-};
+}
+
+// function TextureGroup() {
+//   return (
+//     <>
+//       <Circle rad={80} top={100} left={-34}></Circle>
+//       <Circle rad={30} top={300} right={150} fill="#f26031"></Circle>
+//       <Circle rad={60} top={70} right={50} fill="none"></Circle>
+//       <Rectangle fill="none" top={70} left={35} h={30}></Rectangle>
+//       <Polyline edge={60} top={108} left={-1}></Polyline>
+//     </>
+//   );
+// }
 const Ban = ({ children, theme, className }) => {
   const opts = {
     dots: false,
@@ -63,22 +88,11 @@ const Ban = ({ children, theme, className }) => {
     <div className={className}>
       {showSignUpForm && <SignUpForm stateFunc={handleSignUp}></SignUpForm>}
       <section className={classes}>
-        <header>
-          <div className="Ban-nav">
-            <div className="navLinks">
-              {navLinks.map((item, i) => {
-                return (
-                  <div className="navLink-item" key={item.name}>
-                    {item.name}
-                  </div>
-                );
-              })}
-            </div>
-            <div>
-              <Logo />
-            </div>
-          </div>
-        </header>
+        <Header
+          navPosition="right"
+          Nav={navLinks}
+          className="Header-ban-pages"
+        />
         <section className="Ban-main-content">
           <div className="f_layout">
             <div className="f_layout-f">
@@ -130,9 +144,57 @@ const Ban = ({ children, theme, className }) => {
             </div>
           </div>
           <div className="Slogan_page uppercase">
-            <h1>"sinh viên giúp sinh viên làm chủ công nghệ"</h1>
+            <h1 className="h1-header-banpages">
+              ''sinh viên giúp sinh viên làm chủ công nghệ''
+            </h1>
           </div>
-          <div></div>
+          <div className="Ban-mission">
+            <Circle
+              rad={30}
+              top={300}
+              right={150}
+              fill="#f26031"
+              ani="rushLeft"
+            ></Circle>
+            <h1 className="italic">Nhiệm vụ</h1>
+            <div className="flex-Col">
+              {children.mission.map((item) => (
+                <div className="mission-item" key={item}>
+                  <div className="icon">
+                    <Image src={icon02} alt="Mission" width={64} height={64} />
+                  </div>
+                  <p>{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="Ban-advantages">
+            <TextureGroup></TextureGroup>
+            <Circle
+              rad={30}
+              top={200}
+              left={300}
+              fill="none"
+              ani="rushRight"
+            ></Circle>
+            <h1 className="italic">Lợi ích khi tham gia</h1>
+            <div className="flex-Col">
+              {children.advantage.map((item) => (
+                <div className="advantage-item" key={item}>
+                  <div className="icon">
+                    <Image
+                      src={icon01}
+                      alt="Advantage"
+                      width={64}
+                      height={64}
+                    />
+                  </div>
+                  <p>{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </section>
         <Cta />
         <Footer />

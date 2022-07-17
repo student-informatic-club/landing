@@ -7,10 +7,11 @@ const Polyline = ({
   top,
   right,
   left,
+  ani = "rushBottom",
 }) => {
   return (
     <svg
-      className="texture"
+      className={`texture ${ani} `}
       height={edge}
       width={edge}
       style={{

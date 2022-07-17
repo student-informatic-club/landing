@@ -2,6 +2,8 @@
 # Based on Cruip framework - v1.0.0
 --------------------------------------------------------------*/
 
+@import url('https://fonts.googleapis.com/css2?family=Sriracha&display=swap');
+
 /*--------------------------------------------------------------
 # Variables, functions and mixins
 --------------------------------------------------------------*/
@@ -133,5 +135,21 @@
 # Helpers
 --------------------------------------------------------------*/
 @import "core/base/helpers";
+
+/*--------------------------------------------------------------
+# Article Detail
+--------------------------------------------------------------*/
+
+@import "theme/sections/article";
+
+/*--------------------------------------------------------------
+# Loading Animation
+--------------------------------------------------------------*/
+
+@import "theme/elements/loading";
+
+// @import "core/elements/notification";
+
+@import "theme/elements/facebook"
 
 

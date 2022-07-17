@@ -7,13 +7,14 @@ export default function Circle({
   left,
   right,
   fill = "#6163ff",
+  ani = "rushBottom",
 }) {
   return (
     <svg
       width={rad * 2}
       height={rad * 2}
       fill="none"
-      className="texture"
+      className={`texture ${ani} `}
       style={{ top: `${top}px`, left: `${left}px`, right: `${right}px` }}
     >
       <circle

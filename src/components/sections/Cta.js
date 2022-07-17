@@ -68,9 +68,7 @@ const Cta = ({
             <Formik
               initialValues={{ email: "", name: "", content: "" }}
               validationSchema={ContactSchema}
-              onSubmit={(values) => {
-                console.log(values);
-              }}
+              onSubmit={(values) => {}}
             >
               {({ errors, touched }) => {
                 return (

@@ -28,7 +28,6 @@ import Blog from "./Pages/Article/blog/Blog";
 import Event from "./Pages/Article/events/Event";
 import BlogDetail from "./Pages/Article/blog/BlogDetail";
 import EventDetail from "./Pages/Article/events/EventDetail";
-import LoginUser from "./user/LoginUser";
 
 // Initialize Google Analytics
 ReactGA.initialize(process.env.REACT_APP_GA_CODE);
@@ -44,62 +43,55 @@ const App = () => {
 
   useEffect(() => {
     const page = location.pathname;
-    document.body.classList.add("is-loaded");
+    // document.body.classList.add("is-loaded");
     childRef.current.init();
     trackPage(page);
   }, [location]);
   let history = useHistory();
   let loginStatus = JSON.parse(sessionStorage.getItem("LoginStatus"));
-  let loginStatusUser = JSON.parse(sessionStorage.getItem("LoginStatusUser"));
 
   return (
     <>
-      <ScrollReveal
-        ref={childRef}
-        children={() => (
-          <ScrollToTop>
-            <Switch>
-              <Loading>
-              {/* {history.location.pathname === "/:slug" &&
-                  (loginStatusUser === false || loginStatusUser === null) &&
-                  history.push("/")} */}
-                {/* <AppRoute exact path="/" component={LoginUser}/> */}
-
+      <ScrollToTop>
+        <Switch>
+          <Loading>
+            <ScrollReveal
+              ref={childRef}
+              children={() => (
                 <AppRoute
                   exact
                   path="/"
                   component={Home}
                   layout={LayoutDefault}
                 />
-                <AppRoute exact path="/event" component={Event} />
-                <AppRoute exact path="/event/:postID" component={EventDetail} />
-                <AppRoute exact path="/blog" component={Blog} />
-                <AppRoute exact path="/blog/:postID" component={BlogDetail} />
-                <AppRoute exact path="/ban-hoc-tap" component={BanHocTap} />
-                <AppRoute exact path="/ban-ky-thuat" component={BanKyThuat} />
-                <AppRoute exact path="/ban-ho-tro" component={BanHoTro} />
-                <AppRoute
-                  exact
-                  path="/ban-truyen-thong"
-                  component={BanTruyenThong}
-                />
-                {history.location.pathname === "/admin" &&
-                  (loginStatus === false || loginStatus === null) &&
-                  history.push("/loginAdmin")}
-                <AppRoute
-                  exact
-                  path="/admin"
-                  component={AdminPage}
-                  layout={LayoutAdmin}
-                />
-                <AppRoute exact path="/loginAdmin" component={Login} />
-              </Loading>
-            </Switch>
-          </ScrollToTop>
-        )}
-      />
-      <NotificationContainer />
-      {/* </Loading> */}
+              )}
+            />
+            <AppRoute exact path="/event" component={Event} />
+            <AppRoute exact path="/event/:postID" component={EventDetail} />
+            <AppRoute exact path="/blog" component={Blog} />
+            <AppRoute exact path="/blog/:postID" component={BlogDetail} />
+            <AppRoute exact path="/ban-hoc-tap" component={BanHocTap} />
+            <AppRoute exact path="/ban-ky-thuat" component={BanKyThuat} />
+            <AppRoute exact path="/ban-ho-tro" component={BanHoTro} />
+            <AppRoute
+              exact
+              path="/ban-truyen-thong"
+              component={BanTruyenThong}
+            />
+            {history.location.pathname === "/admin" &&
+              (loginStatus === false || loginStatus === null) &&
+              history.push("/loginAdmin")}
+            <AppRoute
+              exact
+              path="/admin"
+              component={AdminPage}
+              layout={LayoutAdmin}
+            />
+            <AppRoute exact path="/loginAdmin" component={Login} />
+          </Loading>
+        </Switch>
+      </ScrollToTop>
+      {/* <NotificationContainer /> */}
     </>
   );
 };

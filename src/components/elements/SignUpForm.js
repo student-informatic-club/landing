@@ -20,10 +20,11 @@ const propTypes = {
   status: PropTypes.bool,
 };
 
+
 // Create create component
 
 function onSubmit(obj) {
-  axios.post('http://localhost:4000/ctv/add', obj)
+  axios.post(`http://localhost:4000/ctv/add`, obj)
   .then(res => console.log(res.data));
 }
 

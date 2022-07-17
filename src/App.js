@@ -13,7 +13,6 @@ import LayoutAdmin from "./layouts/LayoutAdmin";
 import Home from "./views/Home";
 // ADMIN
 // import AdminPage from "./admin/Admin";
-import Login from "./views/Login";
 import login from "./views/Login";
 import "react-notifications/lib/notifications.css";
 import { NotificationContainer } from "react-notifications";
@@ -62,44 +61,48 @@ const App = () => {
   return (
     <>
       <Loading>
-        <ScrollReveal
-          ref={childRef}
-          children={() => (
-            <ScrollToTop>
-              <Switch>
-                <AppRoute
-                  exact
-                  path="/"
-                  component={Home}
-                  layout={LayoutDefault}
-                />
-                <AppRoute
-                  exact
-                  path="/home"
-                  component={Home}
-                  layout={LayoutDefault}
-                />
-                <AppRoute exact path="/event" component={Event} />
-                <AppRoute exact path="/event/:postID" component={EventDetail} />
-                <AppRoute exact path="/blog" component={Blog} />
-                <AppRoute exact path="/blog/:postID" component={BlogDetail} />
-                <AppRoute exact path="/ban-hoc-tap" component={BanHocTap} />
-                <AppRoute exact path="/ban-ky-thuat" component={BanKyThuat} />
-                <AppRoute exact path="/ban-ho-tro" component={BanHoTro} />
-                <AppRoute
-                  exact
-                  path="/ban-truyen-thong"
-                  component={BanTruyenThong}
-                />
-                {history.location.pathname === "/admin" &&
-                  (loginStatus === false || loginStatus === null) &&
-                  history.push("/loginAdmin")}
-                (<AppRoute exact path="/loginAdmin" component={login} />)
-              </Switch>
-            </ScrollToTop>
-          )}
-        />
-        <NotificationContainer />
+        <Provider {...config}>
+          <ScrollReveal
+            ref={childRef}
+            children={() => (
+              <ScrollToTop>
+                <Switch>
+                  <AppRoute
+                    exact
+                    path="/"
+                    component={Home}
+                    layout={LayoutDefault}
+                  />
+                  <AppRoute
+                    exact
+                    path="/home"
+                    component={Home}
+                    layout={LayoutDefault}
+                  />
+                  <AppRoute exact path="/event" component={Event} />
+                  <AppRoute exact path="/event/:postID" component={EventDetail} />
+                  <AppRoute exact path="/blog" component={Blog} />
+                  <AppRoute exact path="/blog/:postID" component={BlogDetail} />
+                  <AppRoute exact path="/ban-hoc-tap" component={BanHocTap} />
+                  <AppRoute exact path="/ban-ky-thuat" component={BanKyThuat} />
+                  <AppRoute exact path="/ban-ho-tro" component={BanHoTro} />
+                  <AppRoute
+                    exact
+                    path="/ban-truyen-thong"
+                    component={BanTruyenThong}
+                  />
+                  {history.location.pathname === "/admin" &&
+                    (loginStatus === false || loginStatus === null) &&
+                    history.push("/loginAdmin")}
+                  (<AppRoute exact path="/loginAdmin" component={login} />)
+                  <AppRoute exact path="/admin/Dashboard" component={Dashboard} layout={LayoutAdmin}/>
+                  <AppRoute exact path="/admin/Quan-tri-vien" component={QTV} layout={LayoutAdmin}/>
+                </Switch>
+              </ScrollToTop>
+            )}
+          />
+          <NotificationContainer />
+        </Provider>
       </Loading>
     </>
   );

@@ -8,15 +8,20 @@ import config from "../../../components/Scanner/config";
 import { STORE_MEMBER } from "../../store/constant";
 //  import icons
 import { MdRemoveCircle } from 'react-icons/md';
-// import { string } from "yup";
+// import backend
+import { getSinhVien, addNewSinhVien, updateSinhVien } from '../../../backend/controllers/sinhvien.controller';
+import { update } from "lodash";
+const sv = require('../../../backend/models/sinhvien.model');
+
 
 const DashboardTab = ({props, indexTab}) => {
+    // let storeMember = [];
     const history = useHistory();
     const DateTime = new Date().toLocaleString([], {hour: '2-digit', minute:'2-digit'});
     const regex = /\n|\r\n|\n\r|\r/gm;
     const getHtml = (data) => data.replace(regex, '');
     const svID = useRef(null);
-    const storeMember = JSON.parse(localStorage.getItem(STORE_MEMBER)) || [];
+    // console.log(storeMember);
     const [name, setName] = useState('');
     const [date, setDate] = useState('');
     const [classes, setClasses] = useState('');
@@ -24,36 +29,34 @@ const DashboardTab = ({props, indexTab}) => {
     const dateRef = useRef(null);
     const classRef = useRef(null);
     const formAddMember = useRef(null);
+    const [data, setData] = useState([])
+    useEffect(() => {
+        getSinhVien().then(res => setData(res.data))
+    }, [data])
     // const [closeForm, setCloseForm] = useState(false);
-    const handleAddNewMember = (obj) => {
-        const newStoreMember = storeMember;
-        newStoreMember.push(obj);
-        localStorage.setItem(STORE_MEMBER, JSON.stringify(newStoreMember));
-    }
+    // const handleAddNewMember = (obj) => {
+    //     const newStoreMember = getSinhVien();
+    //     newStoreMember.push(obj);
+    //     localStorage.setItem(STORE_MEMBER, JSON.stringify(newStoreMember));
+    // }
 
-    const handleAddNOldMember = (id) => {
-        storeMember.map((item) => {
-            return (
-                item.svId.replace('\\n', '') === id && (item.EnterRoom = true)
-            )
-        })
-        localStorage.setItem(STORE_MEMBER, JSON.stringify(storeMember))
-        console.log(id);
-    }
+    // const handleAddNOldMember = (id) => {
+    //     storeMember.map((item) => {
+    //         return (
+    //             item.svId.replace('\\n', '') === id && (item.EnterRoom = true)
+    //         )
+    //     })
+    //     localStorage.setItem(STORE_MEMBER, JSON.stringify(storeMember))
+    //     console.log(id);
+    // }
 
     let existMember;
     const checkSV = (id) => {
-        existMember = storeMember.filter((item) => item.svId === id);
+        existMember = data.filter((item) => item.svId === id);
         return existMember
     }
     const deleteMember = (id) => {
-        storeMember.map((item) => {
-            return (
-                item.svId === id && (item.EnterRoom = false)
-            )
-        })
-        localStorage.setItem(STORE_MEMBER, JSON.stringify(storeMember))
-        console.log(storeMember);
+        
     }
     switch(indexTab) {
         case 1: return (
@@ -88,16 +91,14 @@ const DashboardTab = ({props, indexTab}) => {
                             </div>
                         </div>
                         <div className="group-input">
-                            <button className="confirm-btn" onClick={() => {storeMember.filter((item) => item.svId === props.data).length === 0 ? handleAddNewMember({
+                            <button className="confirm-btn" onClick={() => {addNewSinhVien({
                                 svId: props.data,
                                 name: name,
                                 date: date,
                                 class: classes,
-                                time: DateTime,
-                                EnterRoom: true
-                            }) : handleAddNOldMember(props.data)
+                                enterRoom: true
+                            })
                                 formAddMember.current.style.display = 'none';
-                                history.push('/admin/Dashboard')
                             }}>Xác Nhận</button>
                             <button className="cancel-btn" onClick={() => formAddMember.current.style.display = 'none'}>Hủy Bỏ</button>
                         </div>
@@ -113,28 +114,28 @@ const DashboardTab = ({props, indexTab}) => {
                             <div>Họ Tên</div>
                             <div>Ngày Sinh</div>
                             <div>Lớp</div>
-                            <div>Thời Gian Vào</div>
                             <div>Chức Năng</div>
                         </div>
                         <div className="inner-room-form">
                             <div className="inner-room-main">
-                                {storeMember.filter(item => item.EnterRoom === true).map((item, i) => {
+                                {data.filter(item => item.enterRoom === true).map((item, i) => {
                                     return (
                                         <div className="inner-room-member">
                                             <div>{item.svId}</div>
                                             <div>{item.name}</div>
                                             <div>{item.date}</div>
                                             <div>{item.class}</div>
-                                            <div>{DateTime}</div>
                                             <div>
                                                 <MdRemoveCircle onClick={() => {
-                                                    deleteMember(item.svId)
-                                                    history.push('/admin/Dashboard')
+                                                    updateSinhVien(item._id, {
+                                                        enterRoom: false
+                                                    })
                                                 }}/>
                                             </div>
                                         </div>
                                     )
                                 })}
+                                
                             </div>
                         </div>
                     </div>

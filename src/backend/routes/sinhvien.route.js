@@ -14,15 +14,36 @@ svRoutes.route('/add').post(function (req, res) {
     })
 })
 
-svRoutes.route('/').post(function (req, res) {
-    sinhVien.find(function(err, Ctvs){
+svRoutes.route('/').get(function (req, res) {
+    sinhVien.find(function(err, svs){
         if(err){
             console.log(err);
         }
         else {
-            res.json(Ctvs);
+            res.json(svs);
         }
     });
 })
+
+svRoutes.route('/update/:id').post(function (req, res) {
+    sinhVien.findOneAndUpdate({"_id" : req.params.id}, function(err, sv) {
+        if (!sv)
+            res.status(404).send("data is not found");
+        else {
+            console.log(sv);
+            sv.name = req.name;
+            sv.date = req.date;
+            sv.class = req.class;
+            sv.enterRoom = req.enterRoom;
+            console.log(req);
+            sv.save().then(business => {
+                res.json('Update complete');
+            })
+                .catch(err => {
+                    res.status(400).send("unable to update the database");
+                });
+        }
+    });
+});
 
 module.exports = svRoutes;

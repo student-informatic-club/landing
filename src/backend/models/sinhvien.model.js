@@ -14,10 +14,12 @@ let SinhVien = new Schema({
     class: {
         type: String
     },
-    EnterRoom: {
+    enterRoom: {
         type: Boolean
     }
-}, {collation: "SinhVien"})
+}, {
+    collection: 'SinhVien'
+});
 
 module.exports = mongoose.model('SinhVien', SinhVien);
 

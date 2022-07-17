@@ -26,6 +26,7 @@ import Blog from "./Pages/Article/blog/Blog";
 import Event from "./Pages/Article/events/Event";
 import BlogDetail from "./Pages/Article/blog/BlogDetail";
 import EventDetail from "./Pages/Article/events/EventDetail";
+import CommingSoon from "./components/CommingSoon";
 
 // Admin
 import Dashboard from "./admin/components/Dashboard/index";
@@ -79,6 +80,7 @@ const App = () => {
                     component={Home}
                     layout={LayoutDefault}
                   />
+                  <AppRoute exact path="/us" component={CommingSoon} layout={LayoutDefault} />
                   <AppRoute exact path="/event" component={Event} />
                   <AppRoute
                     exact

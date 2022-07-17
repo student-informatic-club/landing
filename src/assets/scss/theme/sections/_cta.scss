@@ -25,7 +25,8 @@ input {
   position: relative !important;
   .errorMessage {
     position: absolute;
-    bottom: -5px;
+    bottom: -15px;
+    color: red;
   }
   textarea {
     padding: 11px 15px;

@@ -33,7 +33,7 @@ function Comment({ url }) {
       data-href={url}
       data-width="100%"
       data-numposts="5"
-    ></div>
+      ></div>
   );
 }
 

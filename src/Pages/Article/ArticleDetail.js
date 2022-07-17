@@ -46,7 +46,9 @@ const ArticleDetail = ({ type }) => {
             )}
             <LikeAndShare url={urlPost}></LikeAndShare>
             {/* <LoginFacebook></LoginFacebook> */}
-            <Comment url={urlPost}></Comment>
+            <div className="form-comment">
+              <Comment url={urlPost}></Comment>
+            </div>
           </div>
           <div className="article-right">
             <div className="article-info">

@@ -36,6 +36,7 @@ const Login = () => {
                             }, 500);
                         }else {
                             createNotification('error', 'Lỗi Đăng Nhập')
+                            alert('Sai tài khoản hoặc mật khẩu !')
                         }
                     }}
                 >

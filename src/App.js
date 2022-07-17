@@ -99,8 +99,8 @@ const App = () => {
                   />
                   {history.location.pathname === "/admin" &&
                     (loginStatus === false || loginStatus === null) &&
-                    history.push("/loginAdmin")}
-                  (<AppRoute exact path="/loginAdmin" component={login} />)
+                    history.push("/loginAdmin") }
+                  <AppRoute exact path="/loginAdmin" component={login} />
                   <AppRoute
                     exact
                     path="/admin/Dashboard"

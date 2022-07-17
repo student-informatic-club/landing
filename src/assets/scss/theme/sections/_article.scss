@@ -14,9 +14,6 @@
     width: 100%;
     margin-bottom: 32px;
   }
-  .form-comment {
-    background-color: #fff;
-  }
 }
 .article-img {
   width: 100%;
@@ -255,11 +252,9 @@
     }
   }
 }
-.article-comment{
-  margin:10px 0 20px;
-}
-textarea {
-  resize:none;
+.form-comment {
+  background-color: rgb(255, 255, 255) !important;
+  margin-top:10px;
 }
 ::placeholder {
   color: #fff !important;

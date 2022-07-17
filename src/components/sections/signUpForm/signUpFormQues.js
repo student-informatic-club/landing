@@ -4,7 +4,7 @@ import { MdLocationOn } from "react-icons/md";
 const textMainBase = {
   // Định dạng mẫu: 2022-12-24T00:00:00, input dạng chuỗi 2 kí tự 2=>02
     title: <h3>BECOME OUR TEAMMATE</h3>,
-    dayEnd: '02',
+    dayEnd: '30',
     monthEnd: '07',
     yearEnd: '2022',
     messageTitle: 'Mong muốn của bạn khi vào CLB'
@@ -47,16 +47,11 @@ const basicQues = [
     quesTitle: "Lớp",
     quesExample: "63CNTT01",
   },
-]
+];
 
 const chooseQues = {
   quesTitle: "Bạn muốn đăng kí vào (những) ban nào?",
   quesName: "answer",
-  ans: [
-    "Ban truyền thông",
-    "Ban học tập",
-    "Ban kỹ thuật",
-    "Ban hỗ trợ",
-  ],
-}
+  ans: ["Ban truyền thông", "Ban học tập", "Ban kỹ thuật", "Ban hỗ trợ"],
+};
 export { infoContact, textMainBase, basicQues, chooseQues };

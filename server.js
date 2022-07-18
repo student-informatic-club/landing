@@ -7,8 +7,9 @@ const mongoose = require('mongoose');
 const config = require('./db.config');
 const ctvRoute = require('./src/backend/routes/ctv.route');
 const svRoute = require('./src/backend/routes/sinhvien.route');
+const url = process.env.MONGODB_URL;
 mongoose.Promise = global.Promise;
-mongoose.connect(config.url, { useNewUrlParser: true }).then(
+mongoose.connect(url, { useNewUrlParser: true }).then(
   () => {console.log('Database is connected') },
   err => { console.log('Can not connect to the database'+ err)}
 );

@@ -25,7 +25,7 @@ const propTypes = {
 // Create create component
 
 function onSubmit(obj) {
-  axios.post(`http://localhost:3000/ctv/add`, obj)
+  axios.post(`http://localhost:4000/ctv/add`, obj)
   .then((res) => {
     if(res.status === 200) {
       createNotification('success' , 'Đã Đăng Ký CTV Thành Công')

@@ -10,7 +10,6 @@ import { STORE_MEMBER } from "../../store/constant";
 import { MdRemoveCircle } from 'react-icons/md';
 // import backend
 import { getSinhVien, addNewSinhVien, updateSinhVien } from '../../../backend/controllers/sinhvien.controller';
-import { update } from "lodash";
 const sv = require('../../../backend/models/sinhvien.model');
 
 
@@ -169,7 +168,6 @@ const Dashboard = (props) => {
                             tabDashboard.map((it) => it.id === item.id ? it.status = true : it.status = false)
                             AdminDashboard.setState({dashboard: tabDashboard})
                             setIndexTab(item.id)
-                            history.push("/admin/Dashboard")
                         }}>
                             <span>{item.name}</span>
                         </div>

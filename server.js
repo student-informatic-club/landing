@@ -1,15 +1,15 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const PORT = 3000;
+const PORT = process.env.PORT;
 const cors = require('cors');
 const mongoose = require('mongoose');
 const config = require('./db.config');
 const ctvRoute = require('./src/backend/routes/ctv.route');
 const svRoute = require('./src/backend/routes/sinhvien.route');
-const url = process.env.MONGODB_URL;
 mongoose.Promise = global.Promise;
-mongoose.connect(url, { useNewUrlParser: true }).then(
+mongoose.connect(config.url, { useNewUrlParser: true }).then(
   () => {console.log('Database is connected') },
   err => { console.log('Can not connect to the database'+ err)}
 );

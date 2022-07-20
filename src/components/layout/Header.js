@@ -9,7 +9,6 @@ import MessengerCustomerChat from "react-messenger-customer-chat";
 import DropDown from "../elements/dropdown";
 import { VscTriangleDown } from "react-icons/vsc";
 
-
 const propTypes = {
   Nav: PropTypes.array,
   navPosition: PropTypes.string,
@@ -48,11 +47,19 @@ const Header = ({
   const hamburger = useRef(null);
   useEffect(() => {
     isActive && openMenu();
-    document.querySelector('.header-nav-toggle').addEventListener("keydown", keyPress);
-    document.querySelector('.header-nav-toggle').addEventListener("click", clickOutside);
+    document
+      .querySelector(".header-nav-toggle")
+      .addEventListener("keydown", keyPress);
+    document
+      .querySelector(".header-nav-toggle")
+      .addEventListener("click", clickOutside);
     return () => {
-      document.querySelector('.header-nav-toggle').removeEventListener("keydown", keyPress);
-      document.querySelector('.header-nav-toggle').removeEventListener("click", clickOutside);
+      document
+        .querySelector(".header-nav-toggle")
+        .removeEventListener("keydown", keyPress);
+      document
+        .querySelector(".header-nav-toggle")
+        .removeEventListener("click", clickOutside);
       closeMenu();
     };
   }, []);
@@ -90,6 +97,7 @@ const Header = ({
     scroll && "scroll",
     className
   );
+
 
   return (
     <header {...props} className={classes}>
@@ -150,7 +158,7 @@ const Header = ({
                                 className={({ isActive }) =>
                                   isActive ? "active" : ""
                                 }
-                                to={navLink.href ? navLink.href : ""}
+                                to={navLink?.href ? navLink?.href : ""}
                                 exact={true}
                               >
                                 {navLink.name}
@@ -159,8 +167,6 @@ const Header = ({
                           </li>
                         );
                       })}
-
-                    
                   </ul>
                 </div>
               </nav>

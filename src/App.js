@@ -66,7 +66,7 @@ const App = () => {
           <ScrollReveal
             ref={childRef}
             children={() => (
-              <ScrollToTop>
+              // <ScrollToTop>
                 <Switch>
                   <AppRoute
                     exact
@@ -80,7 +80,7 @@ const App = () => {
                     component={Home}
                     layout={LayoutDefault}
                   />
-                  <AppRoute exact path="/us" component={CommingSoon} layout={LayoutDefault} />
+                  {/* <AppRoute exact path="/us" component={CommingSoon} layout={LayoutDefault} /> */}
                   <AppRoute exact path="/event" component={Event} />
                   <AppRoute
                     exact
@@ -114,7 +114,7 @@ const App = () => {
                     layout={LayoutAdmin}
                   />
                 </Switch>
-              </ScrollToTop>
+              /* </ScrollToTop> */
             )}
           />
         </Provider>

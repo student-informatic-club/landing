@@ -49,9 +49,6 @@
     "eject": "react-scripts eject",
     "server": "nodemon --inspect ./server.js"
   },
-  "engines": {
-    "node": "16.15.1"
-  },
   "eslintConfig": {
     "extends": "react-app"
   },

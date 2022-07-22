@@ -50,10 +50,10 @@ const App = () => {
   const childRef = useRef();
   let location = useLocation();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const page = location.pathname;
     // document.body.classList.add("is-loaded");
-    childRef.current.init();
+    childRef && childRef.current.init();
     trackPage(page);
   }, [location]);
   let history = useHistory();

@@ -10,6 +10,7 @@ import { STORE_MEMBER } from "../../store/constant";
 import { MdRemoveCircle } from 'react-icons/md';
 // import backend
 import { getSinhVien, addNewSinhVien, updateSinhVien } from '../../../backend/controllers/sinhvien.controller';
+import DashboardCtv from "./Tabs/DashboardCtv";
 const sv = require('../../../backend/models/sinhvien.model');
 
 
@@ -29,9 +30,9 @@ const DashboardTab = ({props, indexTab}) => {
     const classRef = useRef(null);
     const formAddMember = useRef(null);
     const [data, setData] = useState([])
-    useEffect(() => {
-        getSinhVien().then(res => setData(res.data))
-    }, [data])
+    // useEffect(() => {
+        
+    // }, [data])
     // const [closeForm, setCloseForm] = useState(false);
     // const handleAddNewMember = (obj) => {
     //     const newStoreMember = getSinhVien();
@@ -142,7 +143,7 @@ const DashboardTab = ({props, indexTab}) => {
             </div>
         )
         case 2: return (
-            <div>2</div>
+            <DashboardCtv/>
         )
         case 3: return (
             <div>3</div>

@@ -11,10 +11,22 @@ import { MdRemoveCircle } from 'react-icons/md';
 // import backend
 import { getSinhVien, addNewSinhVien, updateSinhVien } from '../../../backend/controllers/sinhvien.controller';
 import DashboardCtv from "./Tabs/DashboardCtv";
+import {collection, query, orderBy, onSnapshot} from "firebase/firestore"
+import db from '../../../db.config';
+import { Button } from "@mui/material";
 const sv = require('../../../backend/models/sinhvien.model');
 
 
+let ctvData;
 const DashboardTab = ({props, indexTab}) => {
+    async function getData() {
+        const q = query(collection(db, 'ctv'), orderBy('createAt'))
+        onSnapshot(q, (querySnapshot) => {
+            ctvData = querySnapshot.docs.map(doc => (
+                {...doc.data(), id: doc.id}
+            ))
+        })
+    }
     // let storeMember = [];
     const history = useHistory();
     const DateTime = new Date().toLocaleString([], {hour: '2-digit', minute:'2-digit'});
@@ -30,6 +42,8 @@ const DashboardTab = ({props, indexTab}) => {
     const classRef = useRef(null);
     const formAddMember = useRef(null);
     const [data, setData] = useState([])
+    const [refresh, setRefresh] = useState(false);
+    const [ctvdata, setCtvData] = useState([])
     // useEffect(() => {
         
     // }, [data])
@@ -49,6 +63,9 @@ const DashboardTab = ({props, indexTab}) => {
     //     localStorage.setItem(STORE_MEMBER, JSON.stringify(storeMember))
     //     console.log(id);
     // }
+    useEffect(() => {
+        getData().then(() => {setCtvData(ctvData)})
+    }, [refresh])
 
     let existMember;
     const checkSV = (id) => {
@@ -143,7 +160,10 @@ const DashboardTab = ({props, indexTab}) => {
             </div>
         )
         case 2: return (
-            <DashboardCtv/>
+            <>
+                <Button variant="contained" sx={{marginBottom: '10px'}} onClick={() => setRefresh(!refresh)}>Refresh</Button>
+                <DashboardCtv Data={ctvdata}/>
+            </>
         )
         case 3: return (
             <div>3</div>
@@ -158,8 +178,10 @@ const DashboardTab = ({props, indexTab}) => {
 
 const Dashboard = (props) => {
     const tabDashboard = AdminDashboard((state) => state.dashboard)
-    const [indexTab, setIndexTab] = useState(1);
+    const currentTab = AdminDashboard((state) => state.currentTab)
+    const [indexTab, setIndexTab] = useState(currentTab);
     const history = useHistory();
+    console.log(indexTab);
     return (
         <section>
             <div className="select-options">
@@ -168,6 +190,7 @@ const Dashboard = (props) => {
                         <div className={item.status ? 'option option--active' : 'option'} key={i} onClick={() => {
                             tabDashboard.map((it) => it.id === item.id ? it.status = true : it.status = false)
                             AdminDashboard.setState({dashboard: tabDashboard})
+                            AdminDashboard.setState({currentTab: item.id})
                             setIndexTab(item.id)
                         }}>
                             <span>{item.name}</span>

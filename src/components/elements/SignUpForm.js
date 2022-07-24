@@ -17,7 +17,8 @@ import { AiFillCloseCircle } from "react-icons/ai";
 import axios from "axios";
 import createNotification from "./Nofication";
 import db from '../../db.config';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+// import { Timestamp } from "mongodb";
 const propTypes = {
   ...SectionProps.types,
   status: PropTypes.bool,
@@ -158,7 +159,7 @@ const SignUpForm = ({
                 class: Yup.string().required("Vui Lòng Điền Trường Này"),
               })}
               onSubmit={(values) => {
-                handleSubmit(values);
+                handleSubmit({...values, createAt: serverTimestamp()});
                 props.stateFunc();
               }}
             >

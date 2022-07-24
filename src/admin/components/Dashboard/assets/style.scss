@@ -137,3 +137,25 @@
         }
     }
 }
+
+.tableData {
+    border: 1px solid #6163FF;
+    border-radius: 8px;
+    border-collapse: separate;
+    text-align: center;
+    thead {
+        tr {
+            background-color: #6163FF;
+            border: 1px solid #6163FF;
+            border-radius: 8px;
+        }
+        th {
+            text-align: center;
+        }
+        color: #fff;
+    }
+    tbody {
+        padding: 15px;
+    }
+    height: 70vh;
+}

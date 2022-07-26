@@ -31,7 +31,7 @@ import CommingSoon from "./components/CommingSoon";
 // Admin
 import Dashboard from "./admin/components/Dashboard/index";
 import QTV from "./admin/components/QuanTriVien/index";
-// import Blog from "./admin/components/Blog";
+import BlogAdmin from "./admin/components/Blog";
 // import Event from "./admin/components/Events";
 
 import { Provider } from "react-redux";
@@ -111,6 +111,12 @@ const App = () => {
                     exact
                     path="/admin/Quan-tri-vien"
                     component={QTV}
+                    layout={LayoutAdmin}
+                  />
+                  <AppRoute
+                    exact
+                    path="/admin/Blog"
+                    component={BlogAdmin}
                     layout={LayoutAdmin}
                   />
                 </Switch>

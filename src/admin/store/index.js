@@ -23,11 +23,7 @@ export const AdminDashboard = create((set, get) => ({
         {name: 'Quản Lý Sự Kiện', status: false, id: 3},
         {name: 'Quản Lý Bài Viết', status: false, id: 4},
     ],
-    tabs : [
-        {id: 1, tab: [
-            
-        ]}
-    ]
+    currentTab: 1
 }))
 
 export default Store

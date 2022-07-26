@@ -16,6 +16,9 @@ import {
 import { AiFillCloseCircle } from "react-icons/ai";
 import axios from "axios";
 import createNotification from "./Nofication";
+import db from '../../db.config';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+// import { Timestamp } from "mongodb";
 const propTypes = {
   ...SectionProps.types,
   status: PropTypes.bool,
@@ -24,17 +27,15 @@ const propTypes = {
 
 // Create create component
 
-function onSubmit(obj) {
-  axios.post(`http://localhost:3000/ctv/add`, obj)
-  .then((res) => {
-    if(res.status === 200) {
-      createNotification('success' , 'Đã Đăng Ký CTV Thành Công')
-    }else {
-      createNotification('error' , 'Lỗi Đăng Ký')
-    }
-    console.log(res.data)
-  })
-  .catch(err => console.log(err));
+const handleSubmit = async (obj) => {
+  try {
+    await addDoc(collection(db, 'ctv'), obj)
+    createNotification('success', 'Đã Đăng Ký Thành Công');
+  }
+  catch (err){
+    createNotification('error', 'Có Lỗi Xảy Ra Khi Đăng Ký');
+    console.log(err);
+  }
 }
 
 function formatText(num) {
@@ -158,7 +159,7 @@ const SignUpForm = ({
                 class: Yup.string().required("Vui Lòng Điền Trường Này"),
               })}
               onSubmit={(values) => {
-                onSubmit(values);
+                handleSubmit({...values, createAt: serverTimestamp()});
                 props.stateFunc();
               }}
             >

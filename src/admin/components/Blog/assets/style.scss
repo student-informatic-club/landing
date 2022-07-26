@@ -1,0 +1,54 @@
+.article_create_close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: 0.3s linear;
+  &:hover {
+    color: #000;
+  }
+}
+.article_create {
+  padding: 40px 0;
+  position: absolute;
+  inset: 0;
+  background-color: #fff;
+  .article_name_tag {
+    color: #000;
+  }
+  .input {
+    padding: 10px;
+  }
+  .article_name_tag_group {
+    display: flex;
+    align-items: center;
+    height: 60%;
+    // padding-bottom: 10px;
+    // justify-content: center;
+    label {
+      //   flex:1;
+      display: flex;
+      align-items: center;
+
+      padding-right: 20px;
+    }
+  }
+}
+.group_article {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.article_admin_list_option {
+  cursor: pointer;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+
+  .article_admin_option {
+    &.delete {
+      color: rgb(182, 12, 12);
+    }
+  }
+}

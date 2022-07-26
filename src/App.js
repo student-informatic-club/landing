@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useLayoutEffect } from "react";
 import { useLocation, Switch, useHistory } from "react-router-dom";
 import AppRoute from "./utils/AppRoute";
 import ScrollReveal from "./utils/ScrollReveal";
@@ -53,7 +53,7 @@ const App = () => {
   useEffect(() => {
     const page = location.pathname;
     // document.body.classList.add("is-loaded");
-    childRef.current.init();
+    childRef && childRef.current.init();
     trackPage(page);
   }, [location]);
   let history = useHistory();
@@ -123,6 +123,7 @@ const App = () => {
               /* </ScrollToTop> */
             )}
           />
+          <NotificationContainer/>
         </Provider>
       </Loading>
     </>

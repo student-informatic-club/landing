@@ -7,25 +7,24 @@ import { Button } from "@mui/material";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import createNotification from "../../../components/elements/Nofication";
 import db from "../../../db.config";
-import { projectManagement } from "firebase-admin";
 
 const handleSubmit = async (obj) => {
-  //   console.log(obj);
-  // try {
-  //   const collectionRef = collection(db, "article");
-  //   await addDoc(collectionRef, {
-  //     title: obj.title,
-  //     shortDes: obj.shortDes,
-  //     categorize: obj.categorize,
-  //     text: obj.text,
-  //     tags: obj.tags,
-  //     createdAt: serverTimestamp(),
-  //   });
-  //   createNotification("success", "Tạo thành công");
-  // } catch (err) {
-  //   createNotification("error", "Tạo thất bại");
-  //   console.log(err);
-  // }
+    console.log(obj);
+  try {
+    const collectionRef = collection(db, "article");
+    await addDoc(collectionRef, {
+      title: obj.title,
+      shortDes: obj.shortDes,
+      categorize: obj.categorize,
+      text: obj.text,
+      tags: obj.tags,
+      createdAt: serverTimestamp(),
+    });
+    createNotification("success", "Tạo thành công");
+  } catch (err) {
+    createNotification("error", "Tạo thất bại");
+    console.log(err);
+  }
 };
 // const GetPhoto = () => {
 //   const [photo, setPhoto] = useState();

@@ -7,6 +7,11 @@
   }
   .input {
     padding: 10px;
+    margin:10px 0;
+    border: 1px solid #ccc;
+    &.file{
+      border:none
+    }
   }
   .article_name_tag_group {
     display: flex;
@@ -17,6 +22,10 @@
       align-items: center;
       padding-right: 20px;
     }
+  }
+  .article_image_preview{
+    display: flex;
+    justify-content: center;
   }
 }
 .article_create_close {
@@ -30,12 +39,16 @@
     color: #000;
   }
 }
-.article_create {
+.article_create,
+.article_detail,
+.article_update {
   padding: 40px 20px;
   position: absolute;
   inset: 0;
   background-color: #fff;
+  overflow-y: auto;
 }
+
 .group_article {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -53,10 +66,6 @@
   }
 }
 .article_detail {
-  padding: 40px 20px;
-  position: absolute;
-  inset: 0;
-  background-color: #fff;
   .title {
     color: #000;
     font-size: 20px;
@@ -67,9 +76,9 @@
     font-size: 18px;
   }
 }
-.article_update {
-  padding: 40px 20px;
-  position: absolute;
-  inset: 0;
-  background-color: #fff;
+.ql-editor {
+  min-height: 150px !important; 
+}
+.ql-editor{
+  background-color: var(--bg-nav-scroll) !important;
 }

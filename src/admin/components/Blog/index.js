@@ -33,7 +33,7 @@ const BlogAdmin = () => {
         console.log(err);
       });
   }, []);
-
+  
   return <ListArticle data={article}></ListArticle>;
 };
 

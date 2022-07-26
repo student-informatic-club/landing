@@ -19,7 +19,6 @@ import { deleteDoc, doc } from "firebase/firestore";
 import createNotification from "../../../components/elements/Nofication";
 import db from "../../../db.config";
 const ListArticle = ({ data }) => {
-  console.log(data);
   // Article List Data from firebase
   const [article, setArticle] = useState([]);
 
@@ -36,8 +35,10 @@ const ListArticle = ({ data }) => {
   const [post, setPost] = useState();
 
   useEffect(() => {
-    setArticle(data);
-  }, []);
+    if (data && data.length > 0) {
+      setArticle(data);
+    }
+  }, [data]);
 
   async function handleDeleteArticle(id) {
     const deleteData = doc(db, "article", id);
@@ -123,35 +124,36 @@ const ListArticle = ({ data }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {article.length > 0 &&
-              article?.map((row, index) => {
-                return (
-                  <TableRow
-                    key={row.id}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell align="center">{index + 1}</TableCell>
-                    <TableCell align="center">{row.title}</TableCell>
-                    <TableCell align="center">{row.categorize}</TableCell>
-                    <TableCell align="center">
-                      <div className="article_admin_list_option">
-                        <AiFillDelete
-                          className="article_admin_option delete"
-                          onClick={() => handleDeleteArticle(row.id)}
-                        ></AiFillDelete>
-                        <BiDetail
-                          className="article_admin_option"
-                          onClick={() => handleShowDetail(row)}
-                        ></BiDetail>
-                        <BsFillPenFill
-                          className="article_admin_option"
-                          onClick={() => handleUpdate(row)}
-                        ></BsFillPenFill>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
+            {article
+              ? article.map((row, index) => {
+                  return (
+                    <TableRow
+                      key={row.id}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell align="center">{index + 1}</TableCell>
+                      <TableCell align="center">{row.title}</TableCell>
+                      <TableCell align="center">{row.categorize}</TableCell>
+                      <TableCell align="center">
+                        <div className="article_admin_list_option">
+                          <AiFillDelete
+                            className="article_admin_option delete"
+                            onClick={() => handleDeleteArticle(row.id)}
+                          ></AiFillDelete>
+                          <BiDetail
+                            className="article_admin_option"
+                            onClick={() => handleShowDetail(row)}
+                          ></BiDetail>
+                          <BsFillPenFill
+                            className="article_admin_option"
+                            onClick={() => handleUpdate(row)}
+                          ></BsFillPenFill>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })
+              : ""}
           </TableBody>
         </Table>
       </TableContainer>

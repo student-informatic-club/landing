@@ -1,70 +1,55 @@
+// const handleUpdatePost = async (e) => {
+//     e.preventDefault();
+//     const updateData = doc(db, "posts", postId);
+//     await updateDoc(updateData, {
+//       title: updateTitle,
+//     });
+//   };
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { Button } from "@mui/material";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import {
+  serverTimestamp,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 import createNotification from "../../../components/elements/Nofication";
 import db from "../../../db.config";
+const UpdateArticle = ({ post }) => {
+  const [postId, setPostId] = useState();
+  useEffect(() => {
+    setPostId(post.id);
+  }, []);
+  const handleSubmit = async (obj) => {
+    try {
+      const updateData = doc(db, "article", postId);
+      await updateDoc(updateData, obj);
+      createNotification("success", "Cập nhật thành công");
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    } catch (err) {
+      createNotification("error", "Cập nhật thất bại");
+      console.log(err);
+    }
+  };
 
-const handleSubmit = async (obj) => {
-  try {
-    const collectionRef = collection(db, "article");
-    await addDoc(collectionRef, {
-      title: obj.title,
-      shortDes: obj.shortDes,
-      categorize: obj.categorize,
-      text: obj.text,
-      tags: obj.tags,
-      createdAt: serverTimestamp(),
-    });
-    createNotification("success", "Tạo thành công");
-  } catch (err) {
-    createNotification("error", "Tạo thất bại");
-    console.log(err);
-  }
-};
-// const GetPhoto = () => {
-//   const [photo, setPhoto] = useState();
-//   function handlePreviewPhoto(e) {
-//     const file = e.target.files[0];
-//     file.preview = URL.createObjectURL(file);
-//     setPhoto(file);
-//   }
-//   useEffect(() => {
-//     return () => {
-//       photo && URL.revokeObjectURL(photo.preview);
-//     };
-//   }, [photo]);
-//   return (
-//     <div>
-//       <>
-//         <input type="file" onChange={handlePreviewPhoto} />
-//       </>
-//     </div>
-//   );
-// };
-
-const CreateArticle = () => {
   return (
     <div>
       <Formik
         initialValues={{
-          title: "",
-          shortDes: "",
-          categorize: "",
-          text: "",
-          tags: "",
+          title: post.title || "",
+          shortDes: post.shortDes || "",
+          categorize: post.categorize || "",
+          text: post.text || "",
+          tags: post.tags || "",
           //   image: "",
         }}
         onSubmit={(values) => {
-          handleSubmit({ ...values, createAt: serverTimestamp() });
-          // stateFunc(false);
-          setTimeout(() => {
-            window.location.reload();
-          }, 2000);
-          // console.log(values);
+          handleSubmit({ ...values, updatedAt: serverTimestamp() });
         }}
       >
         {({ errors, touched, setFieldValue }) => {
@@ -138,7 +123,7 @@ const CreateArticle = () => {
                 variant="contained"
                 sx={{ marginBottom: "10px" }}
               >
-                Create
+                Update
               </Button>
             </Form>
           );
@@ -148,4 +133,4 @@ const CreateArticle = () => {
   );
 };
 
-export default CreateArticle;
+export default UpdateArticle;

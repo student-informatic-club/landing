@@ -49,17 +49,6 @@ function TextureGroup() {
   );
 }
 
-// function TextureGroup() {
-//   return (
-//     <>
-//       <Circle rad={80} top={100} left={-34}></Circle>
-//       <Circle rad={30} top={300} right={150} fill="#f26031"></Circle>
-//       <Circle rad={60} top={70} right={50} fill="none"></Circle>
-//       <Rectangle fill="none" top={70} left={35} h={30}></Rectangle>
-//       <Polyline edge={60} top={108} left={-1}></Polyline>
-//     </>
-//   );
-// }
 const Ban = ({ children, theme, className }) => {
   const opts = {
     dots: false,

@@ -31,7 +31,7 @@ import CommingSoon from "./components/CommingSoon";
 // Admin
 import Dashboard from "./admin/components/Dashboard/index";
 import QTV from "./admin/components/QuanTriVien/index";
-// import Blog from "./admin/components/Blog";
+import BlogAdmin from "./admin/components/Blog";
 // import Event from "./admin/components/Events";
 
 import { Provider } from "react-redux";
@@ -66,7 +66,7 @@ const App = () => {
           <ScrollReveal
             ref={childRef}
             children={() => (
-              <ScrollToTop>
+              // <ScrollToTop>
                 <Switch>
                   <AppRoute
                     exact
@@ -80,7 +80,7 @@ const App = () => {
                     component={Home}
                     layout={LayoutDefault}
                   />
-                  <AppRoute exact path="/us" component={CommingSoon} layout={LayoutDefault} />
+                  {/* <AppRoute exact path="/us" component={CommingSoon} layout={LayoutDefault} /> */}
                   <AppRoute exact path="/event" component={Event} />
                   <AppRoute
                     exact
@@ -113,8 +113,14 @@ const App = () => {
                     component={QTV}
                     layout={LayoutAdmin}
                   />
+                  <AppRoute
+                    exact
+                    path="/admin/Blog"
+                    component={BlogAdmin}
+                    layout={LayoutAdmin}
+                  />
                 </Switch>
-              </ScrollToTop>
+              /* </ScrollToTop> */
             )}
           />
           <NotificationContainer/>

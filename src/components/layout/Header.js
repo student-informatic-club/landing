@@ -2,13 +2,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import Logo from "./partials/Logo";
 import MessengerCustomerChat from "react-messenger-customer-chat";
 import DropDown from "../elements/dropdown";
 import { VscTriangleDown } from "react-icons/vsc";
-
 
 const propTypes = {
   Nav: PropTypes.array,
@@ -43,16 +42,30 @@ const Header = ({
 }) => {
   const [isActive, setIsactive] = useState(false);
   let history = useHistory();
+  let location = useLocation()
+  useEffect(() => {
+    if(location.hash === '#about-us') {
+      scrollTarget('about-us')
+    }
+  }, [location])
 
   const nav = useRef(null);
   const hamburger = useRef(null);
   useEffect(() => {
     isActive && openMenu();
-    document.querySelector('.header-nav-toggle').addEventListener("keydown", keyPress);
-    document.querySelector('.header-nav-toggle').addEventListener("click", clickOutside);
+    document
+      .querySelector(".header-nav-toggle")
+      .addEventListener("keydown", keyPress);
+    document
+      .querySelector(".header-nav-toggle")
+      .addEventListener("click", clickOutside);
     return () => {
-      document.querySelector('.header-nav-toggle').removeEventListener("keydown", keyPress);
-      document.querySelector('.header-nav-toggle').removeEventListener("click", clickOutside);
+      document
+        .querySelector(".header-nav-toggle")
+        .removeEventListener("keydown", keyPress);
+      document
+        .querySelector(".header-nav-toggle")
+        .removeEventListener("click", clickOutside);
       closeMenu();
     };
   }, []);
@@ -90,6 +103,20 @@ const Header = ({
     scroll && "scroll",
     className
   );
+
+  const scrollTarget = (id) => {
+    const elem = document.getElementById(id)
+    let pos = elem.offsetTop
+    window.scrollTo({
+      top: pos-100,
+      behavior: "smooth"
+    })
+  }
+
+
+  const scrollToElement = (id) => {
+    scrollTarget(id)
+  }
 
   return (
     <header {...props} className={classes}>
@@ -146,21 +173,31 @@ const Header = ({
                                 <DropDown children={navLink.dropdown} />
                               </>
                             ) : (
-                              <NavLink
-                                className={({ isActive }) =>
-                                  isActive ? "active" : ""
-                                }
-                                to={navLink.href ? navLink.href : ""}
-                                exact={true}
-                              >
-                                {navLink.name}
-                              </NavLink>
+                              <>
+                                {navLink.href !== '/us' ? (
+                                  <NavLink
+                                    className={({ isActive }) =>
+                                      isActive ? "active" : ""
+                                    }
+                                    to={navLink.href ? navLink.href : ""}
+                                    exact={true}
+                                  >
+                                    {navLink.name}
+                                  </NavLink>
+                                ) : (
+                                  <>
+                                    {location.pathname === '/' ? (
+                                      <a href='javascript:void(0)' onClick={() => scrollToElement('about-us')}>{navLink.name}</a>
+                                    ) : (
+                                      <Link to='/#about-us'>{navLink.name}</Link>
+                                    )}
+                                  </>
+                                )}
+                              </>
                             )}
                           </li>
                         );
                       })}
-
-                    
                   </ul>
                 </div>
               </nav>

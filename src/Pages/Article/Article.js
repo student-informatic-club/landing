@@ -1,38 +1,45 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
 import Cta from "../../components/sections/Cta";
 import navLinks from "../../components/layout/partials/HeaderNav";
-import { eventsData } from "../../components/sections/event/eventsData";
-import { blogData } from "../../components/sections/blog/blogData";
 import Slider from "react-slick";
 import { MdOutlineDoubleArrow } from "react-icons/md";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
+import db from "../../db.config";
+import { handleChangeSeconsToDate } from "../../utils/ConvertSecondToDate";
 
 // FOR BLOG AND EVENT PAGE
 
 const Article = ({ type, title }) => {
-  const articleData = type === "event" ? eventsData : blogData;
-  let initialCurrent =
-    articleData.length > 6 ? articleData.length - 6 : articleData.length;
-  const [articleCurrent, setArticleCurrent] = useState(initialCurrent);
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    type = type.charAt(0).toUpperCase() + type.slice(1);
+    const collectionRef = collection(db, "article");
+    const q = query(collectionRef, where("categorize", "==", type));
+    onSnapshot(q, (snapshot) => {
+      let posts = [];
+      snapshot.docs.forEach((doc) => {
+        posts.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+      posts.sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1));
+      setData(posts);
+
+      console.log(posts[0].createdAt.seconds);
+    });
+  }, []);
+
+  // Search
   const [searchValue, setSearchValue] = useState("");
   const handleSearch = (e) => {
     setSearchValue(e.target.value);
   };
-  const loadMore = () => {
-    if (articleCurrent > 3) {
-      setArticleCurrent(articleCurrent - 3);
-    } else {
-      setArticleCurrent(0);
-    }
-  };
-
-  const sliceArticle =
-    articleData.length > 6
-      ? articleData.slice(articleCurrent, articleData.length)
-      : articleData;
+  //
 
   const classes = classNames(`Article_section`);
 
@@ -58,27 +65,24 @@ const Article = ({ type, title }) => {
           <div className="container">
             <h2 className="text-center">{title}</h2>
             <Slider {...settings} ref={slider}>
-              {articleData
-                ?.map((item) => (
-                  <div className="article-slider" key={item.id}>
-                    <img
-                      src={require(`../../assets/images/${type}/${item.image}`)}
-                      alt=""
-                    />
-                    <div className="slider-content">
-                      <h2>{item.title}</h2>
-                      <p>{item.overview}</p>
+              {data && data.length > 0
+                ? data?.map((item) => (
+                    <div className="article-slider" key={item.id}>
+                      <img src={item.image} alt="" />
+                      <div className="slider-content">
+                        <h2>{item.title}</h2>
+                        <p>{item.shortDes}</p>
 
-                      <Link
-                        className="button button-primary button-sm"
-                        to={(location) => `/${type}/${item.id}`}
-                      >
-                        Xem thêm
-                      </Link>
+                        <Link
+                          className="button button-primary button-sm"
+                          to={(location) => `/${type}/${item.id}`}
+                        >
+                          Xem thêm
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                ))
-                .reverse()}
+                  ))
+                : ""}
             </Slider>
             <div className="slider-controls">
               <div
@@ -115,64 +119,67 @@ const Article = ({ type, title }) => {
               </form>
             </div>
             <div className="article-lists">
-              {sliceArticle
-                .filter((value) => {
-                  if (searchValue === "") {
-                    return value;
-                  } else if (
-                    value.title
-                      .toLowerCase()
-                      .includes(searchValue.toLowerCase())
-                  ) {
-                    return value;
-                  }
-                })
-                .map((article) => (
-                  <div className="article-item" key={article.id}>
-                    <div className="container">
-                      <div className="article-main-img">
-                        <img
-                          src={require(`../../assets/images/${type}/${article.image}`)}
-                          alt=""
-                        />
+              {data && data.length > 0
+                ? data
+                    .filter((value) => {
+                      if (searchValue === "") {
+                        return value;
+                      } else if (
+                        value.title
+                          .toLowerCase()
+                          .includes(searchValue.toLowerCase())
+                      ) {
+                        return value;
+                      }
+                    })
+                    .map((article) => (
+                      <div className="article-item" key={article.id}>
+                        <div className="container">
+                          <div className="article-main-img">
+                            <img src={article.image} alt="" />
+                          </div>
+                          <div className="article-main-content">
+                            <h4 className="article-title">{article.title}</h4>
+                            <span className="article-time">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 448 512"
+                              >
+                                <path d="M160 32V64H288V32C288 14.33 302.3 0 320 0C337.7 0 352 14.33 352 32V64H400C426.5 64 448 85.49 448 112V160H0V112C0 85.49 21.49 64 48 64H96V32C96 14.33 110.3 0 128 0C145.7 0 160 14.33 160 32zM0 192H448V464C448 490.5 426.5 512 400 512H48C21.49 512 0 490.5 0 464V192zM64 304C64 312.8 71.16 320 80 320H112C120.8 320 128 312.8 128 304V272C128 263.2 120.8 256 112 256H80C71.16 256 64 263.2 64 272V304zM192 304C192 312.8 199.2 320 208 320H240C248.8 320 256 312.8 256 304V272C256 263.2 248.8 256 240 256H208C199.2 256 192 263.2 192 272V304zM336 256C327.2 256 320 263.2 320 272V304C320 312.8 327.2 320 336 320H368C376.8 320 384 312.8 384 304V272C384 263.2 376.8 256 368 256H336zM64 432C64 440.8 71.16 448 80 448H112C120.8 448 128 440.8 128 432V400C128 391.2 120.8 384 112 384H80C71.16 384 64 391.2 64 400V432zM208 384C199.2 384 192 391.2 192 400V432C192 440.8 199.2 448 208 448H240C248.8 448 256 440.8 256 432V400C256 391.2 248.8 384 240 384H208zM320 432C320 440.8 327.2 448 336 448H368C376.8 448 384 440.8 384 432V400C384 391.2 376.8 384 368 384H336C327.2 384 320 391.2 320 400V432z" />
+                              </svg>
+                              <p>
+                                {handleChangeSeconsToDate(
+                                  article.createdAt.seconds
+                                )}
+                              </p>
+                            </span>
+                            <p className="article-overview">
+                              {article.shortDes}
+                            </p>
+                          </div>
+                          <div className="see-detail">
+                            <Link
+                              className="see-detail-btn"
+                              to={(location) => `/${type}/${article.id}`}
+                            >
+                              Xem thêm
+                            </Link>
+                          </div>
+                        </div>
                       </div>
-                      <div className="article-main-content">
-                        <h4 className="article-title">{article.title}</h4>
-                        <span className="article-time">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 448 512"
-                          >
-                            <path d="M160 32V64H288V32C288 14.33 302.3 0 320 0C337.7 0 352 14.33 352 32V64H400C426.5 64 448 85.49 448 112V160H0V112C0 85.49 21.49 64 48 64H96V32C96 14.33 110.3 0 128 0C145.7 0 160 14.33 160 32zM0 192H448V464C448 490.5 426.5 512 400 512H48C21.49 512 0 490.5 0 464V192zM64 304C64 312.8 71.16 320 80 320H112C120.8 320 128 312.8 128 304V272C128 263.2 120.8 256 112 256H80C71.16 256 64 263.2 64 272V304zM192 304C192 312.8 199.2 320 208 320H240C248.8 320 256 312.8 256 304V272C256 263.2 248.8 256 240 256H208C199.2 256 192 263.2 192 272V304zM336 256C327.2 256 320 263.2 320 272V304C320 312.8 327.2 320 336 320H368C376.8 320 384 312.8 384 304V272C384 263.2 376.8 256 368 256H336zM64 432C64 440.8 71.16 448 80 448H112C120.8 448 128 440.8 128 432V400C128 391.2 120.8 384 112 384H80C71.16 384 64 391.2 64 400V432zM208 384C199.2 384 192 391.2 192 400V432C192 440.8 199.2 448 208 448H240C248.8 448 256 440.8 256 432V400C256 391.2 248.8 384 240 384H208zM320 432C320 440.8 327.2 448 336 448H368C376.8 448 384 440.8 384 432V400C384 391.2 376.8 384 368 384H336C327.2 384 320 391.2 320 400V432z" />
-                          </svg>
-                          <p>{article.updatedAt.slice(0, 10)}</p>
-                        </span>
-                        <p className="article-overview">{article.overview}</p>
-                      </div>
-                      <div className="see-detail">
-                        <Link
-                          className="see-detail-btn"
-                          to={(location) => `/${type}/${article.id}`}
-                        >
-                          Xem thêm
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                ))
-                .reverse()}
+                    ))
+                : ""}
             </div>
-            {articleCurrent ? (
+            {/* 
               <div className="load-more-btn">
                 <button type="button" onClick={() => loadMore()}>
                   Tải thêm
                 </button>
               </div>
-            ) : (
-              ""
-            )}
+            ) 
+            )} */}
           </div>
         </section>
         <Cta center />

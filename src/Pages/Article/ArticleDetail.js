@@ -1,23 +1,29 @@
 /* eslint-disable react/jsx-no-target-blank */
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import Header from "../../components/layout/Header";
 import navLinks from "../../components/layout/partials/HeaderNav";
-import { eventsData } from "../../components/sections/event/eventsData";
-import { blogData } from "../../components/sections/blog/blogData";
 import { BsFillCalendarFill } from "react-icons/bs";
 import { FaUser } from "react-icons/fa";
 import Cta from "../../components/sections/Cta";
 import Footer from "../../components/layout/Footer";
 import { useParams } from "react-router-dom";
 import { Markup } from "interweave"; // for converting string to html
-import { Comment, LikeAndShare, LoginFacebook } from "../../assets/facebook/Facebook";
+import { Comment, LikeAndShare } from "../../assets/facebook/Facebook";
+import { doc, onSnapshot } from "firebase/firestore";
+import db from "../../db.config";
+import { handleChangeSeconsToDate } from "../../utils/ConvertSecondToDate";
 const ArticleDetail = ({ type }) => {
   const { postID } = useParams();
-  const articleData = type === "event" ? eventsData : blogData;
-  const index = articleData.findIndex((para) => para.id === postID);
-  const item = articleData[index];
-  const { title, image, content, tags, updatedAt, author } = item;
-  const urlPost = `https://dev-web-sic.vercel.app/${type}/${postID} `
+  const [data, setData] = useState("");
+  useEffect(() => {
+    const singleDoc = doc(db, "article", postID);
+    onSnapshot(singleDoc, (snapshot) => {
+      setData(snapshot.data());
+    });
+  }, [postID]);
+  const { title, image, text, tags, createdAt, author } = data;
+  const urlPost = `https://dev-web-sic.vercel.app/${type}/${postID} `;
+
   return (
     <>
       <Header
@@ -29,10 +35,9 @@ const ArticleDetail = ({ type }) => {
         <h2>{title}</h2>
         <div className="grid-3">
           <div className="article-left">
-            <img src={require(`../../assets/images/${type}/${image}`)} alt="" />
-            {/* <p>{content}</p> */}
+            <img src={image} alt="" />
             <p>
-              <Markup content={content} />
+              <Markup content={text} />
             </p>
             {tags && (
               <div className="article-tags">
@@ -45,7 +50,6 @@ const ArticleDetail = ({ type }) => {
               </div>
             )}
             <LikeAndShare url={urlPost}></LikeAndShare>
-            {/* <LoginFacebook></LoginFacebook> */}
             <div className="form-comment">
               <Comment url={urlPost}></Comment>
             </div>
@@ -55,7 +59,7 @@ const ArticleDetail = ({ type }) => {
               <div className="article-item primary">
                 <BsFillCalendarFill></BsFillCalendarFill>
               </div>
-              {updatedAt.slice(0, 10)}
+              {createdAt ? handleChangeSeconsToDate(createdAt.seconds) : ""}
             </div>
             <div className="article-info">
               <div className="article-item primary">

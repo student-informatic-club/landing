@@ -55,7 +55,7 @@ const SideBar = ({
                 <div className="side_bar_list">
                     {children && children.map((item, i) => {
                         return (
-                            <Link to={item.href} className={item.status ? "side_bar_item--active side_bar_item" : "side_bar_item"} onClick={() => {sideBarAdmin.map((it) => {
+                            <Link key={item.href} to={item.href} className={item.status ? "side_bar_item--active side_bar_item" : "side_bar_item"} onClick={() => {sideBarAdmin.map((it) => {
                                 it.href === item.href ? it.status = true : it.status = false;
                             })
                                 sideBar.setState({admin: sideBarAdmin})

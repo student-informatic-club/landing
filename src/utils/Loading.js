@@ -16,7 +16,7 @@ const Loading = (props) => {
     <>
       {loading && (
         <div className="loading-container">
-          <div class="lds-ripple">
+          <div className="lds-ripple">
             <div></div>
             <div></div>
           </div>

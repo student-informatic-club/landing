@@ -14,69 +14,85 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
-import axios from "axios";
 const storage = getStorage();
+
 let urlImg = "";
-const handleSubmit = async (obj) => {
-  try {
-    const collectionRef = collection(db, "article");
-    await addDoc(collectionRef, {
-      title: obj.title,
-      shortDes: obj.shortDes,
-      categorize: obj.categorize,
-      text: obj.text,
-      tags: obj.tags,
-      image: urlImg,
-      createdAt: serverTimestamp(),
-    });
-    createNotification("success", "Tạo thành công");
-    setTimeout(() => {
-      window.location.reload();
-    }, 2000);
-  } catch (err) {
-    createNotification("error", "Tạo thất bại");
-    console.log(err);
-  }
-  console.log(obj);
-};
-const handleUploadImage = (e) => {
-  const file = e.target.files[0];
-  file.preview = URL.createObjectURL(file);
-  const storageRef = ref(storage, "images/" + file.name);
-  const uploadTask = uploadBytesResumable(storageRef, file);
+function CreateArticle() {
+  const [image, setImage] = useState("");
+  const [url, setUrl] = useState("");
+  const [targetInpuImage, setTargetInputImage] = useState("");
+  const handleDeletePreviewImage = (image, targetInpuImage) => {
+    setImage("");
+    targetInpuImage.value = null;
+  };
+  const handleUploadImage = (image) => {
+    if (!image) return "";
+    else if (image) {
+      image.preview = URL.createObjectURL(image);
+      const file = image;
+      const storageRef = ref(storage, "images/" + file.name);
+      const uploadTask = uploadBytesResumable(storageRef, file);
 
-  uploadTask.on(
-    "state_changed",
-    (snapshot) => {
-      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      console.log("Upload is " + progress + "% done");
-      switch (snapshot.state) {
-        case "paused":
-          console.log("Upload is paused");
-          break;
-        case "running":
-          console.log("Upload is running");
-          break;
-        default:
-          console.log("Nothing");
-      }
-    },
-    (error) => {
-      console.log(error);
-    },
-    () => {
-      // Upload completed successfully, now we can get the download URL
-      getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-        console.log("File available at", downloadURL);
-        urlImg = downloadURL;
-      });
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log("Upload is " + progress + "% done");
+          switch (snapshot.state) {
+            case "paused":
+              console.log("Upload is paused");
+              break;
+            case "running":
+              console.log("Upload is running");
+              break;
+            default:
+              console.log("Nothing");
+          }
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          // Upload completed successfully, now we can get the download URL
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            console.log("File available at", downloadURL);
+            setUrl(downloadURL);
+          });
+        }
+      );
     }
-  );
-};
+  };
 
-const CreateArticle = () => {
-  const [image, setImage] = useState();
+  const handleSubmit = async (obj) => {
+    if (!obj) return null;
+    try {
+      const collectionRef = collection(db, "article");
+      if (!obj) {
+        obj.image.name = "";
+      }
+      let tags = obj.tags.split(" ");
+      console.log(tags);
+      await addDoc(collectionRef, {
+        title: obj.title,
+        shortDes: obj.shortDes,
+        categorize: obj.categorize,
+        text: obj.text,
+        tags: tags,
+        imageName: obj.image.name || "",
+        image: url || urlImg,
+        createdAt: serverTimestamp(),
+      });
+      createNotification("success", "Tạo thành công");
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    } catch (err) {
+      createNotification("error", "Tạo thất bại");
+      console.log(err);
+    }
+  };
   useEffect(() => {
     return () => {
       image && URL.revokeObjectURL(image.preview);
@@ -104,14 +120,11 @@ const CreateArticle = () => {
           shortDes: "",
           categorize: "",
           text: "",
-          tags: "",
+          tags: [],
           image: "",
         }}
         onSubmit={(values) => {
-          handleSubmit({ ...values, createAt: serverTimestamp() });
-          // stateFunc(false);
-
-          // console.log(values);
+          handleSubmit({ ...values, createdAt: serverTimestamp() });
         }}
       >
         {({ errors, touched, setFieldValue }) => {
@@ -135,7 +148,10 @@ const CreateArticle = () => {
                   ></Field>
                 </div>
                 <div>
-                  <label className="article_name_tag">Tags</label>
+                  <div style={{ display: "flex", gap: "5px" }}>
+                    <label className="article_name_tag">Tags</label>
+                    <p>(Mỗi 1 tag cách nhau bởi 1 khoảng trắng)</p>
+                  </div>
                   <Field
                     className="input"
                     name="tags"
@@ -164,40 +180,50 @@ const CreateArticle = () => {
                 <label className="article_name_tag">Photo</label>
                 <Field
                   render={({ field }) => {
-                    // return <GetPhoto></GetPhoto>;
                     return (
-                      <input
-                        type="file"
-                        className="input file"
-                        onChange={(e) => {
-                          setFieldValue("image", e.target.files[0]);
-                          setImage(e.target.files[0]);
-                          handleUploadImage(e);
-                        }}
-                      />
+                      <>
+                        <input
+                          type="file"
+                          className="input file"
+                          onChange={(e) => {
+                            setFieldValue("image", e.target.files[0]);
+                            setImage(e.target.files[0]);
+                            handleUploadImage(e.target.files[0]);
+                            setTargetInputImage(e.target); // for delete
+                          }}
+                        />
+                      </>
                     );
                   }}
                 />
+                {image && (
+                  <Button
+                    variant="contained"
+                    type="button"
+                    sx={{ marginBottom: "10px" }}
+                    onClick={() => {
+                      handleDeletePreviewImage(image, targetInpuImage);
+                    }}
+                  >
+                    Delete Image
+                  </Button>
+                )}
                 {image && (
                   <div className="article_image_preview">
                     <img src={image.preview} alt="" width="300px" />
                   </div>
                 )}
               </div>
-              <Field
-                render={({ field }) => {
-                  return (
-                    <ReactQuill
-                      theme="snow"
-                      modules={modules}
-                      value={field.value.text}
-                      onChange={(value) =>
-                        setFieldValue("text", handleUploadImage(value))
-                      }
-                    />
-                  );
-                }}
-              />
+              <Field name="text">
+                {({ field }) => (
+                  <ReactQuill
+                    theme="snow"
+                    modules={modules}
+                    value={field.value}
+                    onChange={field.onChange(field.name)}
+                  />
+                )}
+              </Field>
 
               <Button
                 type="submit"
@@ -212,6 +238,6 @@ const CreateArticle = () => {
       </Formik>
     </div>
   );
-};
+}
 
 export default CreateArticle;

@@ -5,18 +5,25 @@ const DetailArticle = ({ post }) => {
   return (
     <div>
       <h4 className="title">{post.title}</h4>
+      <img
+        src={post.image}
+        alt=""
+        width={"100%"}
+        style={{
+          padding: "20px 0",
+        }}
+      />
       <Markup content={post.text} className="text" />
       <div className="tags">
         <div className="article-tags">
           <span className="article-item primary">TAGS</span>
-          {/* {tags.map((tag) => ( */}
-          <span
-            className="article-item"
-            //    key={tag}
-          >
-            {post.tags}
-          </span>
-          {/* ))} */}
+          {post.tags && post.tags.length > 0
+            ? post.tags.map((tag) => (
+                <span className="article-item" key={tag}>
+                  {tag}
+                </span>
+              ))
+            : ""}
         </div>
       </div>
     </div>

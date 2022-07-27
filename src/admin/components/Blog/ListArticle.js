@@ -70,7 +70,7 @@ const ListArticle = ({ data }) => {
         sx={{ marginBottom: "10px" }}
         onClick={() => setShowCreateArticle(true)}
       >
-        New Article
+        Bài viết mới
       </Button>
       {showCreateArticle && (
         <div className="article_create">
@@ -78,7 +78,7 @@ const ListArticle = ({ data }) => {
             className="article_create_close"
             onClick={() => setShowCreateArticle(false)}
           >
-            Close
+            Đóng X
           </span>
           <CreateArticle stateFunc={setShowCreateArticle}></CreateArticle>
         </div>
@@ -89,7 +89,7 @@ const ListArticle = ({ data }) => {
             className="article_create_close"
             onClick={() => setShowDetailArticle(false)}
           >
-            Close
+            Đóng X
           </span>
           <DetailArticle post={post}></DetailArticle>
         </div>
@@ -100,7 +100,7 @@ const ListArticle = ({ data }) => {
             className="article_create_close"
             onClick={() => setShowUpdateArticle(false)}
           >
-            Close
+            Đóng X
           </span>
           <UpdateArticle post={post}></UpdateArticle>
         </div>
@@ -118,42 +118,46 @@ const ListArticle = ({ data }) => {
           >
             <TableRow>
               <TableCell align="center"></TableCell>
-              <TableCell align="center">Title</TableCell>
-              <TableCell align="center">Page</TableCell>
-              <TableCell align="center">Option</TableCell>
+              <TableCell align="center">Tiêu đề</TableCell>
+              <TableCell align="center">Phân trang</TableCell>
+              <TableCell align="center">Tuỳ chọn</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {article
-              ? article.map((row, index) => {
-                  return (
-                    <TableRow
-                      key={row.id}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    >
-                      <TableCell align="center">{index + 1}</TableCell>
-                      <TableCell align="center">{row.title}</TableCell>
-                      <TableCell align="center">{row.categorize}</TableCell>
-                      <TableCell align="center">
-                        <div className="article_admin_list_option">
-                          <AiFillDelete
-                            className="article_admin_option delete"
-                            onClick={() => handleDeleteArticle(row.id)}
-                          ></AiFillDelete>
-                          <BiDetail
-                            className="article_admin_option"
-                            onClick={() => handleShowDetail(row)}
-                          ></BiDetail>
-                          <BsFillPenFill
-                            className="article_admin_option"
-                            onClick={() => handleUpdate(row)}
-                          ></BsFillPenFill>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })
-              : ""}
+            {article.length > 0 && article ? (
+              article.map((row, index) => {
+                return (
+                  <TableRow
+                    key={row.id}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell align="center">{index + 1}</TableCell>
+                    <TableCell align="center">{row.title}</TableCell>
+                    <TableCell align="center">{row.categorize}</TableCell>
+                    <TableCell align="center">
+                      <div className="article_admin_list_option">
+                        <AiFillDelete
+                          className="article_admin_option delete"
+                          onClick={() => handleDeleteArticle(row.id)}
+                        ></AiFillDelete>
+                        <BiDetail
+                          className="article_admin_option"
+                          onClick={() => handleShowDetail(row)}
+                        ></BiDetail>
+                        <BsFillPenFill
+                          className="article_admin_option"
+                          onClick={() => handleUpdate(row)}
+                        ></BsFillPenFill>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                );
+              })
+            ) : (
+              <TableCell colSpan={4} align="center">
+                Hiện không có bài viết nào!
+              </TableCell>
+            )}
           </TableBody>
         </Table>
       </TableContainer>

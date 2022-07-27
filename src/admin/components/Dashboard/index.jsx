@@ -89,9 +89,7 @@ const DashboardTab = ({props, indexTab}) => {
                             <div className="form-input">
                                 <label>Họ Tên: </label>
                                 <input type="text" onChange={(e) => {
-                                    console.log(e.target.value);
                                     setName(e.target.value)
-                                    console.log(name);
                                 }} value={
                                     checkSV(props.data).length !== 0 ? checkSV(props.data).map(item => item.name).join('') : name
                                 } ref={nameRef}/>

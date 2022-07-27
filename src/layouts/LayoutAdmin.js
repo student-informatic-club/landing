@@ -17,7 +17,6 @@ const LayoutAdmin = ({children}) => {
     )
     const history = useHistory();
     const sideBarAdmin = sideBar((state) => state.admin);
-    console.log(sideBarAdmin);
     return (
         <section className={classes}>
             <SideBar children={sideBarAdmin}/>

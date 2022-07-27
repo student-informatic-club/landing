@@ -30,12 +30,10 @@ svRoutes.route('/update/:id').post(function (req, res) {
         if (!sv)
             res.status(404).send("data is not found");
         else {
-            console.log(sv);
             sv.name = req.name;
             sv.date = req.date;
             sv.class = req.class;
             sv.enterRoom = req.enterRoom;
-            console.log(req);
             sv.save().then(business => {
                 res.json('Update complete');
             })

@@ -66,12 +66,14 @@
 .Header-article-pages {
   background-color: var(--bg-nav-scroll) !important;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  position: fixed !important;
 
-  &.site-header {
-    position: relative !important;
-  }
+  // &.site-header {
+  //   // position: relative !important;
+  // }
 }
 .text-center {
+  padding-top: 60px;
   text-align: center;
 }
 .slider-controls {

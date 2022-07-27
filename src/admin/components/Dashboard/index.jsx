@@ -11,22 +11,12 @@ import { MdRemoveCircle } from 'react-icons/md';
 // import backend
 import { getSinhVien, addNewSinhVien, updateSinhVien } from '../../../backend/controllers/sinhvien.controller';
 import DashboardCtv from "./Tabs/DashboardCtv";
-import {collection, query, orderBy, onSnapshot} from "firebase/firestore"
-import db from '../../../db.config';
 import { Button } from "@mui/material";
 const sv = require('../../../backend/models/sinhvien.model');
 
 
 let ctvData;
 const DashboardTab = ({props, indexTab}) => {
-    async function getData() {
-        const q = query(collection(db, 'ctv'), orderBy('createAt'))
-        onSnapshot(q, (querySnapshot) => {
-            ctvData = querySnapshot.docs.map(doc => (
-                {...doc.data(), id: doc.id}
-            ))
-        })
-    }
     // let storeMember = [];
     const history = useHistory();
     const DateTime = new Date().toLocaleString([], {hour: '2-digit', minute:'2-digit'});
@@ -42,31 +32,6 @@ const DashboardTab = ({props, indexTab}) => {
     const classRef = useRef(null);
     const formAddMember = useRef(null);
     const [data, setData] = useState([])
-    const [refresh, setRefresh] = useState(false);
-    const [ctvdata, setCtvData] = useState([])
-    // useEffect(() => {
-        
-    // }, [data])
-    // const [closeForm, setCloseForm] = useState(false);
-    // const handleAddNewMember = (obj) => {
-    //     const newStoreMember = getSinhVien();
-    //     newStoreMember.push(obj);
-    //     localStorage.setItem(STORE_MEMBER, JSON.stringify(newStoreMember));
-    // }
-
-    // const handleAddNOldMember = (id) => {
-    //     storeMember.map((item) => {
-    //         return (
-    //             item.svId.replace('\\n', '') === id && (item.EnterRoom = true)
-    //         )
-    //     })
-    //     localStorage.setItem(STORE_MEMBER, JSON.stringify(storeMember))
-    //     console.log(id);
-    // }
-    useEffect(() => {
-        getData().then(() => {setCtvData(ctvData)})
-    }, [ctvData])
-
     let existMember;
     const checkSV = (id) => {
         existMember = data.filter((item) => item.svId === id);
@@ -159,8 +124,7 @@ const DashboardTab = ({props, indexTab}) => {
         )
         case 2: return (
             <>
-                <Button variant="contained" sx={{marginBottom: '10px'}} onClick={() => setRefresh(!refresh)}>Refresh</Button>
-                <DashboardCtv Data={ctvdata}/>
+                <DashboardCtv/>
             </>
         )
         case 3: return (

@@ -65,7 +65,7 @@ const DashboardTab = ({props, indexTab}) => {
     // }
     useEffect(() => {
         getData().then(() => {setCtvData(ctvData)})
-    }, [refresh])
+    }, [ctvData])
 
     let existMember;
     const checkSV = (id) => {

@@ -134,22 +134,21 @@ const SignUpForm = ({
     }
   }
   const sendEmail = (e) => {
-      emailjs
-        .sendForm(
-          "gmail",
-          "template_ol8vwc6",
-          e.target,
-          "iaJ4LMteT5H4R1l9d"
-        )
-        .then(
-          (result) => {
-            console.log(result.text);
-          },
-          (error) => {
-            console.log(error.text);
-          }
-        );
-    
+    emailjs
+      .sendForm(
+        "gmail",
+        "template_ol8vwc6",
+        e.target,
+        "iaJ4LMteT5H4R1l9d"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
   };
   return (
     <section className={outerClasses}>

@@ -45,6 +45,7 @@ const TableCTV = ({ data }) => {
     color: "#000",
     overflow: "hidden",
     borderRadius: "8px",
+    opacity: 1
   };
   const handleOpen = (id) => {
     setModalDetail({
@@ -123,7 +124,7 @@ const TableCTV = ({ data }) => {
                           aria-labelledby="modal-modal-title"
                           aria-describedby="modal-modal-description"
                           sx={{
-                            opacity: 0.2,
+                            backgroundColor: 'rgba(0,0,0,0.2)'
                           }}
                         >
                           <Box overflow="hidden" sx={modelStyle}>

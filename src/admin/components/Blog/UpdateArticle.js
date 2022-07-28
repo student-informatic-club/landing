@@ -41,7 +41,7 @@ const UpdateArticle = ({ post }) => {
     deleteObject(desertRef)
       .then(() => {
         // File deleted successfully
-        createNotification("success", "Xoá ảnh thành công");
+        createNotification("success", "Xoá ảnh cũ thành công");
       })
       .catch((error) => {
         // Uh-oh, an error occurred!
@@ -49,7 +49,7 @@ const UpdateArticle = ({ post }) => {
   }
 
   const [image, setImage] = useState("");
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState(post.image);
   const [targetInpuImage, setTargetInputImage] = useState("");
   const handleDeletePreviewImage = (image, targetInpuImage) => {
     setImage("");
@@ -88,8 +88,9 @@ const UpdateArticle = ({ post }) => {
           // Upload completed successfully, now we can get the download URL
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             console.log("File available at", downloadURL);
-            // urlImg = downloadURL;
-            setUrl(downloadURL);
+            if (downloadURL && downloadURL !== post.image) {
+              setUrl(downloadURL);
+            }
           });
         }
       );
@@ -105,9 +106,6 @@ const UpdateArticle = ({ post }) => {
   const handleSubmit = async (obj) => {
     try {
       let tags = obj.tags;
-      // if (obj.tags && obj.tags.length > 1) {
-      //    tags = obj.tags.split(" ");
-      // }
       try {
         tags = obj.tags.split(" ");
       } catch (err) {
@@ -119,10 +117,11 @@ const UpdateArticle = ({ post }) => {
         ...obj,
         tags,
         image: url,
+        imageName: obj.image !== "" ? obj.image.name : post.imageName,
         author: "CLB Tin học sinh viên",
       });
       createNotification("success", "Cập nhật thành công");
-      if (oldUrlImg && oldUrlImg !== obj.image) {
+      if (obj.image && oldUrlImg && oldUrlImg !== obj.image) {
         deleteImage();
       }
       setTimeout(() => {
@@ -148,8 +147,9 @@ const UpdateArticle = ({ post }) => {
           categorize: post.categorize || "",
           text: post.text || "",
           tags: tags || "",
-          image: post.image || "",
+          image: "",
           imageName: post.imageName || "",
+          createdAt: post.createdAt || "",
         }}
         onSubmit={(values) => {
           handleSubmit({ ...values, updatedAt: serverTimestamp() });
@@ -257,7 +257,7 @@ const UpdateArticle = ({ post }) => {
               <Button
                 type="submit"
                 variant="contained"
-                sx={{ marginBottom: "10px",  margin: '0 auto' }}
+                sx={{ marginBottom: "10px", margin: "0 auto" }}
               >
                 Update
               </Button>

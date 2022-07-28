@@ -13,13 +13,19 @@ import {
   TextField,
   IconButton,
   Input,
-  FormLabel
+  FormLabel,
 } from "@mui/material";
 import Modal from "@mui/material/Modal";
 import { Box } from "@mui/system";
-import { BiSearchAlt } from 'react-icons/bi';
-import {collection, query, orderBy, onSnapshot, getDocs} from "firebase/firestore"
-import db from '../../../../db.config';
+import { BiSearchAlt } from "react-icons/bi";
+import {
+  collection,
+  query,
+  orderBy,
+  onSnapshot,
+  getDocs,
+} from "firebase/firestore";
+import db from "../../../../db.config";
 
 const TableCTV = ({ data }) => {
   const [openModel, setOpenModel] = useState(false);
@@ -54,7 +60,10 @@ const TableCTV = ({ data }) => {
   return (
     <>
       {data ? (
-        <TableContainer component={Paper} sx={{ maxHeight: "65vh", position: 'relative' }}>
+        <TableContainer
+          component={Paper}
+          sx={{ maxHeight: "65vh", position: "relative" }}
+        >
           <Table
             sx={{ minWidth: 650, margin: 0, overflowY: "scroll" }}
             aria-label="Basic table"
@@ -65,8 +74,9 @@ const TableCTV = ({ data }) => {
                 ["th"]: {
                   color: "#fff",
                 },
-                position: 'sticky', top: 0,
-                zIndex: 999
+                position: "sticky",
+                top: 0,
+                zIndex: 999,
               }}
             >
               <TableRow>
@@ -154,90 +164,133 @@ const TableCTV = ({ data }) => {
           </Table>
         </TableContainer>
       ) : (
-        <Box height='70vh' width='100%' display='flex' alignItems='center' justifyContent='center'>
-            <Typography sx={{textAlign: 'center', textTransform: 'uppercase', color: '#f36430'}} variant='h5'>chưa có đơn đăng ký ctv</Typography>
+        <Box
+          height="70vh"
+          width="100%"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Typography
+            sx={{
+              textAlign: "center",
+              textTransform: "uppercase",
+              color: "#f36430",
+            }}
+            variant="h5"
+          >
+            chưa có đơn đăng ký ctv
+          </Typography>
         </Box>
       )}
     </>
   );
 };
 
-const SearchBar = ({setSearchQuery, handleSubmit}) => (
-    <form style={{
-        display: 'flex',
-        flexDirection: 'row'
-    }}>
-        <Stack direction='row' position='relative' alignItems='center'>
-            <FormLabel sx={{
-                marginRight: '10px'
-            }}>Tìm Kiếm</FormLabel>
-            <Input sx={{
-              ['input']:{
-                marginBottom: '0 !important',
-              }
-            }} onChange={(e) => setSearchQuery(e.target.value)}/>
-        </Stack>
-      <IconButton type="submit" aria-label="search" onClick={(e) => {
+const SearchBar = ({ setSearchQuery, handleSubmit }) => (
+  <form
+    style={{
+      display: "flex",
+      flexDirection: "row",
+    }}
+  >
+    <Stack direction="row" position="relative" alignItems="center">
+      <FormLabel
+        sx={{
+          marginRight: "10px",
+        }}
+      >
+        Tìm Kiếm
+      </FormLabel>
+      <Input
+        sx={{
+          ["input"]: {
+            marginBottom: "0 !important",
+          },
+        }}
+        onChange={(e) => setSearchQuery(e.target.value)}
+      />
+    </Stack>
+    <IconButton
+      type="submit"
+      aria-label="search"
+      onClick={(e) => {
         e.preventDefault();
         handleSubmit();
-      }}>
-        <BiSearchAlt/>
-      </IconButton>
-    </form>
-  );
+      }}
+    >
+      <BiSearchAlt />
+    </IconButton>
+  </form>
+);
 
 const DashboardCtv = () => {
   const [data, setData] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   async function getCtvData() {
     const q = collection(db, "ctv");
     getDocs(q)
-    .then((snapshot) => {
+      .then((snapshot) => {
         snapshot.forEach((item) => {
-        ctvData.push({
+          ctvData.push({
             id: item.id,
             ...item.data(),
-        });
+          });
         });
         setData(ctvData);
-    })
-    .catch((err) => {
+      })
+      .catch((err) => {
         console.log(err);
-    });
+      });
   }
   let ctvData = [];
   function filterCtvData(query) {
     let ctvData = [];
     const q = collection(db, "ctv");
     getDocs(q)
-    .then((snapshot) => {
+      .then((snapshot) => {
         snapshot.forEach((item) => {
-            (ctvData.push({
-                id: item.id,
-                ...item.data(),
-            }));
+          ctvData.push({
+            id: item.id,
+            ...item.data(),
+          });
         });
-        setData(ctvData.filter(item => item.fullName === query));
-    })
-    .catch((err) => {
+        setData(ctvData.filter((item) => item.fullName === query));
+      })
+      .catch((err) => {
         console.log(err);
-    });
+      });
   }
   useEffect(() => {
-    getCtvData()
+    getCtvData();
   }, []);
   return (
     <>
-      <Stack margin='10px 0'>
-          <Stack direction='row' justifyContent='space-between' alignItems='center'>
-              <Button variant="contained" sx={{marginBottom: '10px'}} onClick={getCtvData}>Refresh</Button>
-              <SearchBar setSearchQuery={setSearchQuery} handleSubmit={() => filterCtvData(searchQuery)}/>
-          </Stack>
-          <Stack>
-            <Typography color='#000'>Tổng Số CTV Đăng Ký: {data.length} Đơn</Typography>
-          </Stack>
+      <Stack margin="10px 0">
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <Button
+            variant="contained"
+            sx={{ marginBottom: "10px" }}
+            onClick={getCtvData}
+          >
+            Refresh
+          </Button>
+          <SearchBar
+            setSearchQuery={setSearchQuery}
+            handleSubmit={() => filterCtvData(searchQuery)}
+          />
+        </Stack>
+        <Stack>
+          <Typography color="#000">
+            Tổng Số CTV Đăng Ký: {data.length} Đơn
+          </Typography>
+        </Stack>
       </Stack>
-        <TableCTV data={data} />
+      <TableCTV data={data} />
     </>
   );
 };

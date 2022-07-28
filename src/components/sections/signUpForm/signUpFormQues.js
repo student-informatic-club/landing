@@ -15,11 +15,11 @@ const infoContact = [
     icon: <SiGmail className="contact__icon"></SiGmail>,
     data: "sic@wru.vn",
   },
-  {
-    href: "tel:0123456789",
-    icon: <FaPhoneAlt className="contact__icon"></FaPhoneAlt>,
-    data: "0123456789",
-  },
+  // {
+  //   href: "tel:0123456789",
+  //   icon: <FaPhoneAlt className="contact__icon"></FaPhoneAlt>,
+  //   data: "0123456789",
+  // },
   {
     href: "https://goo.gl/maps/B6F5v82rMN1ViEF88",
     icon: <MdLocationOn className="contact__icon"></MdLocationOn>,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { SectionProps } from "../../utils/SectionProps";
@@ -16,28 +16,21 @@ import {
 import { AiFillCloseCircle } from "react-icons/ai";
 import axios from "axios";
 import createNotification from "./Nofication";
-import db from '../../db.config';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import db from "../../db.config";
+import {
+  collection,
+  addDoc,
+  serverTimestamp,
+  getDocs,
+} from "firebase/firestore";
+import emailjs from "@emailjs/browser";
 // import { Timestamp } from "mongodb";
 const propTypes = {
   ...SectionProps.types,
   status: PropTypes.bool,
 };
 
-
 // Create create component
-
-const handleSubmit = async (obj) => {
-  try {
-    await addDoc(collection(db, 'ctv'), obj)
-    createNotification('success', 'Đã Đăng Ký Thành Công');
-  }
-  catch (err){
-    createNotification('error', 'Có Lỗi Xảy Ra Khi Đăng Ký');
-    console.log(err);
-  }
-}
-
 function formatText(num) {
   if (num < 10) {
     return "0" + num;
@@ -88,9 +81,69 @@ const SignUpForm = ({
     textMainBase.dayEnd +
     "T00:00:00";
   const dateData = CountDown(dayOut);
-
+  const formRef = useRef(null);
   const innerClasses = classNames("signUpForm-inner");
+  const [data, setData] = useState([]);
+  const [values, setValues] = useState({});
+  async function getCtvData() {
+    let ctvData = [];
+    const q = collection(db, "ctv");
+    getDocs(q)
+      .then((snapshot) => {
+        snapshot.forEach((item) => {
+          ctvData.push({
+            id: item.id,
+            ...item.data(),
+          });
+        });
+        setData(ctvData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
+  const handleSubmit = async (obj) => {
+    const found = data.find((item) => item.email === obj.email);
+    if (found) {
+      createNotification("error", "Email này đã được dùng để đăng ký!");
+    } else {
+      try {
+        await addDoc(collection(db, "ctv"), obj);
+        createNotification("success", "Đã Đăng Ký Thành Công");
+      } catch (err) {
+        createNotification("error", "Có Lỗi Xảy Ra Khi Đăng Ký!");
+        console.log(err);
+      }
+    }
+  };
+
+  useEffect(() => {
+    getCtvData();
+  }, []);
+  function onKeyDown(keyEvent) {
+    if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
+      keyEvent.preventDefault();
+    }
+  }
+  const sendEmail = (e) => {
+    e.preventDefault();
+    emailjs
+      .sendForm(
+        "gmail",
+        "template_ol8vwc6",
+        formRef.current,
+        "iaJ4LMteT5H4R1l9d"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  };
   return (
     <section className={outerClasses}>
       <motion.div
@@ -159,13 +212,19 @@ const SignUpForm = ({
                 class: Yup.string().required("Vui Lòng Điền Trường Này"),
               })}
               onSubmit={(values) => {
-                handleSubmit({...values, createAt: serverTimestamp()});
+                handleSubmit({ ...values, createAt: serverTimestamp() });
+                console.log(values);
                 props.stateFunc();
               }}
             >
               {({ errors, touched }) => {
                 return (
-                  <Form className="flex-col">
+                  <form
+                    className="flex-col"
+                    onKeyDown={onKeyDown}
+                    ref={formRef}
+                    onSubmit={sendEmail}
+                  >
                     <div className="basic-info gridCol-2 flex-child">
                       {basicQues.map((item) => (
                         <div className="basic-info__item" key={item.quesTitle}>
@@ -236,7 +295,7 @@ const SignUpForm = ({
                         NỘP
                       </button>
                     </div>
-                  </Form>
+                  </form>
                 );
               }}
             </Formik>

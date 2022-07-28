@@ -41,7 +41,7 @@ const UpdateArticle = ({ post }) => {
     deleteObject(desertRef)
       .then(() => {
         // File deleted successfully
-        createNotification("success", "Xoá ảnh thành công");
+        createNotification("success", "Xoá ảnh cũ thành công");
       })
       .catch((error) => {
         // Uh-oh, an error occurred!
@@ -49,7 +49,7 @@ const UpdateArticle = ({ post }) => {
   }
 
   const [image, setImage] = useState("");
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState(post.image);
   const [targetInpuImage, setTargetInputImage] = useState("");
   const handleDeletePreviewImage = (image, targetInpuImage) => {
     setImage("");
@@ -117,10 +117,11 @@ const UpdateArticle = ({ post }) => {
         ...obj,
         tags,
         image: url,
+        imageName: obj.image !== "" ? obj.image.name : post.imageName,
         author: "CLB Tin học sinh viên",
       });
       createNotification("success", "Cập nhật thành công");
-      if (oldUrlImg && oldUrlImg !== obj.image) {
+      if (obj.image && oldUrlImg && oldUrlImg !== obj.image) {
         deleteImage();
       }
       setTimeout(() => {
@@ -146,7 +147,7 @@ const UpdateArticle = ({ post }) => {
           categorize: post.categorize || "",
           text: post.text || "",
           tags: tags || "",
-          image: post.image || "",
+          image: "",
           imageName: post.imageName || "",
           createdAt: post.createdAt || "",
         }}

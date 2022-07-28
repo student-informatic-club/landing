@@ -54,7 +54,7 @@ const TableCTV = ({ data }) => {
   return (
     <>
       {data ? (
-        <TableContainer component={Paper} sx={{ maxHeight: "70vh" }}>
+        <TableContainer component={Paper} sx={{ maxHeight: "65vh", position: 'relative' }}>
           <Table
             sx={{ minWidth: 650, margin: 0, overflowY: "scroll" }}
             aria-label="Basic table"
@@ -65,6 +65,8 @@ const TableCTV = ({ data }) => {
                 ["th"]: {
                   color: "#fff",
                 },
+                position: 'sticky', top: 0,
+                zIndex: 999
               }}
             >
               <TableRow>
@@ -170,7 +172,9 @@ const SearchBar = ({setSearchQuery, handleSubmit}) => (
                 marginRight: '10px'
             }}>Tìm Kiếm</FormLabel>
             <Input sx={{
-                marginBottom: '0 !important'
+              ['input']:{
+                marginBottom: '0 !important',
+              }
             }} onChange={(e) => setSearchQuery(e.target.value)}/>
         </Stack>
       <IconButton type="submit" aria-label="search" onClick={(e) => {
@@ -185,7 +189,6 @@ const SearchBar = ({setSearchQuery, handleSubmit}) => (
 const DashboardCtv = () => {
   const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  let ctvData = [];
   async function getCtvData() {
     const q = collection(db, "ctv");
     getDocs(q)
@@ -202,6 +205,7 @@ const DashboardCtv = () => {
         console.log(err);
     });
   }
+  let ctvData = [];
   function filterCtvData(query) {
     let ctvData = [];
     const q = collection(db, "ctv");
@@ -224,10 +228,15 @@ const DashboardCtv = () => {
   }, []);
   return (
     <>
-        <Stack direction='row' justifyContent='space-between' alignItems='center' margin='10px 0'>
-            <Button variant="contained" sx={{marginBottom: '10px'}} onClick={getCtvData}>Refresh</Button>
-            <SearchBar setSearchQuery={setSearchQuery} handleSubmit={() => filterCtvData(searchQuery)}/>
-        </Stack>
+      <Stack margin='10px 0'>
+          <Stack direction='row' justifyContent='space-between' alignItems='center'>
+              <Button variant="contained" sx={{marginBottom: '10px'}} onClick={getCtvData}>Refresh</Button>
+              <SearchBar setSearchQuery={setSearchQuery} handleSubmit={() => filterCtvData(searchQuery)}/>
+          </Stack>
+          <Stack>
+            <Typography color='#000'>Tổng Số CTV Đăng Ký: {data.length} Đơn</Typography>
+          </Stack>
+      </Stack>
         <TableCTV data={data} />
     </>
   );

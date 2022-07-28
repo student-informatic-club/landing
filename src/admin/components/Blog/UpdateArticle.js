@@ -88,8 +88,9 @@ const UpdateArticle = ({ post }) => {
           // Upload completed successfully, now we can get the download URL
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             console.log("File available at", downloadURL);
-            // urlImg = downloadURL;
-            setUrl(downloadURL);
+            if (downloadURL && downloadURL !== post.image) {
+              setUrl(downloadURL);
+            }
           });
         }
       );
@@ -105,9 +106,6 @@ const UpdateArticle = ({ post }) => {
   const handleSubmit = async (obj) => {
     try {
       let tags = obj.tags;
-      // if (obj.tags && obj.tags.length > 1) {
-      //    tags = obj.tags.split(" ");
-      // }
       try {
         tags = obj.tags.split(" ");
       } catch (err) {
@@ -150,6 +148,7 @@ const UpdateArticle = ({ post }) => {
           tags: tags || "",
           image: post.image || "",
           imageName: post.imageName || "",
+          createdAt: post.createdAt || "",
         }}
         onSubmit={(values) => {
           handleSubmit({ ...values, updatedAt: serverTimestamp() });
@@ -257,7 +256,7 @@ const UpdateArticle = ({ post }) => {
               <Button
                 type="submit"
                 variant="contained"
-                sx={{ marginBottom: "10px",  margin: '0 auto' }}
+                sx={{ marginBottom: "10px", margin: "0 auto" }}
               >
                 Update
               </Button>

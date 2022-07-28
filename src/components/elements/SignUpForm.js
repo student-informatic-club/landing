@@ -82,9 +82,11 @@ const SignUpForm = ({
     "T00:00:00";
   const dateData = CountDown(dayOut);
   const formRef = useRef(null);
+  const ref = useRef(null);
   const innerClasses = classNames("signUpForm-inner");
   const [data, setData] = useState([]);
   const [values, setValues] = useState({});
+  const [statusConn, setStatusConn] = useState(null);
   async function getCtvData() {
     let ctvData = [];
     const q = collection(db, "ctv");
@@ -103,14 +105,19 @@ const SignUpForm = ({
       });
   }
 
-  const handleSubmit = async (obj) => {
+  const statusChange = () => {
+    setStatusConn(200)
+  }
+
+  const handleSubmit = async (e, obj) => {
     const found = data.find((item) => item.email === obj.email);
     if (found) {
       createNotification("error", "Email này đã được dùng để đăng ký!");
     } else {
       try {
-        await addDoc(collection(db, "ctv"), obj);
-        createNotification("success", "Đã Đăng Ký Thành Công");
+        await addDoc(collection(db, "ctv"), obj).then(() => {
+          createNotification("success", "Đã Đăng Ký Thành Công");
+        }).then(sendEmail(e))
       } catch (err) {
         createNotification("error", "Có Lỗi Xảy Ra Khi Đăng Ký!");
         console.log(err);
@@ -127,22 +134,22 @@ const SignUpForm = ({
     }
   }
   const sendEmail = (e) => {
-    e.preventDefault();
-    emailjs
-      .sendForm(
-        "gmail",
-        "template_ol8vwc6",
-        formRef.current,
-        "iaJ4LMteT5H4R1l9d"
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-        },
-        (error) => {
-          console.log(error.text);
-        }
-      );
+      emailjs
+        .sendForm(
+          "gmail",
+          "template_ol8vwc6",
+          e.target,
+          "iaJ4LMteT5H4R1l9d"
+        )
+        .then(
+          (result) => {
+            console.log(result.text);
+          },
+          (error) => {
+            console.log(error.text);
+          }
+        );
+    
   };
   return (
     <section className={outerClasses}>
@@ -211,19 +218,20 @@ const SignUpForm = ({
                   .required("Vui Lòng Điền Trường Này"),
                 class: Yup.string().required("Vui Lòng Điền Trường Này"),
               })}
-              onSubmit={(values) => {
-                handleSubmit({ ...values, createAt: serverTimestamp() });
-                console.log(values);
-                props.stateFunc();
-              }}
+              innerRef={formRef}
             >
               {({ errors, touched }) => {
                 return (
                   <form
                     className="flex-col"
+                    id="formCtv"
                     onKeyDown={onKeyDown}
-                    ref={formRef}
-                    onSubmit={sendEmail}
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      handleSubmit(e, { ...formRef.current.values, createAt: serverTimestamp()})
+                      props.stateFunc();
+                    }}
+                    ref={ref}
                   >
                     <div className="basic-info gridCol-2 flex-child">
                       {basicQues.map((item) => (

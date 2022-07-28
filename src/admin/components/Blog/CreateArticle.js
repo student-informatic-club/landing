@@ -16,7 +16,7 @@ import {
 } from "firebase/storage";
 const storage = getStorage();
 
-let urlImg = "";
+// let urlImg = "";
 function CreateArticle() {
   const [image, setImage] = useState("");
   const [url, setUrl] = useState("");
@@ -69,11 +69,16 @@ function CreateArticle() {
     if (!obj) return null;
     try {
       const collectionRef = collection(db, "article");
-      if (!obj) {
+      let tags = obj.tags;
+      if (!obj || !url) {
         obj.image.name = "";
       }
-      let tags = obj.tags.split(" ");
-      console.log(tags);
+      try {
+        tags = obj.tags.split(" ");
+      } catch (err) {
+        console.log(err);
+      }
+      // console.log(tags);
       await addDoc(collectionRef, {
         title: obj.title,
         shortDes: obj.shortDes,
@@ -81,7 +86,8 @@ function CreateArticle() {
         text: obj.text,
         tags: tags,
         imageName: obj.image.name || "",
-        image: url || urlImg,
+        image: url || "",
+        author: "CLB Tin học sinh viên",
         createdAt: serverTimestamp(),
       });
       createNotification("success", "Tạo thành công");
@@ -97,7 +103,7 @@ function CreateArticle() {
     return () => {
       image && URL.revokeObjectURL(image.preview);
     };
-  }, [image]);
+  }, [image, targetInpuImage]);
   const modules = useMemo(
     () => ({
       toolbar: [
@@ -131,20 +137,12 @@ function CreateArticle() {
           return (
             <Form>
               <div className="group_article">
-                <div>
+                <div className="">
                   <label className="article_name_tag">Title</label>
                   <Field
                     className="input"
                     name="title"
                     placeholder="Enter Article's Title"
-                  ></Field>
-                </div>
-                <div>
-                  <label className="article_name_tag">Short Description</label>
-                  <Field
-                    className="input"
-                    name="shortDes"
-                    placeholder="Enter Your Short Description . . ."
                   ></Field>
                 </div>
                 <div>
@@ -158,26 +156,18 @@ function CreateArticle() {
                     placeholder="Enter Your Tags . . ."
                   ></Field>
                 </div>
-                <div>
-                  <label className="article_name_tag">Categorize</label>
-                  <div
-                    className="article_name_tag_group"
-                    role="group"
-                    aria-labelledby="my-radio-group"
-                  >
-                    <label>
-                      <Field type="radio" name="categorize" value="Blog" />
-                      Blog
-                    </label>
-                    <label>
-                      <Field type="radio" name="categorize" value="Event" />
-                      Event
-                    </label>
-                  </div>
-                </div>
               </div>
               <div>
-                <label className="article_name_tag">Photo</label>
+                <label className="article_name_tag">Short Description</label>
+                <Field
+                  className="input"
+                  name="shortDes"
+                  placeholder="Enter Your Short Description . . ."
+                ></Field>
+              </div>
+
+              <div>
+                <div className="article_name_tag">Photo</div>
                 <Field
                   render={({ field }) => {
                     return (
@@ -214,6 +204,23 @@ function CreateArticle() {
                   </div>
                 )}
               </div>
+              <div className="article_name_tag_container">
+                <label className="article_name_tag">Categorize</label>
+                <div
+                  className="article_name_tag_group"
+                  role="group"
+                  aria-labelledby="my-radio-group"
+                >
+                  <label>
+                    <Field type="radio" name="categorize" value="Blog" />
+                    Blog
+                  </label>
+                  <label>
+                    <Field type="radio" name="categorize" value="Event" />
+                    Event
+                  </label>
+                </div>
+              </div>
               <Field name="text">
                 {({ field }) => (
                   <ReactQuill
@@ -228,7 +235,7 @@ function CreateArticle() {
               <Button
                 type="submit"
                 variant="contained"
-                sx={{ marginBottom: "10px" }}
+                sx={{ marginBottom: "10px", margin: "0 auto" }}
               >
                 Create
               </Button>

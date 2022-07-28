@@ -29,17 +29,19 @@ const storage = getStorage();
 
 const UpdateArticle = ({ post }) => {
   const [postId, setPostId] = useState();
+  const [oldUrlImg, setOldUrlImg] = useState(post.imageName || null);
   useEffect(() => {
     setPostId(post.id);
   }, []);
 
   function deleteImage() {
-    const desertRef = ref(storage, "images/desert.jpg");
+    const desertRef = ref(storage, `images/${oldUrlImg}`);
 
     // Delete the file
     deleteObject(desertRef)
       .then(() => {
         // File deleted successfully
+        createNotification("success", "Xoá ảnh thành công");
       })
       .catch((error) => {
         // Uh-oh, an error occurred!
@@ -102,12 +104,30 @@ const UpdateArticle = ({ post }) => {
 
   const handleSubmit = async (obj) => {
     try {
-      let tags = obj.tags.split(" ");
+      let tags = obj.tags;
+      // if (obj.tags && obj.tags.length > 1) {
+      //    tags = obj.tags.split(" ");
+      // }
+      try {
+        tags = obj.tags.split(" ");
+      } catch (err) {
+        console.log(err);
+      }
 
       const updateData = doc(db, "article", postId);
-      await updateDoc(updateData, { ...obj, tags, image:url });
+      await updateDoc(updateData, {
+        ...obj,
+        tags,
+        image: url,
+        author: "CLB Tin học sinh viên",
+      });
       createNotification("success", "Cập nhật thành công");
+      if (oldUrlImg && oldUrlImg !== obj.image) {
+        deleteImage();
+      }
       setTimeout(() => {
+        setOldUrlImg(obj.imageName);
+
         window.location.reload();
       }, 2000);
     } catch (err) {
@@ -116,6 +136,9 @@ const UpdateArticle = ({ post }) => {
     }
   };
 
+  const tags = post.tags.join(" ");
+
+  // console.log(post.tags)
   return (
     <div>
       <Formik
@@ -124,7 +147,7 @@ const UpdateArticle = ({ post }) => {
           shortDes: post.shortDes || "",
           categorize: post.categorize || "",
           text: post.text || "",
-          tags: post.tags || "",
+          tags: tags || "",
           image: post.image || "",
           imageName: post.imageName || "",
         }}
@@ -145,38 +168,24 @@ const UpdateArticle = ({ post }) => {
                   ></Field>
                 </div>
                 <div>
-                  <label className="article_name_tag">Short Description</label>
-                  <Field
-                    className="input"
-                    name="shortDes"
-                    placeholder="Enter Your Short Description . . ."
-                  ></Field>
-                </div>
-                <div>
-                  <label className="article_name_tag">Tags</label>
+                  <div style={{ display: "flex" }}>
+                    <label className="article_name_tag">Tags</label>
+                    <p>(Mỗi 1 tag cách nhau bởi 1 khoảng trắng)</p>
+                  </div>
                   <Field
                     className="input"
                     name="tags"
                     placeholder="Enter Your Tags . . ."
                   ></Field>
                 </div>
-                <div>
-                  <label className="article_name_tag">Categorize</label>
-                  <div
-                    className="article_name_tag_group"
-                    role="group"
-                    aria-labelledby="my-radio-group"
-                  >
-                    <label>
-                      <Field type="radio" name="categorize" value="Blog" />
-                      Blog
-                    </label>
-                    <label>
-                      <Field type="radio" name="categorize" value="Event" />
-                      Event
-                    </label>
-                  </div>
-                </div>
+              </div>
+              <div>
+                <label className="article_name_tag">Short Description</label>
+                <Field
+                  className="input"
+                  name="shortDes"
+                  placeholder="Enter Your Short Description . . ."
+                ></Field>
               </div>
               <div>
                 <label className="article_name_tag">Photo</label>
@@ -210,11 +219,28 @@ const UpdateArticle = ({ post }) => {
                     Delete Image
                   </Button>
                 )}
-                {image && (
-                  <div className="article_image_preview">
-                    <img src={image.preview} alt="" width="300px" />
-                  </div>
-                )}
+                {/* {image && ( */}
+                <div className="article_image_preview">
+                  <img src={image.preview || post.image} alt="" width="300px" />
+                </div>
+                {/* )} */}
+              </div>
+              <div>
+                <label className="article_name_tag">Categorize</label>
+                <div
+                  className="article_name_tag_group"
+                  role="group"
+                  aria-labelledby="my-radio-group"
+                >
+                  <label>
+                    <Field type="radio" name="categorize" value="Blog" />
+                    Blog
+                  </label>
+                  <label>
+                    <Field type="radio" name="categorize" value="Event" />
+                    Event
+                  </label>
+                </div>
               </div>
               <Field
                 render={({ field }) => {
@@ -231,7 +257,7 @@ const UpdateArticle = ({ post }) => {
               <Button
                 type="submit"
                 variant="contained"
-                sx={{ marginBottom: "10px" }}
+                sx={{ marginBottom: "10px",  margin: '0 auto' }}
               >
                 Update
               </Button>

@@ -15,9 +15,11 @@ import {
   TableRow,
   Button,
 } from "@mui/material";
+import { AiFillCloseCircle } from "react-icons/ai";
 import { deleteDoc, doc } from "firebase/firestore";
 import createNotification from "../../../components/elements/Nofication";
 import db from "../../../db.config";
+import { deleteObject, getStorage, ref } from "firebase/storage";
 const ListArticle = ({ data }) => {
   // Article List Data from firebase
   const [article, setArticle] = useState([]);
@@ -40,13 +42,31 @@ const ListArticle = ({ data }) => {
     }
   }, [data]);
 
-  async function handleDeleteArticle(id) {
-    const deleteData = doc(db, "article", id);
-    await deleteDoc(deleteData);
-    createNotification("success", "Xoá thành công");
-    setTimeout(() => {
-      window.location.reload();
-    }, 2000);
+  async function handleDeleteArticle(id, imageName) {
+    function deleteImage() {
+      const storage = getStorage();
+
+      const desertRef = ref(storage, `images/${imageName}`);
+
+      // Delete the file
+      deleteObject(desertRef)
+        .then(() => {
+          // File deleted successfully
+          createNotification("success", "Xoá ảnh thành công");
+        })
+        .catch((error) => {
+          // Uh-oh, an error occurred!
+        });
+    }
+    if (window.confirm("Bạn có chắc chắn muốn xoá bài viết này?") == true) {
+      const deleteData = doc(db, "article", id);
+      await deleteDoc(deleteData);
+      createNotification("success", "Xoá thành công");
+      deleteImage();
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    }
   }
   function handleUpdate(post) {
     setPost(post);
@@ -56,6 +76,7 @@ const ListArticle = ({ data }) => {
     setShowDetailArticle(true);
     setPost(post);
   }
+
   return (
     <div
       style={{ position: "relative", height: "100%" }}
@@ -78,7 +99,7 @@ const ListArticle = ({ data }) => {
             className="article_create_close"
             onClick={() => setShowCreateArticle(false)}
           >
-            Đóng X
+            <AiFillCloseCircle size={30}></AiFillCloseCircle>
           </span>
           <CreateArticle stateFunc={setShowCreateArticle}></CreateArticle>
         </div>
@@ -89,7 +110,7 @@ const ListArticle = ({ data }) => {
             className="article_create_close"
             onClick={() => setShowDetailArticle(false)}
           >
-            Đóng X
+            <AiFillCloseCircle size={30}></AiFillCloseCircle>
           </span>
           <DetailArticle post={post}></DetailArticle>
         </div>
@@ -100,7 +121,7 @@ const ListArticle = ({ data }) => {
             className="article_create_close"
             onClick={() => setShowUpdateArticle(false)}
           >
-            Đóng X
+            <AiFillCloseCircle size={30}></AiFillCloseCircle>
           </span>
           <UpdateArticle post={post}></UpdateArticle>
         </div>
@@ -138,7 +159,9 @@ const ListArticle = ({ data }) => {
                       <div className="article_admin_list_option">
                         <AiFillDelete
                           className="article_admin_option delete"
-                          onClick={() => handleDeleteArticle(row.id)}
+                          onClick={() =>
+                            handleDeleteArticle(row.id, row.imageName)
+                          }
                         ></AiFillDelete>
                         <BiDetail
                           className="article_admin_option"

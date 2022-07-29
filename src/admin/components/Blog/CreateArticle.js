@@ -1,5 +1,5 @@
 /* eslint-disable default-case */
-import { Formik, Field, Form, FieldArray } from "formik";
+import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import React, { useEffect, useMemo, useState } from "react";
 import ReactQuill from "react-quill";
@@ -132,7 +132,7 @@ function CreateArticle() {
         validationSchema={Yup.object({
           title: Yup.string().required(),
           shortDes: Yup.string().required(),
-          categorize: Yup.boolean().required().oneOf(["Event", "Blog"]),
+          categorize: Yup.string().required().oneOf(["Event", "Blog"]),
           text: Yup.string().required(),
           tags: Yup.array().required("").min(1),
         })}

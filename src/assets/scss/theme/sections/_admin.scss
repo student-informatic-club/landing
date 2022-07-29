@@ -6,12 +6,21 @@
     overflow: hidden;
 }
 
+.site-main-admin{
+    display: flex;
+    flex-direction: column;
+}
+
 .main-admin-content {
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 16px;
     margin: 20px;
-    height: 90vh;
+    flex:1;
+    position: relative;
+    // height: 90vh;
+    // height:100%;
+
     overflow-y: scroll;
 
     // overflow-y: scroll;

@@ -14,7 +14,6 @@ import {
   chooseQues,
 } from "../sections/signUpForm/signUpFormQues";
 import { AiFillCloseCircle } from "react-icons/ai";
-import axios from "axios";
 import createNotification from "./Nofication";
 import db from "../../db.config";
 import {
@@ -24,13 +23,11 @@ import {
   getDocs,
 } from "firebase/firestore";
 import emailjs from "@emailjs/browser";
-// import { Timestamp } from "mongodb";
 const propTypes = {
   ...SectionProps.types,
   status: PropTypes.bool,
 };
 
-// Create create component
 function formatText(num) {
   if (num < 10) {
     return "0" + num;
@@ -81,12 +78,10 @@ const SignUpForm = ({
     textMainBase.dayEnd +
     "T00:00:00";
   const dateData = CountDown(dayOut);
-  const formRef = useRef(null);
-  const ref = useRef(null);
   const innerClasses = classNames("signUpForm-inner");
   const [data, setData] = useState([]);
-  const [values, setValues] = useState({});
   const [statusConn, setStatusConn] = useState(null);
+
   async function getCtvData() {
     let ctvData = [];
     const q = collection(db, "ctv");
@@ -106,18 +101,20 @@ const SignUpForm = ({
   }
 
   const statusChange = () => {
-    setStatusConn(200)
-  }
+    setStatusConn(200);
+  };
 
-  const handleSubmit = async (e, obj) => {
+  const handleSubmit = async (obj) => {
     const found = data.find((item) => item.email === obj.email);
     if (found) {
       createNotification("error", "Email này đã được dùng để đăng ký!");
     } else {
       try {
-        await addDoc(collection(db, "ctv"), obj).then(() => {
-          createNotification("success", "Đã Đăng Ký Thành Công");
-        }).then(sendEmail(e))
+        await addDoc(collection(db, "ctv"), obj)
+          .then(() => {
+            createNotification("success", "Đã Đăng Ký Thành Công");
+          })
+          .then(sendEmail(obj));
       } catch (err) {
         createNotification("error", "Có Lỗi Xảy Ra Khi Đăng Ký!");
         console.log(err);
@@ -128,28 +125,17 @@ const SignUpForm = ({
   useEffect(() => {
     getCtvData();
   }, []);
-  function onKeyDown(keyEvent) {
-    if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
-      keyEvent.preventDefault();
-    }
-  }
-  const sendEmail = (e) => {
-    emailjs
-      .sendForm(
-        "gmail",
-        "template_ol8vwc6",
-        e.target,
-        "iaJ4LMteT5H4R1l9d"
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-        },
-        (error) => {
-          console.log(error.text);
-        }
-      );
+  const sendEmail = (values) => {
+    emailjs.send("gmail", "template_ol8vwc6", values, "iaJ4LMteT5H4R1l9d").then(
+      (result) => {
+        console.log(result.text);
+      },
+      (error) => {
+        console.log(error.text);
+      }
+    );
   };
+
   return (
     <section className={outerClasses}>
       <motion.div
@@ -216,22 +202,21 @@ const SignUpForm = ({
                   .email("E-mail của bạn không hợp lệ")
                   .required("Vui Lòng Điền Trường Này"),
                 class: Yup.string().required("Vui Lòng Điền Trường Này"),
+                answer: Yup.array()
+                  .required()
+                  .min(1, "Vui Lòng Chọn Trường Này"),
               })}
-              innerRef={formRef}
+              onSubmit={(values) => {
+                handleSubmit({
+                  ...values,
+                  createAt: serverTimestamp(),
+                });
+                props.stateFunc();
+              }}
             >
               {({ errors, touched }) => {
                 return (
-                  <form
-                    className="flex-col"
-                    id="formCtv"
-                    onKeyDown={onKeyDown}
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      handleSubmit(e, { ...formRef.current.values, createAt: serverTimestamp()})
-                      props.stateFunc();
-                    }}
-                    ref={ref}
-                  >
+                  <Form>
                     <div className="basic-info gridCol-2 flex-child">
                       {basicQues.map((item) => (
                         <div className="basic-info__item" key={item.quesTitle}>
@@ -274,6 +259,11 @@ const SignUpForm = ({
                           </label>
                         ))}
                       </div>
+                      {errors.answer && touched.answer ? (
+                        <span className="errorMessage">{errors.answer}</span>
+                      ) : (
+                        ""
+                      )}
                     </div>
                     <div className="message flex-col">
                       <label className="title flex-child">
@@ -302,7 +292,7 @@ const SignUpForm = ({
                         NỘP
                       </button>
                     </div>
-                  </form>
+                  </Form>
                 );
               }}
             </Formik>

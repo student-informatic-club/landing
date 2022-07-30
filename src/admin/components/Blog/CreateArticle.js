@@ -129,6 +129,13 @@ function CreateArticle() {
           tags: [],
           image: "",
         }}
+        validationSchema={Yup.object({
+          title: Yup.string().required(),
+          shortDes: Yup.string().required(),
+          categorize: Yup.string().required().oneOf(["Event", "Blog"]),
+          text: Yup.string().required(),
+          tags: Yup.array().required("").min(1),
+        })}
         onSubmit={(values) => {
           handleSubmit({ ...values, createdAt: serverTimestamp() });
         }}
@@ -144,6 +151,11 @@ function CreateArticle() {
                     name="title"
                     placeholder="Enter Article's Title"
                   ></Field>
+                  {errors.title && touched.title ? (
+                    <span className="errorMessage">{errors.title}</span>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <div>
                   <div style={{ display: "flex", gap: "5px" }}>
@@ -155,6 +167,11 @@ function CreateArticle() {
                     name="tags"
                     placeholder="Enter Your Tags . . ."
                   ></Field>
+                  {errors.tags && touched.tags ? (
+                    <span className="errorMessage">{errors.tags}</span>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
               <div>
@@ -164,6 +181,11 @@ function CreateArticle() {
                   name="shortDes"
                   placeholder="Enter Your Short Description . . ."
                 ></Field>
+                {errors.shortDes && touched.shortDes ? (
+                  <span className="errorMessage">{errors.shortDes}</span>
+                ) : (
+                  ""
+                )}
               </div>
 
               <div>
@@ -221,6 +243,11 @@ function CreateArticle() {
                   </label>
                 </div>
               </div>
+              {errors.categorize && touched.categorize ? (
+                <span className="errorMessage">{errors.categorize}</span>
+              ) : (
+                ""
+              )}
               <Field name="text">
                 {({ field }) => (
                   <ReactQuill
@@ -231,6 +258,11 @@ function CreateArticle() {
                   />
                 )}
               </Field>
+              {errors.text && touched.text ? (
+                <span className="errorMessage">{errors.text}</span>
+              ) : (
+                ""
+              )}
 
               <Button
                 type="submit"

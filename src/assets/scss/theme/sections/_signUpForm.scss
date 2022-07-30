@@ -59,6 +59,7 @@ textarea {
       color: #373888;
     }
   }
+
   .signUpForm__footer {
     flex: 1;
     display: flex;
@@ -151,11 +152,7 @@ textarea {
       display: flex;
       flex-direction: column;
       margin: 30px 10px 0;
-      .errorMessage {
-        position: absolute;
-        bottom: -40%;
-        left: 0;
-      }
+      
       .title {
         position: absolute;
         left: 10px;
@@ -179,8 +176,17 @@ textarea {
       resize: none;
       padding: 12px 10px;
     }
+    .choose-info{
+      position:relative;
+    }
+  }
+  .errorMessage {
+    position: absolute;
+    bottom: -17px;
+    left: 0;
   }
 }
+
 @media screen and (max-width: 1080px) {
   .signUpForm {
     .signUpForm--left,

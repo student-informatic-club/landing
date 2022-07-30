@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import DetailArticle from "./DetailArticle";
 import UpdateArticle from "./UpdateArticle";
 import { AiFillDelete } from "react-icons/ai";
@@ -13,7 +13,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Button,
 } from "@mui/material";
 import { AiFillCloseCircle, AiOutlineSearch } from "react-icons/ai";
 import { deleteDoc, doc } from "firebase/firestore";
@@ -38,6 +37,11 @@ const ListArticle = ({ data, sortedFunc }) => {
 
   // For search features
   const [searchValue, setSearchValue] = useState("");
+
+  useEffect(() => {
+    document.querySelector('.main-admin-content').scrollTo(0, 0);
+  }, [showCreateArticle, showDetailArticle, showUpdateArticle]);
+
   const handleSearch = (e) => {
     setSearchValue(e.target.value);
   };
@@ -86,53 +90,15 @@ const ListArticle = ({ data, sortedFunc }) => {
     setShowDetailArticle(true);
     setPost(post);
   }
+  // function CloseBtn() {
+  //   return <AiFillCloseCircle size={30}></AiFillCloseCircle>;
+  // }
 
   return (
     <div
       style={{ position: "relative", height: "100%" }}
       className={`article_admin_container`}
     >
-      <div className="article_admin_features">
-        <div style={{ display: "inline-flex", alignItems: "center" }}>
-          Sorted{" "}
-          <select size="1" className="article_sorted">
-            <option
-              onClick={(e) => handleSortedValue(e.target.value)}
-              value=""
-              selected
-            >
-              All
-            </option>
-            <option
-              onClick={(e) => handleSortedValue(e.target.value)}
-              value="Blog"
-            >
-              Blog
-            </option>
-            <option
-              onClick={(e) => handleSortedValue(e.target.value)}
-              value="Event"
-            >
-              Event
-            </option>
-          </select>
-        </div>
-        <div className="article_admin_search ">
-          <input
-            type="text"
-            placeholder="Search here"
-            onChange={handleSearch}
-          />
-          <AiOutlineSearch size={30} className="search_icon"></AiOutlineSearch>
-        </div>
-      </div>
-
-      <div
-        className="article_add_button"
-        onClick={() => setShowCreateArticle(true)}
-      >
-        +
-      </div>
       {showCreateArticle && (
         <div className="article_create">
           <span
@@ -166,75 +132,125 @@ const ListArticle = ({ data, sortedFunc }) => {
           <UpdateArticle post={post}></UpdateArticle>
         </div>
       )}
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650, margin: 0 }} aria-label="simple table">
-          <TableHead
-            sx={{
-              backgroundColor: "#6B6DFF",
-              ["th"]: {
-                color: "#fff",
-              },
-            }}
+      {!showCreateArticle && !showDetailArticle && !showUpdateArticle && (
+        <>
+          <div className="article_admin_features">
+            <div style={{ display: "inline-flex", alignItems: "center" }}>
+              Sorted{" "}
+              <select size="1" className="article_sorted">
+                <option
+                  onClick={(e) => handleSortedValue(e.target.value)}
+                  value=""
+                  selected
+                >
+                  All
+                </option>
+                <option
+                  onClick={(e) => handleSortedValue(e.target.value)}
+                  value="Blog"
+                >
+                  Blog
+                </option>
+                <option
+                  onClick={(e) => handleSortedValue(e.target.value)}
+                  value="Event"
+                >
+                  Event
+                </option>
+              </select>
+            </div>
+            <div className="article_admin_search ">
+              <input
+                type="text"
+                placeholder="Search here"
+                onChange={handleSearch}
+              />
+              <AiOutlineSearch
+                size={30}
+                className="search_icon"
+              ></AiOutlineSearch>
+            </div>
+          </div>
+
+          <div
+            className="article_add_button"
+            onClick={() => setShowCreateArticle(true)}
           >
-            <TableRow>
-              <TableCell align="center"></TableCell>
-              <TableCell align="center">Tiêu đề</TableCell>
-              <TableCell align="center">Phân trang</TableCell>
-              <TableCell align="center">Tuỳ chọn</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {article.length > 0 && article ? (
-              article
-                .filter((value) => {
-                  if (searchValue === "") {
-                    return value;
-                  } else if (
-                    value.title
-                      .toLowerCase()
-                      .includes(searchValue.toLowerCase())
-                  ) {
-                    return value;
-                  }
-                })
-                .map((row, index) => {
-                  return (
-                    <TableRow
-                      key={row.id}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    >
-                      <TableCell align="center">{index + 1}</TableCell>
-                      <TableCell align="center">{row.title}</TableCell>
-                      <TableCell align="center">{row.categorize}</TableCell>
-                      <TableCell align="center">
-                        <div className="article_admin_list_option">
-                          <AiFillDelete
-                            className="article_admin_option delete"
-                            onClick={() =>
-                              handleDeleteArticle(row.id, row.imageName)
-                            }
-                          ></AiFillDelete>
-                          <BiDetail
-                            className="article_admin_option"
-                            onClick={() => handleShowDetail(row)}
-                          ></BiDetail>
-                          <BsFillPenFill
-                            className="article_admin_option"
-                            onClick={() => handleUpdate(row)}
-                          ></BsFillPenFill>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })
-            ) : (
-              <TableCell colSpan={4} align="center">
-                Hiện không có bài viết nào!
-              </TableCell>
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            +
+          </div>
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650, margin: 0 }} aria-label="simple table">
+              <TableHead
+                sx={{
+                  backgroundColor: "#6B6DFF",
+                  ["th"]: {
+                    color: "#fff",
+                  },
+                }}
+              >
+                <TableRow>
+                  <TableCell align="center"></TableCell>
+                  <TableCell align="center">Tiêu đề</TableCell>
+                  <TableCell align="center">Phân trang</TableCell>
+                  <TableCell align="center">Tuỳ chọn</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {article.length > 0 && article ? (
+                  article
+                    .filter((value) => {
+                      if (searchValue === "") {
+                        return value;
+                      } else if (
+                        value.title
+                          .toLowerCase()
+                          .includes(searchValue.toLowerCase())
+                      ) {
+                        return value;
+                      }
+                    })
+                    .map((row, index) => {
+                      return (
+                        <TableRow
+                          key={row.id}
+                          sx={{
+                            "&:last-child td, &:last-child th": { border: 0 },
+                          }}
+                        >
+                          <TableCell align="center">{index + 1}</TableCell>
+                          <TableCell align="center">{row.title}</TableCell>
+                          <TableCell align="center">{row.categorize}</TableCell>
+                          <TableCell align="center">
+                            <div className="article_admin_list_option">
+                              <AiFillDelete
+                                className="article_admin_option delete"
+                                onClick={() =>
+                                  handleDeleteArticle(row.id, row.imageName)
+                                }
+                              ></AiFillDelete>
+                              <BiDetail
+                                className="article_admin_option"
+                                onClick={() => handleShowDetail(row)}
+                              ></BiDetail>
+                              <BsFillPenFill
+                                className="article_admin_option"
+                                onClick={() => handleUpdate(row)}
+                              ></BsFillPenFill>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })
+                ) : (
+                  <TableCell colSpan={4} align="center">
+                    Hiện không có bài viết nào!
+                  </TableCell>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </>
+      )}
     </div>
   );
 };

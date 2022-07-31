@@ -6,6 +6,11 @@
     overflow: hidden;
 }
 
+.site-main-admin{
+    display: flex;
+    flex-direction: column;
+}
+
 .main-admin-content {
     padding: 20px;
     border: 1px solid #ccc;

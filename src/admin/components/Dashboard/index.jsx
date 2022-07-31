@@ -21,6 +21,7 @@ import {
 } from "../../../backend/controllers/sinhvien.controller";
 import DashboardCtv from "./Tabs/DashboardCtv";
 import { Button } from "@mui/material";
+import DashboardBlog from "./Tabs/DashboardBlog";
 const sv = require("../../../backend/models/sinhvien.model");
 
 let ctvData;
@@ -188,101 +189,6 @@ const DashboardTab = ({ props, indexTab }) => {
                 </div>
               </div>
             </div>
-            <div className="group-input">
-              <div className="form-input">
-                <label>Ngày Sinh: </label>
-                <input
-                  type="text"
-                  ref={dateRef}
-                  onChange={(e) => setDate(e.target.value)}
-                  value={
-                    checkSV(props.data).length !== 0
-                      ? checkSV(props.data)
-                          .map((item) => item.date)
-                          .join("")
-                      : date
-                  }
-                />
-              </div>
-              <div className="form-input">
-                <label>Lớp: </label>
-                <input
-                  type="text"
-                  ref={classRef}
-                  onChange={(e) => setClasses(e.target.value)}
-                  value={
-                    checkSV(props.data).length !== 0
-                      ? checkSV(props.data)
-                          .map((item) => item.class)
-                          .join("")
-                      : classes
-                  }
-                />
-              </div>
-            </div>
-            <div className="group-input">
-              <button
-                className="confirm-btn"
-                onClick={() => {
-                  addNewSinhVien({
-                    svId: props.data,
-                    name: name,
-                    date: date,
-                    class: classes,
-                    enterRoom: true,
-                  });
-                  formAddMember.current.style.display = "none";
-                }}
-              >
-                Xác Nhận
-              </button>
-              <button
-                className="cancel-btn"
-                onClick={() => (formAddMember.current.style.display = "none")}
-              >
-                Hủy Bỏ
-              </button>
-            </div>
-          </div>
-
-          <div className="inner-room">
-            <h3 className="inner-room-form--heading">
-              Danh Sách Sinh Viên Vào Phòng
-            </h3>
-            <div className="inner-room-content">
-              <div className="inner-form-heading">
-                <div>Mã Sinh Viên</div>
-                <div>Họ Tên</div>
-                <div>Ngày Sinh</div>
-                <div>Lớp</div>
-                <div>Chức Năng</div>
-              </div>
-              <div className="inner-room-form">
-                <div className="inner-room-main">
-                  {data
-                    .filter((item) => item.enterRoom === true)
-                    .map((item, i) => {
-                      return (
-                        <div className="inner-room-member">
-                          <div>{item.svId}</div>
-                          <div>{item.name}</div>
-                          <div>{item.date}</div>
-                          <div>{item.class}</div>
-                          <div>
-                            <MdRemoveCircle
-                              onClick={() => {
-                                updateSinhVien(item._id, {
-                                  enterRoom: false,
-                                });
-                              }}
-                            />
-                          </div>
-                        </div>
-                      );
-                    })}
-                </div>
-              </div>
-            </div>
           </div>
         </>
       );
@@ -293,7 +199,7 @@ const DashboardTab = ({ props, indexTab }) => {
         </>
       );
     case 3:
-      return <div>3</div>;
+      return <DashboardBlog/>;
     case 4:
       return <div>4</div>;
     default:

@@ -218,6 +218,11 @@ const SignUpForm = ({
                 class: Yup.string().required("Vui Lòng Điền Trường Này"),
               })}
               innerRef={formRef}
+              validateOnBlur={false}
+              validateOnChange={false}
+              onSubmit={(values, {validate}) => {
+                  console.log(values);
+              }}
             >
               {({ errors, touched }) => {
                 return (
@@ -227,6 +232,7 @@ const SignUpForm = ({
                     onKeyDown={onKeyDown}
                     onSubmit={(e) => {
                       e.preventDefault();
+                      console.log(formRef.current.isValidate);
                       handleSubmit(e, { ...formRef.current.values, createAt: serverTimestamp()})
                       props.stateFunc();
                     }}

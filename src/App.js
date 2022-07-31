@@ -115,7 +115,7 @@ const App = () => {
                   />
                   <AppRoute
                     exact
-                    path="/admin/Blog"
+                    path="/admin/Blog-Event"
                     component={BlogAdmin}
                     layout={LayoutAdmin}
                   />

@@ -1,31 +1,47 @@
-import { useEffect, useState, memo, Suspense } from "react";
 import {
+  Button,
+  FormLabel,
+  IconButton,
+  Input,
   Paper,
+  Stack,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Button,
   Typography,
-  Stack,
-  TextField,
-  IconButton,
-  Input,
-  FormLabel,
 } from "@mui/material";
 import Modal from "@mui/material/Modal";
 import { Box } from "@mui/system";
-import { BiSearchAlt } from "react-icons/bi";
 import {
   collection,
-  query,
-  orderBy,
-  onSnapshot,
+  deleteDoc,
+  doc,
   getDocs,
+  onSnapshot,
 } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { AiOutlineSearch } from "react-icons/ai";
 import db from "../../../../db.config";
+import Loading from "../../../../utils/Loading";
+import { AiFillDelete } from "react-icons/ai";
+import { BsFillPenFill } from "react-icons/bs";
+import createNotification from "../../../../components/elements/Nofication";
+
+const TOKEN_ADMIN = '8QdPuE3QVYAoiD0ms3BoeaPEKRuCxHwF'
+
+async function clearCollection(path) {
+  const q = collection(db, path);
+  window.confirm('Bạn có chắc chắn với lựa chọn của mình? (Are you sure about that?)') === true &&
+  getDocs(q).then((snapshot) => {
+    snapshot.forEach((item) => {
+      const deleteData = doc(db, path, item.id);
+      deleteDoc(deleteData);
+    });
+  });
+}
 
 const TableCTV = ({ data }) => {
   const [openModel, setOpenModel] = useState(false);
@@ -45,7 +61,7 @@ const TableCTV = ({ data }) => {
     color: "#000",
     overflow: "hidden",
     borderRadius: "8px",
-    opacity: 1
+    opacity: 1,
   };
   const handleOpen = (id) => {
     setModalDetail({
@@ -58,6 +74,13 @@ const TableCTV = ({ data }) => {
     setOpenModel(false);
   };
   console.log(data);
+  async function handleDeleteCtv(id) {
+    if (window.confirm("Bạn có chắc chắn muốn xoá đơn đăng ký này?") == true) {
+      const deleteData = doc(db, "ctv", id);
+      await deleteDoc(deleteData);
+      createNotification("success", "Xoá thành công");
+    }
+  }
   return (
     <>
       {data ? (
@@ -87,6 +110,7 @@ const TableCTV = ({ data }) => {
                 <TableCell align="center">Lớp</TableCell>
                 <TableCell align="center">Ban Lựa Chọn</TableCell>
                 <TableCell align="center">Lời Nhắn</TableCell>
+                <TableCell align="center">Tùy Chọn</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -124,7 +148,7 @@ const TableCTV = ({ data }) => {
                           aria-labelledby="modal-modal-title"
                           aria-describedby="modal-modal-description"
                           sx={{
-                            backgroundColor: 'rgba(0,0,0,0.2)'
+                            backgroundColor: "rgba(0,0,0,0.2)",
                           }}
                         >
                           <Box overflow="hidden" sx={modelStyle}>
@@ -158,6 +182,15 @@ const TableCTV = ({ data }) => {
                         </Modal>
                       )}
                     </TableCell>
+                    <TableCell align="center">
+                      <div className="article_admin_list_option">
+                        <AiFillDelete
+                          className="article_admin_option delete"
+                          onClick={() => handleDeleteCtv(row.id)}
+                        ></AiFillDelete>
+                        <BsFillPenFill className="article_admin_option"></BsFillPenFill>
+                      </div>
+                    </TableCell>
                   </TableRow>
                 );
               })}
@@ -172,16 +205,7 @@ const TableCTV = ({ data }) => {
           alignItems="center"
           justifyContent="center"
         >
-          <Typography
-            sx={{
-              textAlign: "center",
-              textTransform: "uppercase",
-              color: "#f36430",
-            }}
-            variant="h5"
-          >
-            chưa có đơn đăng ký ctv
-          </Typography>
+          <Loading />
         </Box>
       )}
     </>
@@ -220,7 +244,7 @@ const SearchBar = ({ setSearchQuery, handleSubmit }) => (
         handleSubmit();
       }}
     >
-      <BiSearchAlt />
+      <AiOutlineSearch />
     </IconButton>
   </form>
 );
@@ -228,6 +252,8 @@ const SearchBar = ({ setSearchQuery, handleSubmit }) => (
 const DashboardCtv = () => {
   const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [open, setOpen] = useState(false);
+  const [authorize, setAuthorize] = useState('');
   async function getCtvData() {
     const q = collection(db, "ctv");
     getDocs(q)
@@ -246,25 +272,37 @@ const DashboardCtv = () => {
   }
   let ctvData = [];
   function filterCtvData(query) {
-    let ctvData = [];
-    const q = collection(db, "ctv");
-    getDocs(q)
-      .then((snapshot) => {
-        snapshot.forEach((item) => {
-          ctvData.push({
-            id: item.id,
-            ...item.data(),
-          });
-        });
-        setData(ctvData.filter((item) => item.fullName === query));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    let filterData;
+    if (query === "") {
+      getCtvData();
+    } else {
+      filterData =
+        data && data.filter((item) => item.fullName.includes(query) === true);
+      setData(filterData);
+    }
   }
+  const handleClose = () => {
+    setOpen(false);
+  };
   useEffect(() => {
     getCtvData();
   }, []);
+  const modelStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 600,
+    height: 200,
+    backgroundColor: "#fff",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+    color: "#000",
+    overflow: "hidden",
+    borderRadius: "8px",
+    opacity: 1,
+  };
   return (
     <>
       <Stack margin="10px 0">
@@ -273,13 +311,55 @@ const DashboardCtv = () => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Button
-            variant="contained"
-            sx={{ marginBottom: "10px" }}
-            onClick={getCtvData}
-          >
-            Refresh
-          </Button>
+          <Stack direction="row" gap="10px">
+            <Button
+              variant="contained"
+              sx={{ marginBottom: "10px" }}
+              onClick={getCtvData}
+            >
+              Refresh
+            </Button>
+            <Button
+              variant="contained"
+              sx={{ marginBottom: "10px" }}
+              onClick={() => {
+                console.log('Auth: ', TOKEN_ADMIN);
+                setOpen(true)
+              }}
+              color="error"
+              disabled={data.length === 0 ? true : false}
+            >
+              Delete All
+            </Button>
+            {open && (
+              <Modal
+                open
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+                sx={{
+                  backgroundColor: "rgba(0,0,0,0.2)",
+                }}
+              >
+                <Box overflow="hidden" sx={modelStyle}>
+                  <Typography color='#39FF14' variant="h6" letterSpacing='2px'>Authorize</Typography>
+                  <Input placeholder="********" sx={{
+                      width: '100%',
+                      margin: '10px 0'
+                  }} onChange={(e) => setAuthorize(e.target.value)}/>
+                  <Box width='100%'>
+                    <Button sx={{
+                      float: 'right',
+                      marginTop: '10px'
+                    }} color='secondary' variant="outlined" onClick={() => {
+                      authorize === TOKEN_ADMIN ? clearCollection('ctv') : createNotification('error','Authorize Failed')
+                      setOpen(false)
+                    }}>Confirm</Button>
+                  </Box>
+                </Box>
+              </Modal>
+            )}
+          </Stack>
           <SearchBar
             setSearchQuery={setSearchQuery}
             handleSubmit={() => filterCtvData(searchQuery)}

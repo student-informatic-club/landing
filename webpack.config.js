@@ -6,7 +6,13 @@
  */
 'use strict';
 var webpack = require('webpack');
-module.exports = {
+const Dotenv = require('dotenv-webpack');
+
+module.exports = env => ({
+
+  // reduce it to a nice object, the same as before
+
+      
   output: {
     filename: 'main.js',
     publicPath: '/assets/'
@@ -53,9 +59,9 @@ module.exports = {
   node: {
     fs: "empty"
   },
-
-//   plugins: [
-//     new webpack.HotModuleReplacementPlugin(),
-//     new webpack.NoErrorsPlugin()
-//   ]
-};
+  plugins: [
+    new Dotenv({
+      path: `./.env.${env}`
+    }),
+  ]
+});

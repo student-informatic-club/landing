@@ -17,7 +17,7 @@ import {
 import { AiFillCloseCircle, AiOutlineSearch } from "react-icons/ai";
 import { deleteDoc, doc } from "firebase/firestore";
 import createNotification from "../../../components/elements/Nofication";
-import db from "../../../db.config";
+// import db from "../../../db.config";
 import { deleteObject, getStorage, ref } from "firebase/storage";
 const ListArticle = ({ data, sortedFunc }) => {
   // Article List Data from firebase
@@ -72,15 +72,15 @@ const ListArticle = ({ data, sortedFunc }) => {
           // Uh-oh, an error occurred!
         });
     }
-    if (window.confirm("Bạn có chắc chắn muốn xoá bài viết này?") == true) {
-      const deleteData = doc(db, "article", id);
-      await deleteDoc(deleteData);
-      createNotification("success", "Xoá thành công");
-      deleteImage();
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
-    }
+    // if (window.confirm("Bạn có chắc chắn muốn xoá bài viết này?") == true) {
+    //   const deleteData = doc(db, "article", id);
+    //   await deleteDoc(deleteData);
+    //   createNotification("success", "Xoá thành công");
+    //   deleteImage();
+    //   setTimeout(() => {
+    //     window.location.reload();
+    //   }, 2000);
+    // }
   }
   function handleUpdate(post) {
     setPost(post);

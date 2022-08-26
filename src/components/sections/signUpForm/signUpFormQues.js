@@ -5,7 +5,7 @@ const textMainBase = {
   // Định dạng mẫu: 2022-12-24T00:00:00, input dạng chuỗi 2 kí tự 2=>02
     title: <h3>BECOME OUR TEAMMATE</h3>,
     dayEnd: '05',
-    monthEnd: '08',
+    monthEnd: '09',
     yearEnd: '2022',
     messageTitle: 'Mong muốn của bạn khi vào CLB'
 }

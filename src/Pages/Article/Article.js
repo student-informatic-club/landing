@@ -8,7 +8,7 @@ import navLinks from "../../components/layout/partials/HeaderNav";
 import Slider from "react-slick";
 import { MdOutlineDoubleArrow } from "react-icons/md";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
-import db from "../../db.config";
+// import db from "../../db.config";
 import { handleChangeSeconsToDate } from "../../utils/ConvertSecondToDate";
 
 // FOR BLOG AND EVENT PAGE
@@ -16,22 +16,7 @@ import { handleChangeSeconsToDate } from "../../utils/ConvertSecondToDate";
 const Article = ({ type, title }) => {
   const [data, setData] = useState([]);
   useEffect(() => {
-    type = type.charAt(0).toUpperCase() + type.slice(1);
-    const collectionRef = collection(db, "article");
-    const q = query(collectionRef, where("categorize", "==", type));
-    onSnapshot(q, (snapshot) => {
-      let posts = [];
-      snapshot.docs.forEach((doc) => {
-        posts.push({
-          id: doc.id,
-          ...doc.data(),
-        });
-      });
-      posts.sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1));
-      setData(posts);
-
-      console.log(posts[0].createdAt.seconds);
-    });
+    
   }, []);
 
   // Search

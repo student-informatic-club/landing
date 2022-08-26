@@ -18,11 +18,11 @@ import {
   getSinhVien,
   addNewSinhVien,
   updateSinhVien,
-} from "../../../backend/controllers/sinhvien.controller";
+} from "../../../server/controllers/sinhvien.controller";
 import DashboardCtv from "./Tabs/DashboardCtv";
 import { Button } from "@mui/material";
 import DashboardBlog from "./Tabs/DashboardBlog";
-const sv = require("../../../backend/models/sinhvien.model");
+const sv = require("../../../server/models/sinhvien.model");
 
 let ctvData;
 const DashboardTab = ({ props, indexTab }) => {

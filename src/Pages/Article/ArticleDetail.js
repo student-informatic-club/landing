@@ -10,16 +10,16 @@ import { useParams } from "react-router-dom";
 import { Markup } from "interweave"; // for converting string to html
 import { Comment, LikeAndShare } from "../../assets/facebook/Facebook";
 import { doc, onSnapshot } from "firebase/firestore";
-import db from "../../db.config";
+// import db from "../../db.config";
 import { handleChangeSeconsToDate } from "../../utils/ConvertSecondToDate";
 const ArticleDetail = ({ type }) => {
   const { postID } = useParams();
   const [data, setData] = useState("");
   useEffect(() => {
-    const singleDoc = doc(db, "article", postID);
-    onSnapshot(singleDoc, (snapshot) => {
-      setData(snapshot.data());
-    });
+    // const singleDoc = doc(db, "article", postID);
+    // onSnapshot(singleDoc, (snapshot) => {
+    //   setData(snapshot.data());
+    // });
   }, [postID]);
   const { title, image, text, tags, createdAt, author } = data;
   const urlPost = `https://dev-web-sic.vercel.app/${type}/${postID} `;

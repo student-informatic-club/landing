@@ -33,6 +33,17 @@ module.exports = env => ({
     alias: {
       'styles': '../../../src/styles',
       'components': '../../../src/scripts/components/'
+    },
+    fallback: {
+      "fs": false,
+      "tls": false,
+      "net": false,
+      "path": false,
+      "zlib": false,
+      "http": false,
+      "https": false,
+      "stream": false,
+      "crypto": false,
     }
   },
   module: {
@@ -56,9 +67,9 @@ module.exports = env => ({
       loader: 'url-loader?limit=8192'
     }]
   },
-  node: {
-    fs: "empty"
-  },
+  // node: {
+  //   fs: "empty"
+  // },
   plugins: [
     new Dotenv({
       path: `./.env.${env}`

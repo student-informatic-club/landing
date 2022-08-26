@@ -36,6 +36,9 @@ import BlogAdmin from "./admin/components/Blog";
 
 import { Provider } from "react-redux";
 import configureStore from "./components/Scanner/store/configStore";
+
+// import store
+// import store from './store';
 // Initialize Google Analytics
 ReactGA.initialize(process.env.REACT_APP_GA_CODE);
 

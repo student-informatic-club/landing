@@ -13,7 +13,7 @@ import "react-quill/dist/quill.snow.css";
 import { Button } from "@mui/material";
 import { serverTimestamp, doc, updateDoc } from "firebase/firestore";
 import createNotification from "../../../components/elements/Nofication";
-import db from "../../../db.config";
+// import db from "../../../db.config";
 import {
   getStorage,
   ref,
@@ -23,7 +23,7 @@ import {
 } from "firebase/storage";
 let urlImg = "";
 
-const storage = getStorage();
+// const storage = getStorage();
 
 // Create a reference to the file to delete
 
@@ -35,66 +35,66 @@ const UpdateArticle = ({ post }) => {
   }, []);
 
   function deleteImage() {
-    const desertRef = ref(storage, `images/${oldUrlImg}`);
+    // const desertRef = ref(storage, `images/${oldUrlImg}`);
 
-    // Delete the file
-    deleteObject(desertRef)
-      .then(() => {
-        // File deleted successfully
-        createNotification("success", "Xoá ảnh cũ thành công");
-      })
-      .catch((error) => {
-        // Uh-oh, an error occurred!
-      });
+    // // Delete the file
+    // deleteObject(desertRef)
+    //   .then(() => {
+    //     // File deleted successfully
+    //     createNotification("success", "Xoá ảnh cũ thành công");
+    //   })
+    //   .catch((error) => {
+    //     // Uh-oh, an error occurred!
+    //   });
   }
 
   const [image, setImage] = useState("");
   const [url, setUrl] = useState(post.image);
   const [targetInpuImage, setTargetInputImage] = useState("");
   const handleDeletePreviewImage = (image, targetInpuImage) => {
-    setImage("");
-    targetInpuImage.value = null;
+    // setImage("");
+    // targetInpuImage.value = null;
   };
   const handleUploadImage = (image) => {
-    if (!image) return "";
-    else if (image) {
-      image.preview = URL.createObjectURL(image);
-      const file = image;
-      const storageRef = ref(storage, "images/" + file.name);
-      const uploadTask = uploadBytesResumable(storageRef, file);
+    // if (!image) return "";
+    // else if (image) {
+    //   image.preview = URL.createObjectURL(image);
+    //   const file = image;
+    //   const storageRef = ref(storage, "images/" + file.name);
+    //   const uploadTask = uploadBytesResumable(storageRef, file);
 
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log("Upload is " + progress + "% done");
-          switch (snapshot.state) {
-            case "paused":
-              console.log("Upload is paused");
-              break;
-            case "running":
-              console.log("Upload is running");
-              break;
-            default:
-              console.log("Nothing");
-          }
-        },
-        (error) => {
-          console.log(error);
-        },
-        () => {
-          // Upload completed successfully, now we can get the download URL
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            console.log("File available at", downloadURL);
-            if (downloadURL && downloadURL !== post.image) {
-              setUrl(downloadURL);
-            }
-          });
-        }
-      );
-    }
+    //   uploadTask.on(
+    //     "state_changed",
+    //     (snapshot) => {
+    //       // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+    //       const progress =
+    //         (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    //       console.log("Upload is " + progress + "% done");
+    //       switch (snapshot.state) {
+    //         case "paused":
+    //           console.log("Upload is paused");
+    //           break;
+    //         case "running":
+    //           console.log("Upload is running");
+    //           break;
+    //         default:
+    //           console.log("Nothing");
+    //       }
+    //     },
+    //     (error) => {
+    //       console.log(error);
+    //     },
+    //     () => {
+    //       // Upload completed successfully, now we can get the download URL
+    //       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+    //         console.log("File available at", downloadURL);
+    //         if (downloadURL && downloadURL !== post.image) {
+    //           setUrl(downloadURL);
+    //         }
+    //       });
+    //     }
+    //   );
+    // }
   };
 
   useEffect(() => {
@@ -104,35 +104,35 @@ const UpdateArticle = ({ post }) => {
   }, [image]);
 
   const handleSubmit = async (obj) => {
-    try {
-      let tags = obj.tags;
-      try {
-        tags = obj.tags.split(" ");
-      } catch (err) {
-        console.log(err);
-      }
+    // try {
+    //   let tags = obj.tags;
+    //   try {
+    //     tags = obj.tags.split(" ");
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
 
-      const updateData = doc(db, "article", postId);
-      await updateDoc(updateData, {
-        ...obj,
-        tags,
-        image: url,
-        imageName: obj.image !== "" ? obj.image.name : post.imageName,
-        author: "CLB Tin học sinh viên",
-      });
-      createNotification("success", "Cập nhật thành công");
-      if (obj.image && oldUrlImg && oldUrlImg !== obj.image) {
-        deleteImage();
-      }
-      setTimeout(() => {
-        setOldUrlImg(obj.imageName);
+    //   const updateData = doc(db, "article", postId);
+    //   await updateDoc(updateData, {
+    //     ...obj,
+    //     tags,
+    //     image: url,
+    //     imageName: obj.image !== "" ? obj.image.name : post.imageName,
+    //     author: "CLB Tin học sinh viên",
+    //   });
+    //   createNotification("success", "Cập nhật thành công");
+    //   if (obj.image && oldUrlImg && oldUrlImg !== obj.image) {
+    //     deleteImage();
+    //   }
+    //   setTimeout(() => {
+    //     setOldUrlImg(obj.imageName);
 
-        window.location.reload();
-      }, 2000);
-    } catch (err) {
-      createNotification("error", "Cập nhật thất bại");
-      console.log(err);
-    }
+    //     window.location.reload();
+    //   }, 2000);
+    // } catch (err) {
+    //   createNotification("error", "Cập nhật thất bại");
+    //   console.log(err);
+    // }
   };
 
   const tags = post.tags.join(" ");

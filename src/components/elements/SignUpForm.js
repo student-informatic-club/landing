@@ -1,39 +1,29 @@
-import React, { useEffect, useState, useRef } from "react";
-import PropTypes from "prop-types";
 import classNames from "classnames";
-import { SectionProps } from "../../utils/SectionProps";
-import "./../../assets/css/style.css";
 import { Field, Form, Formik } from "formik";
+import { motion } from "framer-motion";
+import PropTypes from "prop-types";
+import React, { useEffect, useMemo, useState } from "react";
+import { AiFillCloseCircle } from "react-icons/ai";
 import * as Yup from "yup";
 import CountDown from "../../utils/CountDown";
-import { motion } from "framer-motion";
+import { SectionProps } from "../../utils/SectionProps";
 import {
-  infoContact,
-  textMainBase,
   basicQues,
-  chooseQues,
+  chooseQues, infoContact,
+  textMainBase
 } from "../sections/signUpForm/signUpFormQues";
-import { AiFillCloseCircle } from "react-icons/ai";
+import "./../../assets/css/style.css";
 import createNotification from "./Nofication";
-import db from "../../db.config";
-import {
-  collection,
-  addDoc,
-  serverTimestamp,
-  getDocs,
-} from "firebase/firestore";
+// import db from "../../db.config";
 import emailjs from "@emailjs/browser";
+import axios from "axios";
+import config from '../../db.config';
+import { getCtv } from "../../server/controllers/ctv.controller";
+import DateTime from "./Date";
 const propTypes = {
   ...SectionProps.types,
   status: PropTypes.bool,
 };
-
-function formatText(num) {
-  if (num < 10) {
-    return "0" + num;
-  }
-  return num;
-}
 
 const defaultProps = {
   ...SectionProps.defaults,
@@ -81,50 +71,29 @@ const SignUpForm = ({
   const innerClasses = classNames("signUpForm-inner");
   const [data, setData] = useState([]);
   const [statusConn, setStatusConn] = useState(null);
+  const [disabled, setDisabled] = useState(false);
 
-  async function getCtvData() {
-    let ctvData = [];
-    const q = collection(db, "ctv");
-    getDocs(q)
-      .then((snapshot) => {
-        snapshot.forEach((item) => {
-          ctvData.push({
-            id: item.id,
-            ...item.data(),
-          });
-        });
-        setData(ctvData);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  useMemo(() => setDisabled(dateData.isTimeOut), [dateData.isTimeOut])
+
+  const handleSubmit = (obj) => {
+    axios.post(`${config.API_URL}/api/ctv/add`, obj)
+    .then(createNotification('success', 'Cảm ơn bạn đã đăng ký CTV :3'))
+    .catch((err) => {
+      createNotification('error', 'Lỗi Đăng Ký!')
+      console.log(err);
+    })
+  };
+
+  const getData = async () => {
+      const data = await getCtv();
+      setData(data)
+      console.log(data, 97)
   }
-
-  const statusChange = () => {
-    setStatusConn(200);
-  };
-
-  const handleSubmit = async (obj) => {
-    const found = data.find((item) => item.email === obj.email);
-    if (found) {
-      createNotification("error", "Email này đã được dùng để đăng ký!");
-    } else {
-      try {
-        await addDoc(collection(db, "ctv"), obj)
-          .then(() => {
-            createNotification("success", "Đã Đăng Ký Thành Công");
-          })
-          .then(sendEmail(obj));
-      } catch (err) {
-        createNotification("error", "Có Lỗi Xảy Ra Khi Đăng Ký!");
-        console.log(err);
-      }
-    }
-  };
-
+  
   useEffect(() => {
-    getCtvData();
+    getData()
   }, []);
+
   const sendEmail = (values) => {
     emailjs.send("gmail", "template_ol8vwc6", values, "iaJ4LMteT5H4R1l9d").then(
       (result) => {
@@ -173,16 +142,7 @@ const SignUpForm = ({
               </div>
             </div>
             <div className="signUpForm__footer flex-child">
-              {!dateData.isTimeOut ? (
-                <span style={{ fontSize: "15px" }}>
-                  Hạn đăng kí: Còn <strong>{formatText(dateData.days)}</strong>{" "}
-                  ngày <strong>{formatText(dateData.hours)}</strong> giờ{" "}
-                  <strong>{formatText(dateData.min)}</strong> phút{" "}
-                  <strong>{formatText(dateData.second)}</strong> giây{" "}
-                </span>
-              ) : (
-                <span style={{ fontSize: "15px" }}>Đã hết hạn đăng kí</span>
-              )}
+              <DateTime time={dayOut}/>
             </div>
           </div>
           <div className="signUpForm--right flex-col">
@@ -206,40 +166,14 @@ const SignUpForm = ({
                   .required()
                   .min(1, "Vui Lòng Chọn Trường Này"),
               })}
-<<<<<<< HEAD
-              innerRef={formRef}
-              validateOnBlur={false}
-              validateOnChange={false}
-              onSubmit={(values, {validate}) => {
-                  console.log(values);
-=======
               onSubmit={(values) => {
-                handleSubmit({
-                  ...values,
-                  createAt: serverTimestamp(),
-                });
+                handleSubmit(values);
                 props.stateFunc();
->>>>>>> a43c33655ff44d6da5378859fa201ee321263470
               }}
             >
               {({ errors, touched }) => {
                 return (
-<<<<<<< HEAD
-                  <form
-                    className="flex-col"
-                    id="formCtv"
-                    onKeyDown={onKeyDown}
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      console.log(formRef.current.isValidate);
-                      handleSubmit(e, { ...formRef.current.values, createAt: serverTimestamp()})
-                      props.stateFunc();
-                    }}
-                    ref={ref}
-                  >
-=======
                   <Form>
->>>>>>> a43c33655ff44d6da5378859fa201ee321263470
                     <div className="basic-info gridCol-2 flex-child">
                       {basicQues.map((item) => (
                         <div className="basic-info__item" key={item.quesTitle}>
@@ -309,7 +243,7 @@ const SignUpForm = ({
                       </button>
                       <button
                         className="button button-primary button-sm"
-                        disabled={dateData.isTimeOut}
+                        disabled={disabled}
                         type="submit"
                       >
                         NỘP

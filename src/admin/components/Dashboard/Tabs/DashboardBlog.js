@@ -7,39 +7,27 @@ import {
     TableHead,
     TableRow, Typography
   } from "@mui/material";
+import axios from "axios";
 import { collection, getDocs, where, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import db from "../../../../db.config";
+// import db from "../../../../db.config";
+import config from "../../../../db.config"
   
 const DashboardBlog = () => {
-    const [article, setArticle] = useState([]);
 
     // For Detail Page
     const [showDetailArticle, setShowDetailArticle] = useState(false); // show detail
 
     const [searchValue, setSearchValue] = useState("");
-    let data = [];
+
+    const [ data, setData ] = useState([]);
     useEffect(() => {
-        const q =
-            query(
-                collection(db, "article"),
-                where("categorize", "==", "Event")
-            );
-        getDocs(q)
-        .then((snapshot) => {
-            snapshot.forEach((item) => {
-            data.push({
-                id: item.id,
-                ...item.data(),
-            });
-            });
-            data.sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1));
-            setArticle(data);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+      handleGetData()
     }, []);
+
+    const handleGetData = () => {
+      axios.get(`${config.API_URL}/api/article`, { params: { categorize: 'Blog' } }).then((res) => setData(res.data))
+    }
 
     return (
         <TableContainer component={Paper}>
@@ -47,7 +35,7 @@ const DashboardBlog = () => {
           <TableHead
             sx={{
               backgroundColor: "#6B6DFF",
-              ["th"]: {
+              "th": {
                 color: "#fff",
               },
             }}
@@ -60,8 +48,8 @@ const DashboardBlog = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {article.length > 0 && article ? (
-              article
+            {data.length > 0 && data ? (
+              data
                 .filter((value) => {
                   if (searchValue === "") {
                     return value;

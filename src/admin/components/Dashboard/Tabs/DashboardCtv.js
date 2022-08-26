@@ -22,30 +22,24 @@ import {
   getDocs,
   onSnapshot,
 } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
-import db from "../../../../db.config";
+// import db from "../../../../db.config";
 import Loading from "../../../../utils/Loading";
 import { AiFillDelete } from "react-icons/ai";
 import { BsFillPenFill } from "react-icons/bs";
+import { SiMicrosoftexcel } from "react-icons/si";
 import createNotification from "../../../../components/elements/Nofication";
+import generateUUID from "../../../store/uuid";
+import exportUsersToExcel from "../../../../utils/exportExcel";
+import axios from "axios";
+import config from "../../../../db.config";
 
-const TOKEN_ADMIN = '8QdPuE3QVYAoiD0ms3BoeaPEKRuCxHwF'
-
-async function clearCollection(path) {
-  const q = collection(db, path);
-  window.confirm('Bạn có chắc chắn với lựa chọn của mình? (Are you sure about that?)') === true &&
-  getDocs(q).then((snapshot) => {
-    snapshot.forEach((item) => {
-      const deleteData = doc(db, path, item.id);
-      deleteDoc(deleteData);
-    });
-  });
-}
+const TOKEN_ADMIN = generateUUID();
 
 const TableCTV = ({ data }) => {
   const [openModel, setOpenModel] = useState(false);
-  const [modalDetail, setModalDetail] = useState({});
+  const [ctvDetail, setCtvDetail] = useState({});
   let currentCtv;
   const modelStyle = {
     position: "absolute",
@@ -64,22 +58,25 @@ const TableCTV = ({ data }) => {
     opacity: 1,
   };
   const handleOpen = (id) => {
-    setModalDetail({
-      name: data.filter((item) => item.id === id)[0].fullName,
-      message: data.filter((item) => item.id === id)[0].message,
-    });
+    handleCtvDetail(id).then((res) => setCtvDetail(res.data));
     setOpenModel(true);
   };
   const handleClose = () => {
     setOpenModel(false);
   };
-  console.log(data);
-  async function handleDeleteCtv(id) {
+  function handleDeleteCtv(id) {
     if (window.confirm("Bạn có chắc chắn muốn xoá đơn đăng ký này?") == true) {
-      const deleteData = doc(db, "ctv", id);
-      await deleteDoc(deleteData);
-      createNotification("success", "Xoá thành công");
+      axios
+        .get(`${config.API_URL}/api/ctv/delete/${id}`)
+        .then(createNotification("success", "Xoá thành công! :3"))
+        .catch((err) => {
+          createNotification("error", "Lỗi Òy! T_T");
+          console.log(err);
+        });
     }
+  }
+  function handleCtvDetail(id) {
+    return axios.get(`${config.API_URL}/api/ctv/${id}`);
   }
   return (
     <>
@@ -95,7 +92,7 @@ const TableCTV = ({ data }) => {
             <TableHead
               sx={{
                 backgroundColor: "#6B6DFF",
-                ["th"]: {
+                th: {
                   color: "#fff",
                 },
                 position: "sticky",
@@ -115,7 +112,6 @@ const TableCTV = ({ data }) => {
             </TableHead>
             <TableBody>
               {data.map((row) => {
-                console.log(row);
                 return (
                   <TableRow
                     key={row.fullName}
@@ -134,9 +130,7 @@ const TableCTV = ({ data }) => {
                         color="info"
                         sx={{ textTransform: "capitalize" }}
                         onClick={() => {
-                          currentCtv = row.id;
-                          handleOpen(currentCtv);
-                          console.log(row.id);
+                          handleOpen(row._id);
                         }}
                       >
                         Xem Chi Tiết
@@ -165,7 +159,7 @@ const TableCTV = ({ data }) => {
                                   color: "#000",
                                 }}
                               >
-                                {modalDetail.name}
+                                {ctvDetail.fullName}
                               </Typography>
                               <Typography
                                 id="modal-modal-description"
@@ -173,9 +167,9 @@ const TableCTV = ({ data }) => {
                                 width="80%"
                                 textAlign="justify"
                               >
-                                {modalDetail.message === ""
+                                {ctvDetail.message === ""
                                   ? "Không có lời nhắn nào cả"
-                                  : modalDetail.message}
+                                  : ctvDetail.message}
                               </Typography>
                             </Box>
                           </Box>
@@ -186,7 +180,7 @@ const TableCTV = ({ data }) => {
                       <div className="article_admin_list_option">
                         <AiFillDelete
                           className="article_admin_option delete"
-                          onClick={() => handleDeleteCtv(row.id)}
+                          onClick={() => handleDeleteCtv(row._id)}
                         ></AiFillDelete>
                         <BsFillPenFill className="article_admin_option"></BsFillPenFill>
                       </div>
@@ -229,7 +223,7 @@ const SearchBar = ({ setSearchQuery, handleSubmit }) => (
       </FormLabel>
       <Input
         sx={{
-          ["input"]: {
+          input: {
             marginBottom: "0 !important",
           },
         }}
@@ -253,24 +247,29 @@ const DashboardCtv = () => {
   const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [open, setOpen] = useState(false);
-  const [authorize, setAuthorize] = useState('');
+  const [authorize, setAuthorize] = useState("");
+  const workSheetColumnName = [
+    "ID",
+    "Họ Tên",
+    "Lớp",
+    "Email",
+    "Số Điện Thoại",
+    "Ban Lựa Chọn",
+    "Lời Nhắn",
+  ];
+  const workSheetName = "Ctv";
+  const filePath = "./outputFiles/ctv.xlsx";
+  const handleExportCtv = () => {
+    exportUsersToExcel(data, workSheetColumnName, workSheetName, filePath);
+  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   async function getCtvData() {
-    const q = collection(db, "ctv");
-    getDocs(q)
-      .then((snapshot) => {
-        snapshot.forEach((item) => {
-          ctvData.push({
-            id: item.id,
-            ...item.data(),
-          });
-        });
-        setData(ctvData);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    axios.get(`${config.API_URL}/api/ctv`).then((res) => setData(res.data));
   }
-  let ctvData = [];
+  const handleRefresh = useMemo(() => {
+    getCtvData();
+  }, [getCtvData]);
+
   function filterCtvData(query) {
     let filterData;
     if (query === "") {
@@ -284,6 +283,12 @@ const DashboardCtv = () => {
   const handleClose = () => {
     setOpen(false);
   };
+  async function clearCollection() {
+    data && data.forEach((item) => handleDeleteCtv(item._id));
+  }
+  function handleDeleteCtv(id) {
+    axios.get(`${config.API_URL}/api/ctv/delete/${id}`);
+  }
   useEffect(() => {
     getCtvData();
   }, []);
@@ -315,7 +320,7 @@ const DashboardCtv = () => {
             <Button
               variant="contained"
               sx={{ marginBottom: "10px" }}
-              onClick={getCtvData}
+              onClick={handleRefresh}
             >
               Refresh
             </Button>
@@ -323,8 +328,8 @@ const DashboardCtv = () => {
               variant="contained"
               sx={{ marginBottom: "10px" }}
               onClick={() => {
-                console.log('Auth: ', TOKEN_ADMIN);
-                setOpen(true)
+                console.log("Auth: ", TOKEN_ADMIN);
+                setOpen(true);
               }}
               color="error"
               disabled={data.length === 0 ? true : false}
@@ -342,23 +347,57 @@ const DashboardCtv = () => {
                 }}
               >
                 <Box overflow="hidden" sx={modelStyle}>
-                  <Typography color='#39FF14' variant="h6" letterSpacing='2px'>Authorize</Typography>
-                  <Input placeholder="********" sx={{
-                      width: '100%',
-                      margin: '10px 0'
-                  }} onChange={(e) => setAuthorize(e.target.value)}/>
-                  <Box width='100%'>
-                    <Button sx={{
-                      float: 'right',
-                      marginTop: '10px'
-                    }} color='secondary' variant="outlined" onClick={() => {
-                      authorize === TOKEN_ADMIN ? clearCollection('ctv') : createNotification('error','Authorize Failed')
-                      setOpen(false)
-                    }}>Confirm</Button>
+                  <Typography color="#39FF14" variant="h6" letterSpacing="2px">
+                    Authorize
+                  </Typography>
+                  <Input
+                    placeholder="********"
+                    sx={{
+                      width: "100%",
+                      margin: "10px 0",
+                    }}
+                    onChange={(e) => setAuthorize(e.target.value)}
+                  />
+                  <Box width="100%">
+                    <Button
+                      sx={{
+                        float: "right",
+                        marginTop: "10px",
+                      }}
+                      color="secondary"
+                      variant="outlined"
+                      onClick={() => {
+                        authorize === TOKEN_ADMIN
+                          ? clearCollection()
+                              .then(
+                                createNotification(
+                                  "success",
+                                  "Xoá thành công! :3"
+                                )
+                              )
+                              .catch((err) => {
+                                createNotification("error", "Lỗi Òy! T_T");
+                                console.log(err);
+                              })
+                          : createNotification("error", "Authorize Failed");
+                        setOpen(false);
+                      }}
+                    >
+                      Confirm
+                    </Button>
                   </Box>
                 </Box>
               </Modal>
             )}
+            <Button
+              variant="contained"
+              sx={{ marginBottom: "10px" }}
+              onClick={handleExportCtv}
+              color="success"
+              disabled={data.length === 0 ? true : false}
+            >
+              export <SiMicrosoftexcel />
+            </Button>
           </Stack>
           <SearchBar
             setSearchQuery={setSearchQuery}

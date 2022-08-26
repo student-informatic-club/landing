@@ -53,7 +53,7 @@ export default function CountDown(endDate) {
       setDate(date2);
     }, 1000);
     return () => clearInterval(handle);
-  }, []);
+  }, [endDate]);
   return date;
 }
 

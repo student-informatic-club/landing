@@ -15,6 +15,7 @@ import Home from "./views/Home";
 // import AdminPage from "./admin/Admin";
 import login from "./views/Login";
 import "react-notifications/lib/notifications.css";
+import 'antd/dist/antd.css';
 import { NotificationContainer } from "react-notifications";
 // BAN
 import BanHocTap from "./Pages/Ban/BanHocTap";
@@ -56,7 +57,7 @@ const App = () => {
   useEffect(() => {
     const page = location.pathname;
     // document.body.classList.add("is-loaded");
-    childRef && childRef.current.init();
+    // childRef && childRef.current.init();
     trackPage(page);
   }, [location]);
   let history = useHistory();

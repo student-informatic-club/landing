@@ -1,19 +1,20 @@
 import React from "react";
-import {NotificationManager} from 'react-notifications';
+// import {NotificationManager} from 'react-notifications';
+import { notification } from 'antd'
 
 const createNotification = (type, message) => {
     switch(type) {
         case 'info':
-            NotificationManager.info(message);
+            notification.info(message);
             break;
         case 'success':
-            NotificationManager.success(message, 'Thành Công', 2000);
+            notification.success(message);
             break;
         case 'warning':
-            NotificationManager.warning(message, 'Cảnh Báo');
+            notification.warning(message);
             break;
         case 'error':
-            NotificationManager.error(message, 'Lỗi',  2000);
+            notification.error(message);
             break;
         default:
     }

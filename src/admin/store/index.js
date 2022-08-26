@@ -8,12 +8,7 @@ const Store = create((set, get) => ({
 }))
 
 export const sideBar = create((set, get) => ({
-    admin: [
-        {name: 'Dashboard', href: '/admin/Dashboard', status: true},
-        {name: 'Quản Trị Viên', href: '/admin/Quan-tri-vien', status: false},
-        {name: 'Bài Viết/Sự Kiện', href: '/admin/Blog-Event', status: false},
-        // {name: 'Sự Kiện', href: '/admin/Event', status: false},
-    ]
+    active: '/admin/Dashboard'
 }))
 
 export const AdminDashboard = create((set, get) => ({

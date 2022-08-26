@@ -28,14 +28,14 @@ const Login = () => {
                     validationSchema={SchemaLogin}
                     onSubmit = {(values) => {
                         if(values.username === account.username && values.password === account.password){
-                            createNotification('success', 'Đăng Nhập Thành Công')
+                            createNotification('success', {message: "Đăng Nhập Thành Công", duration: 2})
                             Store.setState({status: true});
                             sessionStorage.setItem('LoginStatus', true);
                             setTimeout(() => {
                                 history.push('/admin/Dashboard');
                             }, 500);
                         }else {
-                            createNotification('error', 'Lỗi Đăng Nhập')
+                            createNotification('error', {message: 'Lỗi Đăng Nhập', duration: 2})
                             alert('Sai tài khoản hoặc mật khẩu !')
                         }
                     }}

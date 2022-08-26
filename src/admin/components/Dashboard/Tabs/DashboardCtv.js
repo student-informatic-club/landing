@@ -1,11 +1,9 @@
 import {
-  Button,
   FormLabel,
   IconButton,
   Input,
   Paper,
   Stack,
-  Table,
   TableBody,
   TableCell,
   TableContainer,
@@ -13,18 +11,11 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import Modal from "@mui/material/Modal";
+// import Modal from "@mui/material/Modal";
 import { Box } from "@mui/system";
-import {
-  collection,
-  deleteDoc,
-  doc,
-  getDocs,
-  onSnapshot,
-} from "firebase/firestore";
+import { Table, Modal, Button } from "antd";
 import { useEffect, useMemo, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
-// import db from "../../../../db.config";
 import Loading from "../../../../utils/Loading";
 import { AiFillDelete } from "react-icons/ai";
 import { BsFillPenFill } from "react-icons/bs";
@@ -34,46 +25,29 @@ import generateUUID from "../../../store/uuid";
 import exportUsersToExcel from "../../../../utils/exportExcel";
 import axios from "axios";
 import config from "../../../../db.config";
+import { EyeOutlined } from "@ant-design/icons";
 
 const TOKEN_ADMIN = generateUUID();
 
-const TableCTV = ({ data }) => {
+const TableCTV = ({ data, isLoading }) => {
   const [openModel, setOpenModel] = useState(false);
   const [ctvDetail, setCtvDetail] = useState({});
-  let currentCtv;
-  const modelStyle = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    height: 400,
-    backgroundColor: "#fff",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-    color: "#000",
-    overflow: "hidden",
-    borderRadius: "8px",
-    opacity: 1,
-  };
+  const [delModal, setDelModal] = useState(false)
   const handleOpen = (id) => {
-    handleCtvDetail(id).then((res) => setCtvDetail(res.data));
+    setCtvDetail(id);
     setOpenModel(true);
   };
   const handleClose = () => {
     setOpenModel(false);
   };
   function handleDeleteCtv(id) {
-    if (window.confirm("Bạn có chắc chắn muốn xoá đơn đăng ký này?") == true) {
-      axios
-        .get(`${config.API_URL}/api/ctv/delete/${id}`)
-        .then(createNotification("success", "Xoá thành công! :3"))
-        .catch((err) => {
-          createNotification("error", "Lỗi Òy! T_T");
-          console.log(err);
-        });
-    }
+    axios
+      .get(`${config.API_URL}/api/ctv/delete/${id}`)
+      .then(createNotification("success", {message: "Xoá thành công! :3"}))
+      .catch((err) => {
+        createNotification("error", {message: "Lỗi Òy! T_T"});
+        console.log(err);
+      });
   }
   function handleCtvDetail(id) {
     return axios.get(`${config.API_URL}/api/ctv/${id}`);
@@ -86,110 +60,126 @@ const TableCTV = ({ data }) => {
           sx={{ maxHeight: "65vh", position: "relative" }}
         >
           <Table
-            sx={{ minWidth: 650, margin: 0, overflowY: "scroll" }}
-            aria-label="Basic table"
-          >
-            <TableHead
-              sx={{
-                backgroundColor: "#6B6DFF",
-                th: {
-                  color: "#fff",
+            loading={isLoading}
+            dataSource={data}
+            pagination={false}
+            columns={[
+              {
+                title: "Họ Tên",
+                dataIndex: ["fullName"],
+              },
+              {
+                title: "Email",
+                dataIndex: ["email"],
+              },
+              {
+                title: "Số Điện Thoại",
+                dataIndex: ["phone"],
+              },
+              {
+                title: "Lớp",
+                dataIndex: ["class"],
+              },
+              {
+                title: "Ban Lựa Chọn",
+                dataIndex: ["answer"],
+                render(value) {
+                  return value.join(", ");
                 },
-                position: "sticky",
-                top: 0,
-                zIndex: 999,
-              }}
-            >
-              <TableRow>
-                <TableCell align="center">Họ Tên</TableCell>
-                <TableCell align="center">Email</TableCell>
-                <TableCell align="center">Số Điện Thoại</TableCell>
-                <TableCell align="center">Lớp</TableCell>
-                <TableCell align="center">Ban Lựa Chọn</TableCell>
-                <TableCell align="center">Lời Nhắn</TableCell>
-                <TableCell align="center">Tùy Chọn</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data.map((row) => {
-                return (
-                  <TableRow
-                    key={row.fullName}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell align="center">{row.fullName}</TableCell>
-                    <TableCell align="center">{row.email}</TableCell>
-                    <TableCell align="center">{row.phone}</TableCell>
-                    <TableCell align="center">{row.class}</TableCell>
-                    <TableCell align="center">
-                      {row.answer.join(", ")}
-                    </TableCell>
-                    <TableCell align="center">
-                      <Button
-                        variant="contained"
-                        color="info"
-                        sx={{ textTransform: "capitalize" }}
-                        onClick={() => {
-                          handleOpen(row._id);
-                        }}
-                      >
-                        Xem Chi Tiết
-                      </Button>
-                      {openModel && (
-                        <Modal
-                          open
-                          onClose={handleClose}
-                          aria-labelledby="modal-modal-title"
-                          aria-describedby="modal-modal-description"
-                          sx={{
-                            backgroundColor: "rgba(0,0,0,0.2)",
-                          }}
-                        >
-                          <Box overflow="hidden" sx={modelStyle}>
-                            <Box
-                              width="410px"
-                              height="400px"
-                              sx={{ overflowX: "hidden", overflowY: "scroll" }}
-                            >
-                              <Typography
-                                id="modal-modal-title"
-                                variant="h6"
-                                component="h2"
-                                sx={{
-                                  color: "#000",
-                                }}
+              },
+              {
+                title: "Lời Nhắn",
+                dataIndex: ["message"],
+                render(value) {
+                  return (
+                    <Stack
+                      direction="col"
+                      alignItems="center"
+                      justifyContent="center"
+                    >
+                      <EyeOutlined
+                        onClick={() => handleOpen(value)}
+                        style={{ color: "#1F51FF" }}
+                      />
+                      <>
+                        {openModel && (
+                          <Modal
+                            centered
+                            title="Lời Nhắn"
+                            visible={openModel}
+                            footer={[
+                              <Button
+                                key="Close"
+                                type="primary"
+                                onClick={handleClose}
                               >
-                                {ctvDetail.fullName}
-                              </Typography>
-                              <Typography
-                                id="modal-modal-description"
-                                sx={{ mt: 2 }}
-                                width="80%"
-                                textAlign="justify"
-                              >
-                                {ctvDetail.message === ""
-                                  ? "Không có lời nhắn nào cả"
-                                  : ctvDetail.message}
-                              </Typography>
-                            </Box>
-                          </Box>
-                        </Modal>
-                      )}
-                    </TableCell>
-                    <TableCell align="center">
+                                Close
+                              </Button>,
+                            ]}
+                            closable={false}
+                          >
+                            <Typography>
+                              {ctvDetail === ""
+                                ? "Không có lời nhắn nào cả"
+                                : ctvDetail}
+                            </Typography>
+                          </Modal>
+                        )}
+                      </>
+                    </Stack>
+                  );
+                },
+              },
+              {
+                title: "Tùy Chọn",
+                dataIndex: ["_id"],
+                render(value) {
+                  return (
+                    <>
                       <div className="article_admin_list_option">
                         <AiFillDelete
                           className="article_admin_option delete"
-                          onClick={() => handleDeleteCtv(row._id)}
+                          onClick={() => setDelModal(true)}
                         ></AiFillDelete>
                         <BsFillPenFill className="article_admin_option"></BsFillPenFill>
                       </div>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
+                      {delModal ? (
+                        <Modal
+                          centered
+                          title="Xác Nhận Xóa"
+                          visible={delModal}
+                          footer={[
+                            <Button
+                              key="Cancel"
+                              type="ghost"
+                              onClick={() => setDelModal(false)}
+                            >
+                              Cancel
+                            </Button>,
+                            <Button
+                              key="Confirm"
+                              type="primary"
+                              onClick={() => {
+                                setDelModal(false)
+                                handleDeleteCtv(value);
+                              }}
+                            >
+                              Confirm
+                            </Button>,
+                          ]}
+                          closable={false}
+                        >
+                          <Typography>Nhấn Nút Confirm Để Xác Nhận</Typography>
+                        </Modal>
+                      ) : (
+                        ""
+                      )}
+                    </>
+                  );
+                },
+              },
+            ]}
+          />
         </TableContainer>
       ) : (
         <Box
@@ -248,6 +238,7 @@ const DashboardCtv = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [open, setOpen] = useState(false);
   const [authorize, setAuthorize] = useState("");
+  const [loading, setLoading] = useState(false);
   const workSheetColumnName = [
     "ID",
     "Họ Tên",
@@ -264,11 +255,12 @@ const DashboardCtv = () => {
   };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   async function getCtvData() {
-    axios.get(`${config.API_URL}/api/ctv`).then((res) => setData(res.data));
+    setLoading(true);
+    await axios.get(`${config.API_URL}/api/ctv`).then((res) => {
+      setLoading(false);
+      setData(res.data);
+    });
   }
-  const handleRefresh = useMemo(() => {
-    getCtvData();
-  }, [getCtvData]);
 
   function filterCtvData(query) {
     let filterData;
@@ -317,34 +309,52 @@ const DashboardCtv = () => {
           alignItems="center"
         >
           <Stack direction="row" gap="10px">
-            <Button
-              variant="contained"
-              sx={{ marginBottom: "10px" }}
-              onClick={handleRefresh}
-            >
+            <Button type="primary" onClick={() => getCtvData()}>
               Refresh
             </Button>
             <Button
-              variant="contained"
-              sx={{ marginBottom: "10px" }}
               onClick={() => {
                 console.log("Auth: ", TOKEN_ADMIN);
                 setOpen(true);
               }}
-              color="error"
+              type="danger"
               disabled={data.length === 0 ? true : false}
             >
               Delete All
             </Button>
             {open && (
               <Modal
-                open
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-                sx={{
-                  backgroundColor: "rgba(0,0,0,0.2)",
-                }}
+                centered
+                title="Lời Nhắn"
+                visible={open}
+                footer={[
+                  <Button type="primary" key="cancel" onClick={handleClose}>
+                    Cancel
+                  </Button>,
+                  <Button
+                    key="confirm"
+                    type="primary"
+                    onClick={() => {
+                      authorize === TOKEN_ADMIN
+                        ? clearCollection()
+                            .then(
+                              createNotification(
+                                "success",
+                                "Xoá thành công! :3"
+                              )
+                            )
+                            .catch((err) => {
+                              createNotification("error", "Lỗi Òy! T_T");
+                              console.log(err);
+                            })
+                        : createNotification("error", "Authorize Failed");
+                      setOpen(false);
+                    }}
+                  >
+                    Confirm
+                  </Button>,
+                ]}
+                closable={false}
               >
                 <Box overflow="hidden" sx={modelStyle}>
                   <Typography color="#39FF14" variant="h6" letterSpacing="2px">
@@ -358,43 +368,18 @@ const DashboardCtv = () => {
                     }}
                     onChange={(e) => setAuthorize(e.target.value)}
                   />
-                  <Box width="100%">
-                    <Button
-                      sx={{
-                        float: "right",
-                        marginTop: "10px",
-                      }}
-                      color="secondary"
-                      variant="outlined"
-                      onClick={() => {
-                        authorize === TOKEN_ADMIN
-                          ? clearCollection()
-                              .then(
-                                createNotification(
-                                  "success",
-                                  "Xoá thành công! :3"
-                                )
-                              )
-                              .catch((err) => {
-                                createNotification("error", "Lỗi Òy! T_T");
-                                console.log(err);
-                              })
-                          : createNotification("error", "Authorize Failed");
-                        setOpen(false);
-                      }}
-                    >
-                      Confirm
-                    </Button>
-                  </Box>
                 </Box>
               </Modal>
             )}
             <Button
-              variant="contained"
-              sx={{ marginBottom: "10px" }}
               onClick={handleExportCtv}
-              color="success"
               disabled={data.length === 0 ? true : false}
+              style={{
+                display: "flex",
+                gap: "5px",
+                alignItems: "center",
+                backgroundColor: "#39FF14",
+              }}
             >
               export <SiMicrosoftexcel />
             </Button>
@@ -410,7 +395,7 @@ const DashboardCtv = () => {
           </Typography>
         </Stack>
       </Stack>
-      <TableCTV data={data} />
+      <TableCTV data={data} isLoading={loading} />
     </>
   );
 };

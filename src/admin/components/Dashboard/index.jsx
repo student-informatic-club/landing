@@ -23,6 +23,7 @@ import DashboardCtv from "./Tabs/DashboardCtv";
 import { Button } from "@mui/material";
 import DashboardBlog from "./Tabs/DashboardBlog";
 import DashboardRoom from "./Tabs/DashboardRoom";
+import DashboardEvent from "./Tabs/DashboardEvent";
 const sv = require("../../../server/models/sinhvien.model");
 
 let ctvData;
@@ -67,7 +68,7 @@ const DashboardTab = ({ props, indexTab }) => {
     case 3:
       return <DashboardBlog/>;
     case 4:
-      return <div>4</div>;
+      return <DashboardEvent/>;
     default:
       return;
   }

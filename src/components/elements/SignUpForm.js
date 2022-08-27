@@ -77,9 +77,9 @@ const SignUpForm = ({
 
   const handleSubmit = (obj) => {
     axios.post(`${config.API_URL}/api/ctv/add`, obj)
-    .then(createNotification('success', 'Cảm ơn bạn đã đăng ký CTV :3'))
+    .then(createNotification('success', {message: 'Cảm ơn bạn đã đăng ký CTV :3', duration: 2, placement: 'bottomRight'}))
     .catch((err) => {
-      createNotification('error', 'Lỗi Đăng Ký!')
+      createNotification('error', {message: 'Lỗi Đăng Ký!', duration: 2, placement: 'bottomRight'})
       console.log(err);
     })
   };

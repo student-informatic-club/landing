@@ -65,7 +65,6 @@ const App = () => {
 
   return (
     <>
-      <Loading>
         <Provider {...config}>
           <ScrollReveal
             ref={childRef}
@@ -129,7 +128,8 @@ const App = () => {
           />
           <NotificationContainer/>
         </Provider>
-      </Loading>
+      {/* <Loading>
+      </Loading> */}
     </>
   );
 };

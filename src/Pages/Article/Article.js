@@ -10,13 +10,15 @@ import { MdOutlineDoubleArrow } from "react-icons/md";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 // import db from "../../db.config";
 import { handleChangeSeconsToDate } from "../../utils/ConvertSecondToDate";
+import axios from "axios";
+import config from "../../db.config"
 
 // FOR BLOG AND EVENT PAGE
 
 const Article = ({ type, title }) => {
   const [data, setData] = useState([]);
   useEffect(() => {
-    
+    axios.get(`${config.API_URL}/api/article`, {params: {categorize: type}}).then((res) => setData(res.data))
   }, []);
 
   // Search
@@ -60,7 +62,7 @@ const Article = ({ type, title }) => {
 
                         <Link
                           className="button button-primary button-sm"
-                          to={(location) => `/${type}/${item.id}`}
+                          to={() => `/${type}/${item._id}`}
                         >
                           Xem thêm
                         </Link>
@@ -103,7 +105,7 @@ const Article = ({ type, title }) => {
                 </button>
               </form>
             </div>
-            <div className="article-lists">
+            {/* <div className="article-lists">
               {data && data.length > 0
                 ? data
                     .filter((value) => {
@@ -156,7 +158,7 @@ const Article = ({ type, title }) => {
                       </div>
                     ))
                 : ""}
-            </div>
+            </div> */}
             {/* 
               <div className="load-more-btn">
                 <button type="button" onClick={() => loadMore()}>

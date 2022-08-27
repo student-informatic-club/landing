@@ -1,37 +1,95 @@
 import {
-    Button, FormLabel, IconButton,
-    Input, Paper, Stack, Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow, Typography
-  } from "@mui/material";
+  Button,
+  FormLabel,
+  IconButton,
+  Input,
+  Paper,
+  Stack,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
 import axios from "axios";
+import { Table, Tag } from "antd";
 import { collection, getDocs, where, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 // import db from "../../../../db.config";
-import config from "../../../../db.config"
-  
+import config from "../../../../db.config";
+import { Tags } from "../../../../utils/tags";
+
 const DashboardBlog = () => {
+  // For Detail Page
+  const [showDetailArticle, setShowDetailArticle] = useState(false); // show detail
 
-    // For Detail Page
-    const [showDetailArticle, setShowDetailArticle] = useState(false); // show detail
+  const [searchValue, setSearchValue] = useState("");
 
-    const [searchValue, setSearchValue] = useState("");
+  const columns = [
+    {
+      title: "ID Blog",
+      align: 'center',
+      dataIndex: ["_id"],
+      ellipsis: true,
+    },
+    {
+      title: "Tiêu Đề",
+      align: 'center',
+      dataIndex: ["shortDes"],
+    },
+    {
+      title: "Tác Giả",
+      align: 'center',
+      dataIndex: ["author"],
+    },
+    {
+      title: "Phân Trang",
+      align: 'center',
+      dataIndex: ["categorize"],
+      ellipsis: true,
+    },
+    {
+      title: "Tags",
+      align: 'center',
+      dataIndex: ["tags"],
+      render(value) {
+        return(
+          <div>
+            {value.map((item, i) => (
+              <Tag key={i} color={Tags[item]}>{item}</Tag>
+            ))}
+          </div>
+        )
+      },
+    },
+    {
+      title: "Action",
+      align: 'center',
+      dataIndex: ["_id"],
+      ellipsis: true,
+    },
+  ];
 
-    const [ data, setData ] = useState([]);
-    useEffect(() => {
-      handleGetData()
-    }, []);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false)
+  useEffect(() => {
+    handleGetData();
+  }, []);
 
-    const handleGetData = () => {
-      axios.get(`${config.API_URL}/api/article`, { params: { categorize: 'Blog' } }).then((res) => setData(res.data))
-    }
+  const handleGetData = () => {
+    setLoading(true)
+    axios
+      .get(`${config.API_URL}/api/article`, { params: { categorize: "Blog" } })
+      .then((res) => {
+        setData(res.data)
+        setLoading(false)
+      });
+  };
 
-    return (
-        <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650, margin: 0 }} aria-label="simple table">
+  return (
+    <TableContainer component={Paper}>
+      {/* <Table sx={{ minWidth: 650, margin: 0 }} aria-label="simple table">
           <TableHead
             sx={{
               backgroundColor: "#6B6DFF",
@@ -41,7 +99,7 @@ const DashboardBlog = () => {
             }}
           >
             <TableRow>
-              <TableCell align="center"></TableCell>
+              <TableCell align="center">ID Blog</TableCell>
               <TableCell align="center">Tiêu đề</TableCell>
               <TableCell align="center">Phân trang</TableCell>
               <TableCell align="center">Tuỳ chọn</TableCell>
@@ -79,9 +137,10 @@ const DashboardBlog = () => {
               </TableCell>
             )}
           </TableBody>
-        </Table>
-      </TableContainer>
-    )
-}
+        </Table> */}
+      <Table dataSource={data} loading={loading} columns={columns}></Table>
+    </TableContainer>
+  );
+};
 
 export default DashboardBlog;

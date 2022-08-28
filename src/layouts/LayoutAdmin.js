@@ -1,19 +1,17 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import SideBar from "../components/layout/SideBar";
-import Image from "../components/elements/Image";
-import avatar from "../assets/images/admin/avatar.png";
-import { FaBell } from "react-icons/fa";
-import { HiOutlineLogout } from "react-icons/hi";
-import Store, { sideBar } from "../admin/store";
-import { useHistory } from "react-router-dom";
-import { Menu, Layout } from "antd";
 import {
   DesktopOutlined,
   PieChartOutlined,
-  UserOutlined,
+  UserOutlined
 } from "@ant-design/icons";
+import { Layout, Menu } from "antd";
+import classNames from "classnames";
+import React, { useState } from "react";
+import { FaBell } from "react-icons/fa";
+import { HiOutlineLogout } from "react-icons/hi";
+import { useHistory } from "react-router-dom";
+import Store, { sideBar } from "../admin/store";
+import avatar from "../assets/images/admin/avatar.png";
+import Image from "../components/elements/Image";
 import Logo from "../components/layout/partials/Logo";
 
 const { Sider } = Layout;

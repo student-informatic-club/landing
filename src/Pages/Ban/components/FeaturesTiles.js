@@ -1,9 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
-import { SectionTilesProps } from '../../utils/SectionProps';
-import SectionHeader from './partials/SectionHeader';
-import Image from '../elements/Image';
-import icon01 from './../../assets/images/feature-tile-icon-01.svg';
+import { SectionTilesProps } from '../../../utils/SectionProps';
+import SectionHeader from '../../../components/sections/partials/SectionHeader';
+import Image from '../../../components/elements/Image';
+import icon01 from '../../../assets/images/feature-tile-icon-01.svg';
 import { array, string } from 'yup';
 
 const propTypes = {

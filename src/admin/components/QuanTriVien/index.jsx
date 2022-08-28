@@ -1,9 +1,5 @@
 import {
-  Button,
-  FormLabel,
-  IconButton,
-  Input,
-  Modal,
+  Button, Modal,
   Paper,
   Stack,
   Table,
@@ -12,20 +8,17 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
+  Typography
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { addDoc, collection, getDocs } from "firebase/firestore";
-import { Formik, Form, Field } from "formik";
+import { Field, Form, Formik } from "formik";
 import { useEffect, useState } from "react";
 import { AiFillDelete, AiFillPlusCircle } from "react-icons/ai";
 import { BsFillPenFill } from "react-icons/bs";
-import { useSelector } from "react-redux";
 // import CommingSoon from "../../../components/CommingSoon"
 // import db from "../../../db.config";
 import * as Yup from "yup";
 import Loading from "../../../utils/Loading";
-import createNotification from "../../../components/elements/Nofication";
 const QTV = () => {
   const [data, setData] = useState([]);
   const [openModal, setOpenModal] = useState(false);
@@ -224,7 +217,7 @@ const TableQTV = ({ data }) => {
         <TableHead
           sx={{
             backgroundColor: "#6B6DFF",
-            ["th"]: {
+            "th": {
               color: "#fff",
             },
             position: "sticky",

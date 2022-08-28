@@ -37,6 +37,7 @@ import BlogAdmin from "./admin/components/Blog";
 
 import { Provider } from "react-redux";
 import configureStore from "./components/Scanner/store/configStore";
+import Contact from "./admin/components/Contact";
 
 // import store
 // import store from './store';
@@ -120,6 +121,12 @@ const App = () => {
                     exact
                     path="/admin/Blog-Event"
                     component={BlogAdmin}
+                    layout={LayoutAdmin}
+                  />
+                  <AppRoute
+                    exact
+                    path="/admin/contact"
+                    component={Contact}
                     layout={LayoutAdmin}
                   />
                 </Switch>

@@ -18,7 +18,6 @@ import createNotification from "./Nofication";
 import emailjs from "@emailjs/browser";
 import axios from "axios";
 import config from '../../db.config';
-import { getCtv } from "../../server/controllers/ctv.controller";
 import DateTime from "./Date";
 const propTypes = {
   ...SectionProps.types,
@@ -84,14 +83,9 @@ const SignUpForm = ({
     })
   };
 
-  const getData = async () => {
-      const data = await getCtv();
-      setData(data)
-      console.log(data, 97)
-  }
   
   useEffect(() => {
-    getData()
+    // getData()
   }, []);
 
   const sendEmail = (values) => {

@@ -14,17 +14,24 @@ import { doc, onSnapshot } from "firebase/firestore";
 import { handleChangeSeconsToDate } from "../../utils/ConvertSecondToDate";
 import axios from "axios";
 import config from '../../db.config'
+import Loading from "../../utils/Loading";
 const ArticleDetail = ({ type }) => {
   const { postID } = useParams();
   const [data, setData] = useState("");
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
-    axios.get(`${config.API_URL}/api/article/${postID}`).then((res) => setData(res.data))
+    setLoading(true)
+    axios.get(`${config.API_URL}/api/article/${postID}`).then((res) => {
+      setLoading(false)
+      setData(res.data)
+    })
   }, [postID, type]);
   const { title, image, text, tags, createdAt, author } = data;
   const urlPost = `https://dev-web-sic.vercel.app/${type}/${postID} `;
 
   return (
     <>
+    <Loading loading={loading}>
       <Header
         navPosition="right"
         Nav={navLinks}
@@ -72,6 +79,7 @@ const ArticleDetail = ({ type }) => {
       </div>
       <Cta center />
       <Footer />
+    </Loading>
     </>
   );
 };

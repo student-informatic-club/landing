@@ -1,16 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  addNewSinhVien,
-  updateSinhVien,
-} from "../../../../server/controllers/sinhvien.controller";
-import {
-  BarcodeScanner,
-  enableBarcodeScanner,
-  disableBarcodeScanner,
-  setHistoryInfo,
-} from "react-usb-barcode-scanner";
-import { MdRemoveCircle } from "react-icons/md";
 import { Table } from "antd";
+import React, { useRef, useState } from "react";
+import { MdRemoveCircle } from "react-icons/md";
+import {
+  BarcodeScanner
+} from "react-usb-barcode-scanner";
 
 const DashboardRoom = (props) => {
   const DateTime = new Date().toLocaleString([], {
@@ -109,13 +102,6 @@ const DashboardRoom = (props) => {
               <button
                 className="confirm-btn"
                 onClick={() => {
-                  addNewSinhVien({
-                    svId: props.data,
-                    name: name,
-                    date: date,
-                    class: classes,
-                    enterRoom: true,
-                  });
                   formAddMember.current.style.display = "none";
                 }}
               >
@@ -160,9 +146,7 @@ const DashboardRoom = (props) => {
               render(value) {
                 <MdRemoveCircle
                   onClick={() => {
-                    updateSinhVien(value, {
-                      enterRoom: false,
-                    });
+                    
                   }}
                 />;
               },

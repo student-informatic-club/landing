@@ -7,6 +7,9 @@ import Button from "../elements/Button";
 import ButtonGroup from "../elements/ButtonGroup";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import config from '../../db.config';
+import axios from "axios";
+import createNotification from "../elements/Nofication";
 
 const propTypes = {
   ...SectionProps.types,
@@ -57,6 +60,16 @@ const Cta = ({
     center && "cta-center"
   );
 
+  const handleSubmit = (obj) => {
+    axios.post(`${config.API_URL}/api/contact/add`, obj)
+    .catch((err) => {
+      createNotification('error', {message: 'Lỗi!', duration: 2, placement: 'bottomRight'})
+      console.log(err);
+    })
+    .then(createNotification('success', {message: 'Cảm ơn bạn đã góp ý cho CTV :3', duration: 2, placement: 'bottomRight'}))
+  };
+
+
   return (
     <section {...props} className={outerClasses}>
       <div className="">
@@ -66,9 +79,12 @@ const Cta = ({
           </div>
           <div className="cta-action">
             <Formik
-              initialValues={{ email: "", name: "", content: "" }}
+              initialValues={{ email: "", name: "", message: "" }}
               validationSchema={ContactSchema}
-              onSubmit={(values) => {}}
+              onSubmit={(values, {resetForm}) => {
+                resetForm()
+                handleSubmit({...values, readed: false})
+              }}
             >
               {({ errors, touched }) => {
                 return (
@@ -94,7 +110,7 @@ const Cta = ({
                       ) : null}
                     </div>
                     <div className="group-input">
-                      <Field name="content">
+                      <Field name="message">
                         {({ field, meta }) => {
                           return (
                             <>

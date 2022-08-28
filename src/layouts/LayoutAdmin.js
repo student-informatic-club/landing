@@ -1,7 +1,8 @@
 import {
   DesktopOutlined,
   PieChartOutlined,
-  UserOutlined
+  UserOutlined,
+  ContactsOutlined
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import classNames from "classnames";
@@ -29,6 +30,7 @@ const items = [
   getItem("Dashboard", "/admin/Dashboard", <PieChartOutlined />),
   getItem("Admin", "/admin/Quan-tri-vien", <DesktopOutlined />),
   getItem("Bài Viết/Sự Kiện", "/admin/Blog-Event", <UserOutlined />),
+  getItem("Contact", "/admin/contact", <ContactsOutlined />),
 ];
 
 const LayoutAdmin = ({ children }) => {

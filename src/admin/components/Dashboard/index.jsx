@@ -1,57 +1,20 @@
-import React, { useEffect, useRef, useState } from "react";
-import "./assets/style.scss";
-import { AdminDashboard } from "../../store";
+import React, { useRef, useState } from "react";
+import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
-  BarcodeScanner,
-  enableBarcodeScanner,
-  disableBarcodeScanner,
-  setHistoryInfo,
+  disableBarcodeScanner, enableBarcodeScanner, setHistoryInfo
 } from "react-usb-barcode-scanner";
-import { connect } from "react-redux";
 import config from "../../../components/Scanner/config";
-import { STORE_MEMBER } from "../../store/constant";
+import { AdminDashboard } from "../../store";
+import "./assets/style.scss";
 //  import icons
-import { MdRemoveCircle } from "react-icons/md";
 // import backend
-import {
-  getSinhVien,
-  addNewSinhVien,
-  updateSinhVien,
-} from "../../../server/controllers/sinhvien.controller";
-import DashboardCtv from "./Tabs/DashboardCtv";
-import { Button } from "@mui/material";
 import DashboardBlog from "./Tabs/DashboardBlog";
-import DashboardRoom from "./Tabs/DashboardRoom";
+import DashboardCtv from "./Tabs/DashboardCtv";
 import DashboardEvent from "./Tabs/DashboardEvent";
-const sv = require("../../../server/models/sinhvien.model");
+import DashboardRoom from "./Tabs/DashboardRoom";
 
-let ctvData;
 const DashboardTab = ({ props, indexTab }) => {
-  // let storeMember = [];
-  const history = useHistory();
-  const DateTime = new Date().toLocaleString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-  const regex = /\n|\r\n|\n\r|\r/gm;
-  const getHtml = (data) => data.replace(regex, "");
-  const svID = useRef(null);
-  // console.log(storeMember);
-  const [name, setName] = useState("");
-  const [date, setDate] = useState("");
-  const [classes, setClasses] = useState("");
-  const nameRef = useRef(null);
-  const dateRef = useRef(null);
-  const classRef = useRef(null);
-  const formAddMember = useRef(null);
-  const [data, setData] = useState([]);
-  let existMember;
-  const checkSV = (id) => {
-    existMember = data.filter((item) => item.svId === id);
-    return existMember;
-  };
-  const deleteMember = (id) => {};
   switch (indexTab) {
     case 1:
       return (

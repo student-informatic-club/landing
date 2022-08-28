@@ -4,7 +4,7 @@ import ArticleDetail from '../ArticleDetail';
 const EventDetail = () => {
     return (
         <div>
-            <ArticleDetail type="event"></ArticleDetail>
+            <ArticleDetail type="Event"></ArticleDetail>
         </div>
     );
 };

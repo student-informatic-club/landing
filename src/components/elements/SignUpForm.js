@@ -74,7 +74,7 @@ const SignUpForm = ({
 
   useMemo(() => setDisabled(dateData.isTimeOut), [dateData.isTimeOut])
 
-  const handleSubmit = (obj) => {
+  const handleSubmit = async (obj) => {
     axios.post(`${config.API_URL}/api/ctv/add`, obj)
     .then(createNotification('success', {message: 'Cảm ơn bạn đã đăng ký CTV :3', duration: 2, placement: 'bottomRight'}))
     .catch((err) => {
@@ -161,7 +161,7 @@ const SignUpForm = ({
                   .min(1, "Vui Lòng Chọn Trường Này"),
               })}
               onSubmit={(values) => {
-                handleSubmit(values);
+                handleSubmit(values).then(() => sendEmail(values))
                 props.stateFunc();
               }}
             >

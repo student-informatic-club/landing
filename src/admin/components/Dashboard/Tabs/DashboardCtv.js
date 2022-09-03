@@ -29,10 +29,11 @@ import { EyeOutlined } from "@ant-design/icons";
 
 const TOKEN_ADMIN = generateUUID();
 
-const TableCTV = ({ data, isLoading }) => {
+const TableCTV = ({ data, isLoading, handleDeleteCtv }) => {
   const [openModel, setOpenModel] = useState(false);
   const [ctvDetail, setCtvDetail] = useState({});
   const [delModal, setDelModal] = useState(false)
+  
   const handleOpen = (id) => {
     setCtvDetail(id);
     setOpenModel(true);
@@ -40,15 +41,6 @@ const TableCTV = ({ data, isLoading }) => {
   const handleClose = () => {
     setOpenModel(false);
   };
-  function handleDeleteCtv(id) {
-    axios
-      .get(`${config.API_URL}/api/ctv/delete/${id}`)
-      .then(createNotification("success", {message: "Xoá thành công! :3"}))
-      .catch((err) => {
-        createNotification("error", {message: "Lỗi Òy! T_T"});
-        console.log(err);
-      });
-  }
   function handleCtvDetail(id) {
     return axios.get(`${config.API_URL}/api/ctv/${id}`);
   }
@@ -233,12 +225,14 @@ const SearchBar = ({ setSearchQuery, handleSubmit }) => (
   </form>
 );
 
+
+
 const DashboardCtv = () => {
-  const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [open, setOpen] = useState(false);
   const [authorize, setAuthorize] = useState("");
   const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
   const workSheetColumnName = [
     "ID",
     "Họ Tên",
@@ -255,13 +249,23 @@ const DashboardCtv = () => {
   };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   async function getCtvData() {
-    setLoading(true);
     await axios.get(`${config.API_URL}/api/ctv`).then((res) => {
       setLoading(false);
       setData(res.data);
     });
   }
-
+  function handleDeleteCtv(id) {
+    axios
+      .get(`${config.API_URL}/api/ctv/delete/${id}`)
+      .then(() => {
+        createNotification("success", {message: "Xoá thành công! :3"})
+        getCtvData();
+      })
+      .catch((err) => {
+        createNotification("error", {message: "Lỗi Òy! T_T"});
+        console.log(err);
+      });
+  }
   function filterCtvData(query) {
     let filterData;
     if (query === "") {
@@ -276,12 +280,10 @@ const DashboardCtv = () => {
     setOpen(false);
   };
   async function clearCollection() {
-    data && data.forEach((item) => handleDeleteCtv(item._id));
-  }
-  function handleDeleteCtv(id) {
-    axios.get(`${config.API_URL}/api/ctv/delete/${id}`);
+    data && data.forEach((item) => axios.delete(`${config.API_URL}/api/ctv/delete/${item._id}`));
   }
   useEffect(() => {
+    setLoading(true);
     getCtvData();
   }, []);
   const modelStyle = {
@@ -395,7 +397,7 @@ const DashboardCtv = () => {
           </Typography>
         </Stack>
       </Stack>
-      <TableCTV data={data} isLoading={loading} />
+      <TableCTV data={data} isLoading={loading} handleDeleteCtv={handleDeleteCtv}/>
     </>
   );
 };

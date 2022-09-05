@@ -4,7 +4,10 @@ import UpdateArticle from "./UpdateArticle";
 import { AiFillDelete } from "react-icons/ai";
 import { BiDetail } from "react-icons/bi";
 import { BsFillPenFill } from "react-icons/bs";
-import CreateArticle from "./CreateArticle";
+// import CreateArticle from "./CreateArticle";
+import { Link } from "react-router-dom";
+import dbConfig from "../../../db.config";
+
 import {
   Paper,
   Table,
@@ -19,12 +22,11 @@ import { deleteDoc, doc } from "firebase/firestore";
 import createNotification from "../../../components/elements/Nofication";
 // import db from "../../../db.config";
 import { deleteObject, getStorage, ref } from "firebase/storage";
+import axios from "axios";
+
 const ListArticle = ({ data, sortedFunc }) => {
   // Article List Data from firebase
   const [article, setArticle] = useState([]);
-
-  // For Create Page
-  const [showCreateArticle, setShowCreateArticle] = useState(false);
 
   // For Detail Page
   const [showDetailArticle, setShowDetailArticle] = useState(false); // show detail
@@ -39,8 +41,8 @@ const ListArticle = ({ data, sortedFunc }) => {
   const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
-    document.querySelector('.main-admin-content').scrollTo(0, 0);
-  }, [showCreateArticle, showDetailArticle, showUpdateArticle]);
+    document.querySelector(".main-admin-content").scrollTo(0, 0);
+  }, [showDetailArticle, showUpdateArticle]);
 
   const handleSearch = (e) => {
     setSearchValue(e.target.value);
@@ -56,12 +58,10 @@ const ListArticle = ({ data, sortedFunc }) => {
     }
   }, [data]);
 
-  async function handleDeleteArticle(id, imageName) {
+  function handleDeleteArticle(id, imageName) {
     function deleteImage() {
       const storage = getStorage();
-
       const desertRef = ref(storage, `images/${imageName}`);
-
       // Delete the file
       deleteObject(desertRef)
         .then(() => {
@@ -72,15 +72,22 @@ const ListArticle = ({ data, sortedFunc }) => {
           // Uh-oh, an error occurred!
         });
     }
-    // if (window.confirm("Bạn có chắc chắn muốn xoá bài viết này?") == true) {
-    //   const deleteData = doc(db, "article", id);
-    //   await deleteDoc(deleteData);
-    //   createNotification("success", "Xoá thành công");
-    //   deleteImage();
-    //   setTimeout(() => {
-    //     window.location.reload();
-    //   }, 2000);
-    // }
+    console.log("ID: ", id);
+    if (window.confirm("Bạn có chắc chắn muốn xoá bài viết này?") == true) {
+      // const deleteData = doc(db, "article", id);
+      // await deleteDoc(deleteData);
+
+      axios
+        .get(`${dbConfig.API_URL}/api/article/delete/${id}`)
+        .then(() => {
+          createNotification("success", "Xoá thành công");
+        })
+        .catch((err) => console.log(err));
+      deleteImage();
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    }
   }
   function handleUpdate(post) {
     setPost(post);
@@ -90,26 +97,12 @@ const ListArticle = ({ data, sortedFunc }) => {
     setShowDetailArticle(true);
     setPost(post);
   }
-  // function CloseBtn() {
-  //   return <AiFillCloseCircle size={30}></AiFillCloseCircle>;
-  // }
 
   return (
     <div
       style={{ position: "relative", height: "100%" }}
       className={`article_admin_container`}
     >
-      {showCreateArticle && (
-        <div className="article_create">
-          <span
-            className="article_create_close"
-            onClick={() => setShowCreateArticle(false)}
-          >
-            <AiFillCloseCircle size={30}></AiFillCloseCircle>
-          </span>
-          <CreateArticle stateFunc={setShowCreateArticle}></CreateArticle>
-        </div>
-      )}
       {showDetailArticle && (
         <div className="article_detail">
           <span
@@ -132,7 +125,7 @@ const ListArticle = ({ data, sortedFunc }) => {
           <UpdateArticle post={post}></UpdateArticle>
         </div>
       )}
-      {!showCreateArticle && !showDetailArticle && !showUpdateArticle && (
+      {!showDetailArticle && !showUpdateArticle && (
         <>
           <div className="article_admin_features">
             <div style={{ display: "inline-flex", alignItems: "center" }}>
@@ -172,12 +165,9 @@ const ListArticle = ({ data, sortedFunc }) => {
             </div>
           </div>
 
-          <div
-            className="article_add_button"
-            onClick={() => setShowCreateArticle(true)}
-          >
+          <Link to="/admin/Blog-Event/add" className="article_add_button">
             +
-          </div>
+          </Link>
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650, margin: 0 }} aria-label="simple table">
               <TableHead
@@ -224,9 +214,9 @@ const ListArticle = ({ data, sortedFunc }) => {
                             <div className="article_admin_list_option">
                               <AiFillDelete
                                 className="article_admin_option delete"
-                                onClick={() =>
-                                  handleDeleteArticle(row.id, row.imageName)
-                                }
+                                onClick={() => {
+                                  handleDeleteArticle(row._id, row.imageName);
+                                }}
                               ></AiFillDelete>
                               <BiDetail
                                 className="article_admin_option"

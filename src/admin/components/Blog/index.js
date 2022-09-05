@@ -6,13 +6,27 @@ import { useEffect, useState } from "react";
 import { collection, getDocs, where, query } from "firebase/firestore";
 // import db from "../../../db.config";
 import ListArticle from "./ListArticle";
+import axios from "axios";
+import dbConfig from "../../../db.config";
 
 const BlogAdmin = () => {
   const [article, setArticle] = useState([]);
   const [sortedValue, setSortedValue] = useState("");
 
-  let data = [];
+  // let data = [];
   useEffect(() => {
+    axios
+      .get(`${dbConfig.API_URL}/api/article`, {
+        params: {
+          categorize:
+            sortedValue === "" || sortedValue === "All"
+              ? ["Event", "Blog"]
+              : sortedValue,
+        },
+      })
+      .then((res) => {
+        setArticle(res.data);
+      });
     // const q =
     //   sortedValue === ""
     //     ? collection(db, "article")
@@ -28,7 +42,6 @@ const BlogAdmin = () => {
     //         ...item.data(),
     //       });
     //     });
-    //     data.sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1));
     //     setArticle(data);
     //   })
     //   .catch((err) => {

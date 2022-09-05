@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-target-blank */
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../components/layout/Header";
 import navLinks from "../../components/layout/partials/HeaderNav";
 import { BsFillCalendarFill } from "react-icons/bs";
@@ -9,7 +9,7 @@ import Footer from "../../components/layout/Footer";
 import { useParams } from "react-router-dom";
 import { Markup } from "interweave"; // for converting string to html
 import { Comment, LikeAndShare } from "../../assets/facebook/Facebook";
-import { doc, onSnapshot } from "firebase/firestore";
+// import { doc, onSnapshot } from "firebase/firestore";
 // import db from "../../db.config";
 import { handleChangeSeconsToDate } from "../../utils/ConvertSecondToDate";
 import axios from "axios";
@@ -26,8 +26,10 @@ const ArticleDetail = ({ type }) => {
       setData(res.data)
     })
   }, [postID, type]);
+  console.log(data)
   const { title, image, text, tags, createdAt, author } = data;
   const urlPost = `https://dev-web-sic.vercel.app/${type}/${postID} `;
+
 
   return (
     <>

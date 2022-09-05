@@ -13,7 +13,9 @@ import "react-quill/dist/quill.snow.css";
 import { Button } from "@mui/material";
 import { serverTimestamp, doc, updateDoc } from "firebase/firestore";
 import createNotification from "../../../components/elements/Nofication";
-// import db from "../../../db.config";
+import dbConfig from "../../../db.config";
+import axios from "axios";
+
 import {
   getStorage,
   ref,
@@ -28,6 +30,7 @@ let urlImg = "";
 // Create a reference to the file to delete
 
 const UpdateArticle = ({ post }) => {
+  console.log(post._id);
   const [postId, setPostId] = useState();
   const [oldUrlImg, setOldUrlImg] = useState(post.imageName || null);
   useEffect(() => {
@@ -36,7 +39,6 @@ const UpdateArticle = ({ post }) => {
 
   function deleteImage() {
     // const desertRef = ref(storage, `images/${oldUrlImg}`);
-
     // // Delete the file
     // deleteObject(desertRef)
     //   .then(() => {
@@ -62,7 +64,6 @@ const UpdateArticle = ({ post }) => {
     //   const file = image;
     //   const storageRef = ref(storage, "images/" + file.name);
     //   const uploadTask = uploadBytesResumable(storageRef, file);
-
     //   uploadTask.on(
     //     "state_changed",
     //     (snapshot) => {
@@ -103,41 +104,50 @@ const UpdateArticle = ({ post }) => {
     };
   }, [image]);
 
-  const handleSubmit = async (obj) => {
-    // try {
-    //   let tags = obj.tags;
-    //   try {
-    //     tags = obj.tags.split(" ");
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
+  const handleSubmit = (obj) => {
+    try {
+      let tags = obj.tags;
+      try {
+        tags = obj.tags.split(" ");
+      } catch (err) {
+        console.log(err);
+      }
 
-    //   const updateData = doc(db, "article", postId);
-    //   await updateDoc(updateData, {
-    //     ...obj,
-    //     tags,
-    //     image: url,
-    //     imageName: obj.image !== "" ? obj.image.name : post.imageName,
-    //     author: "CLB Tin học sinh viên",
-    //   });
-    //   createNotification("success", "Cập nhật thành công");
-    //   if (obj.image && oldUrlImg && oldUrlImg !== obj.image) {
-    //     deleteImage();
-    //   }
-    //   setTimeout(() => {
-    //     setOldUrlImg(obj.imageName);
+      // const updateData = doc(db, "article", postId);
+      // await updateDoc(updateData, {
+      //   ...obj,
+      //   tags,
+      //   image: url,
+      //   imageName: obj.image !== "" ? obj.image.name : post.imageName,
+      //   author: "CLB Tin học sinh viên",
+      // });
+      axios
+        .patch(`${dbConfig.API_URL}/api/article/${post._id}`, {
+          ...obj,
+          tags,
+          image: url,
+          imageName: obj.image !== "" ? obj.image.name : post.imageName,
+          // author: "CLB Tin học sinh viên",
+        })
+        .then((res) => {
+          console.log(res.data);
+        });
+      createNotification("success", "Cập nhật thành công");
+      if (obj.image && oldUrlImg && oldUrlImg !== obj.image) {
+        deleteImage();
+      }
+      setTimeout(() => {
+        setOldUrlImg(obj.imageName);
 
-    //     window.location.reload();
-    //   }, 2000);
-    // } catch (err) {
-    //   createNotification("error", "Cập nhật thất bại");
-    //   console.log(err);
-    // }
+        // window.location.reload();
+      }, 2000);
+    } catch (err) {
+      createNotification("error", "Cập nhật thất bại");
+      console.log(err);
+    }
   };
 
   const tags = post.tags.join(" ");
-
-  // console.log(post.tags)
   return (
     <div>
       <Formik

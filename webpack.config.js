@@ -7,12 +7,12 @@
 'use strict';
 var webpack = require('webpack');
 const Dotenv = require('dotenv-webpack');
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 
 module.exports = env => ({
 
   // reduce it to a nice object, the same as before
 
-      
   output: {
     filename: 'main.js',
     publicPath: '/assets/'
@@ -44,6 +44,7 @@ module.exports = env => ({
       "https": false,
       "stream": false,
       "crypto": false,
+      // "crypto-browserify": require.resolve('crypto-browserify'), //if you want to use this module also don't forget npm i crypto-browserify 
     }
   },
   module: {
@@ -74,5 +75,6 @@ module.exports = env => ({
     new Dotenv({
       path: `./.env.${env}`
     }),
+    new NodePolyfillPlugin()
   ]
 });

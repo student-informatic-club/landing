@@ -6,7 +6,9 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { Button } from "@mui/material";
 import createNotification from "../../../components/elements/Nofication";
-import dbConfig from "../../../db.config";
+// import dbConfig from "../../../db.config";
+import db from '../../../firebase.config'
+import dbConfig from '../../../db.config'
 import axios from "axios";
 import {
   getStorage,

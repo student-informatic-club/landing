@@ -75,7 +75,7 @@ const LayoutAdmin = ({ children }) => {
                 Store.setState({ status: false });
                 // eslint-disable-next-line no-restricted-globals
                 confirm("Bạn muốn đăng xuất?") &&
-                  sessionStorage.setItem("LoginStatus", false);
+                  localStorage.removeItem("token");
                 setTimeout(() => {
                   history.push("/loginAdmin");
                 }, 500);

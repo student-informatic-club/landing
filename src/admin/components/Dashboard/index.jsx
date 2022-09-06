@@ -19,7 +19,7 @@ const DashboardTab = ({ props, indexTab }) => {
     case 1:
       return (
         <>
-          <DashboardRoom config={config} data={props.data} />
+          <DashboardRoom Data={props.data} config={props.config} isBusy={props.isBusy} />
         </>
       );
     case 2:

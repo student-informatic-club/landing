@@ -11,7 +11,7 @@ import LayoutDefault from "./layouts/LayoutDefault";
 import Home from "./views/Home";
 // ADMIN
 // import AdminPage from "./admin/Admin";
-import 'antd/dist/antd.min.css';
+import 'antd/dist/antd.css';
 import { NotificationContainer } from "react-notifications";
 import "react-notifications/lib/notifications.css";
 import login from "./views/Login";
@@ -33,10 +33,10 @@ import QTV from "./admin/components/QuanTriVien/index";
 // import Event from "./admin/components/Events";
 
 import { Provider } from "react-redux";
+import AdminPage from "./admin";
 import Contact from "./admin/components/Contact";
 import configureStore from "./components/Scanner/store/configStore";
 import RouteGuard from "./utils/RouteGuard";
-import AdminPage from "./admin";
 
 // import store
 // import store from './store';
@@ -60,8 +60,6 @@ const App = () => {
     // childRef && childRef.current.init();
     trackPage(page);
   }, [location]);
-  let history = useHistory();
-  let loginStatus = JSON.parse(sessionStorage.getItem("LoginStatus"));
 
   return (
     <>

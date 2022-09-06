@@ -13,7 +13,7 @@ import {Provider} from 'react-redux/es/exports';
 import '../node_modules/slick-carousel/slick/slick.scss';
 import '../node_modules/slick-carousel/slick/slick-theme.scss';
 
-//import './App.css';
+import './App.css';
 import './assets/scss/style.scss';
 
 

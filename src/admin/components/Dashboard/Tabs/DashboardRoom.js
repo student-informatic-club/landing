@@ -1,132 +1,62 @@
 import { Table } from "antd";
-import React, { useRef, useState } from "react";
+import axios from "axios";
+import React, { useEffect, useRef, useState } from "react";
 import { MdRemoveCircle } from "react-icons/md";
-import {
-  BarcodeScanner
-} from "react-usb-barcode-scanner";
+import { BarcodeScanner } from "react-usb-barcode-scanner";
+import FormModal from "../components/formModal";
+import Config from "../../../../db.config";
 
-const DashboardRoom = (props) => {
-  const DateTime = new Date().toLocaleString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-  const regex = /\n|\r\n|\n\r|\r/gm;
-  const getHtml = (data) => data.replace(regex, "");
-  const svID = useRef(null);
-  // console.log(storeMember);
-  const [name, setName] = useState("");
-  const [date, setDate] = useState("");
-  const [classes, setClasses] = useState("");
-  const nameRef = useRef(null);
-  const dateRef = useRef(null);
-  const classRef = useRef(null);
-  const formAddMember = useRef(null);
+const DashboardRoom = ({ Data, config, isBusy }) => {
   const [data, setData] = useState([]);
+  const [detail, setDetail] = useState({});
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    setDetail({
+      msv: Data,
+    });
+  }, [Data]);
 
-  let existMember;
-  const checkSV = (id) => {
-    existMember = data.filter((item) => item.svId === id);
-    return existMember;
+  console.log(detail);
+
+  const getData = () => {
+    axios.get(`${Config.API_URL}/api/room`).then((res) => setData(res.data));
   };
-  const deleteMember = (id) => {};
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const closeForm = () => {
+    setOpen(false);
+  };
+
+  useEffect(() => {
+    if(isBusy){
+      setOpen(true)
+    }else {
+      return
+    }
+  }, [isBusy])
+
   return (
     <div className="Dashboard-room">
-      <BarcodeScanner config={props.config} />
-      {props.isBusy ? (
-        <p>Scanning...</p>
-      ) : (
-        props.data !== "" && (
-          <div className="form-add-room" ref={formAddMember}>
-            <div className="group-input">
-              <div className="form-input">
-                <label>Mã Sinh Viên: </label>
-                <div
-                  className="sv-id"
-                  dangerouslySetInnerHTML={{
-                    __html: getHtml(props.data),
-                  }}
-                  ref={svID}
-                />
-              </div>
-              <div className="form-input">
-                <label>Họ Tên: </label>
-                <input
-                  type="text"
-                  onChange={(e) => {
-                    setName(e.target.value);
-                  }}
-                  value={
-                    checkSV(props.data).length !== 0
-                      ? checkSV(props.data)
-                          .map((item) => item.name)
-                          .join("")
-                      : name
-                  }
-                  ref={nameRef}
-                />
-              </div>
-            </div>
-            <div className="group-input">
-              <div className="form-input">
-                <label>Ngày Sinh: </label>
-                <input
-                  type="text"
-                  ref={dateRef}
-                  onChange={(e) => setDate(e.target.value)}
-                  value={
-                    checkSV(props.data).length !== 0
-                      ? checkSV(props.data)
-                          .map((item) => item.date)
-                          .join("")
-                      : date
-                  }
-                />
-              </div>
-              <div className="form-input">
-                <label>Lớp: </label>
-                <input
-                  type="text"
-                  ref={classRef}
-                  onChange={(e) => setClasses(e.target.value)}
-                  value={
-                    checkSV(props.data).length !== 0
-                      ? checkSV(props.data)
-                          .map((item) => item.class)
-                          .join("")
-                      : classes
-                  }
-                />
-              </div>
-            </div>
-            <div className="group-input">
-              <button
-                className="confirm-btn"
-                onClick={() => {
-                  formAddMember.current.style.display = "none";
-                }}
-              >
-                Xác Nhận
-              </button>
-              <button
-                className="cancel-btn"
-                onClick={() => (formAddMember.current.style.display = "none")}
-              >
-                Hủy Bỏ
-              </button>
-            </div>
-          </div>
-        )
-      )}
+      <BarcodeScanner config={config} />
+      {/* {isBusy ? (<div>....</div>) : (
+        Data !== "" && (
+          )
+          )
+        } */}
+        <FormModal visible={true} onCancel={closeForm} obj={detail} />
       <div className="inner-room">
         <h3 className="inner-room-form--heading">
           Danh Sách Sinh Viên Vào Phòng
         </h3>
         <Table
-          dataSource={data.filter((item) => item.enterRoom === true)}
+          dataSource={data.filter((item) => item.entered === true)}
           columns={[
             {
               title: "Mã Sinh Viên",
-              dataIndex: ["svId"],
+              dataIndex: ["msv"],
             },
             {
               title: "Họ Tên",
@@ -144,11 +74,7 @@ const DashboardRoom = (props) => {
               title: "Chức Năng",
               dataIndex: ["_id"],
               render(value) {
-                <MdRemoveCircle
-                  onClick={() => {
-                    
-                  }}
-                />;
+                <MdRemoveCircle onClick={() => {}} />;
               },
             },
           ]}

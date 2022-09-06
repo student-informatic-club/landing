@@ -17,6 +17,7 @@
     // transform: scale(0);
   }
   to {
+    opacity: 0.5;
     // transform: scale(1);
   }
 }
@@ -62,6 +63,8 @@
   cursor: pointer;
   transform: translateY(200px);
   padding: 10px 0px;
+  background-color: #000;
+
   &::after {
     position: absolute;
     content: "";
@@ -77,7 +80,31 @@
     word-spacing: 2px;
     &::after {
       animation: expand 0.3s ease-in;
+      transform: scale(1);
+
       width: 80%;
+    }
+  }
+}
+@media screen and (max-width: 800px) {
+  .slide-title {
+    word-spacing: 2px;
+    letter-spacing: 2px;
+    // background-color: #000;
+    &::after {
+      transform: scale(1);
+      display: none !important;
+      animation: none !important;
+    }
+  }
+  .slide-item {
+    .overlay {
+      animation: none !important;
+      transform: scale(1);
+    }
+    .slide-title {
+      animation: none !important;
+      transform: scale(1);
     }
   }
 }
@@ -89,7 +116,7 @@
   position: absolute;
   inset: 0;
   background-color: #000;
-  opacity: 0.3;
+  opacity: 0.5;
   //   transform: scale(1);
   transition: 0.4s linear;
 }

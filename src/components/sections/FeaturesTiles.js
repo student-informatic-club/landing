@@ -58,7 +58,7 @@ const FeaturesTiles = ({
       {...props}
       className={outerClasses}
     >
-      <div className="container">
+      <div className="container" id="about-us">
         <div className={innerClasses}>
           <SectionHeader data={sectionHeader} className="center-content" />
           <div className={tilesClasses}>
@@ -101,7 +101,7 @@ const FeaturesTiles = ({
                     Được thành lập ngày 18/10/2001
                   </h4>
                   <p className="m-0 text-sm">
-                    sau gần 20 năm hình thành và phát triển, CLB đã góp phần không nhỏ trong tổ chức các sự kiện lớn nhỏ của trường, và đặc biệt là hỗ trợ thư viện quản lý phòng multimedia, hỗ trợ sinh viên toàn trường trong việc học tập, giải trí và khai thác thông tin trên máy tính.
+                    Sau gần 20 năm hình thành và phát triển, CLB đã góp phần không nhỏ trong tổ chức các sự kiện lớn nhỏ của trường, và đặc biệt là hỗ trợ thư viện quản lý phòng multimedia, hỗ trợ sinh viên toàn trường trong việc học tập, giải trí và khai thác thông tin trên máy tính.
                   </p>
                 </div>
               </div>

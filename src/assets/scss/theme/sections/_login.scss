@@ -1,6 +1,6 @@
-.errorMessage {
-    height: 20px;
-}
+// .errorMessage {
+//     height: 20px;
+// }
 .login-section {
     display: flex;
     align-items: center;
@@ -70,17 +70,17 @@
                     transition: .2s ease-out;
                     cursor: text;
                 }
-                input:focus {
+                input {
                     border: 1px solid #f36430;
                 }
-                input:not(:placeholder-shown) + .title,
-                input:focus + .title, .title:focus {
+                .title {
                     top: -8px;
                     display: inline-block;
                     color: #000;
                     background-color: #fff;
                     line-height: 1 !important;
                     cursor: default;
+                    z-index: 10;
                 }
             }
             .remember-checkbox {

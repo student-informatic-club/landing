@@ -52,7 +52,7 @@
     .cta-group-btn {
       justify-content: flex-end;
       .cta-btn {
-        width: 20%;
+        // width: 20%;
         float: right;
       }
     }
@@ -76,8 +76,25 @@
     }
 
     .errorMessage {
-      font-size: 14px;
+      font-size: 16px;
       color: red;
+    }
+  }
+}
+
+
+@include media("<medium") {
+  form {
+    input {
+      margin-bottom: 20px !important;
+      font-size: 16px !important;
+    }
+    .errorMessage {
+      bottom: -5px !important;
+      font-size: 12px !important;
+    }
+    .button-group {
+      margin-top: 8px;
     }
   }
 }

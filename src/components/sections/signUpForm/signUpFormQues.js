@@ -4,22 +4,22 @@ import { MdLocationOn } from "react-icons/md";
 const textMainBase = {
   // Định dạng mẫu: 2022-12-24T00:00:00, input dạng chuỗi 2 kí tự 2=>02
     title: <h3>BECOME OUR TEAMMATE</h3>,
-    dayEnd: '02',
-    monthEnd: '07',
+    dayEnd: '05',
+    monthEnd: '09',
     yearEnd: '2022',
     messageTitle: 'Mong muốn của bạn khi vào CLB'
 }
 const infoContact = [
   {
-    href: "mailto:sic@gmail.com",
+    href: "mailto:sic@wru.vn",
     icon: <SiGmail className="contact__icon"></SiGmail>,
-    data: "sic@gmail.com",
+    data: "sic@wru.vn",
   },
-  {
-    href: "tel:0123456789",
-    icon: <FaPhoneAlt className="contact__icon"></FaPhoneAlt>,
-    data: "0123456789",
-  },
+  // {
+  //   href: "tel:0123456789",
+  //   icon: <FaPhoneAlt className="contact__icon"></FaPhoneAlt>,
+  //   data: "0123456789",
+  // },
   {
     href: "https://goo.gl/maps/B6F5v82rMN1ViEF88",
     icon: <MdLocationOn className="contact__icon"></MdLocationOn>,
@@ -47,16 +47,11 @@ const basicQues = [
     quesTitle: "Lớp",
     quesExample: "63CNTT01",
   },
-]
+];
 
 const chooseQues = {
   quesTitle: "Bạn muốn đăng kí vào (những) ban nào?",
   quesName: "answer",
-  ans: [
-    "Ban truyền thông",
-    "Ban học tập",
-    "Ban kỹ thuật",
-    "Ban hỗ trợ",
-  ],
-}
+  ans: ["Ban truyền thông", "Ban học tập", "Ban kỹ thuật", "Ban hỗ trợ"],
+};
 export { infoContact, textMainBase, basicQues, chooseQues };

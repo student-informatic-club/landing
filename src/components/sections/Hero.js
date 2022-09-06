@@ -31,8 +31,8 @@ const Hero = ({
   const [showSignUpForm, setShowSignUpForm] = useState(false);
 
   const handleSignUp = () => {
-    setShowSignUpForm(!showSignUpForm)
-  }
+    setShowSignUpForm(!showSignUpForm);
+  };
 
   const openModal = (e) => {
     e.preventDefault();
@@ -59,15 +59,15 @@ const Hero = ({
     bottomDivider && "has-bottom-divider"
   );
 
-  window.addEventListener('keyup', function(e) {
-    if(e.key === 'Escape'){
+  window.addEventListener("keyup", function (e) {
+    if (e.key === "Escape") {
       setShowSignUpForm(false);
     }
   });
 
   return (
     <section {...props} className={outerClasses}>
-      {showSignUpForm && <SignUpForm stateFunc={handleSignUp} ></SignUpForm>}
+      {showSignUpForm && <SignUpForm stateFunc={handleSignUp}></SignUpForm>}
       <div className="container-sm">
         <div className={innerClasses}>
           <div className="hero-content">
@@ -83,13 +83,13 @@ const Hero = ({
                 className="m-0 mb-32 reveal-from-bottom"
                 data-reveal-delay="400"
               >
-                Sinh viên giúp sinh viên làm chủ công nghệ.
+                ''Sinh viên giúp sinh viên làm chủ công nghệ.''
               </p>
               <div className="reveal-from-bottom" data-reveal-delay="600">
                 <ButtonGroup>
                   <span onClick={handleSignUp}>
-                  <Button tag="a" color="primary" wideMobile className="hover-btn">
-                    Đăng kí CTV
+                    <Button color="primary" wideMobile className="hover-btn">
+                      Đăng kí CTV
                     </Button>
                   </span>
                 </ButtonGroup>
@@ -108,20 +108,20 @@ const Hero = ({
               onClick={openModal}
             >
               <Image
-                className='has-shadow'
+                className="has-shadow"
                 src={videoPlacehoder}
-                alt='Hero'
+                alt="Hero"
                 width={896}
                 height={504}
               />
             </a>
           </div>
           <Modal
-            id='video-modal'
+            id="video-modal"
             show={videoModalActive}
             handleClose={closeModal}
             video="https://youfiles.herokuapp.com/418514c8-cb09-46a8-ae1e-fda564e8704c"
-            videoTag='iframe'
+            videoTag="iframe"
           />
         </div>
       </div>

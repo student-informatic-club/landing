@@ -1,31 +1,28 @@
-import React from "react";
-import PropTypes from "prop-types";
 import classNames from "classnames";
-import { SectionProps } from "../../utils/SectionProps";
-import "./../../assets/css/style.css";
 import { Field, Form, Formik } from "formik";
+import { motion } from "framer-motion";
+import PropTypes from "prop-types";
+import React, { useEffect, useMemo, useState } from "react";
+import { AiFillCloseCircle } from "react-icons/ai";
 import * as Yup from "yup";
 import CountDown from "../../utils/CountDown";
-import { motion } from "framer-motion";
-
+import { SectionProps } from "../../utils/SectionProps";
 import {
-  infoContact,
-  textMainBase,
   basicQues,
-  chooseQues,
+  chooseQues, infoContact,
+  textMainBase
 } from "../sections/signUpForm/signUpFormQues";
-import { AiFillCloseCircle } from "react-icons/ai";
+import "./../../assets/css/style.css";
+import createNotification from "./Nofication";
+// import db from "../../db.config";
+import emailjs from "@emailjs/browser";
+import axios from "axios";
+import config from '../../db.config';
+import DateTime from "./Date";
 const propTypes = {
   ...SectionProps.types,
   status: PropTypes.bool,
 };
-
-function formatText(num) {
-  if (num < 10) {
-    return "0" + num;
-  }
-  return num;
-}
 
 const defaultProps = {
   ...SectionProps.defaults,
@@ -70,8 +67,37 @@ const SignUpForm = ({
     textMainBase.dayEnd +
     "T00:00:00";
   const dateData = CountDown(dayOut);
-
   const innerClasses = classNames("signUpForm-inner");
+  const [data, setData] = useState([]);
+  const [statusConn, setStatusConn] = useState(null);
+  const [disabled, setDisabled] = useState(false);
+
+  useMemo(() => setDisabled(dateData.isTimeOut), [dateData.isTimeOut])
+
+  const handleSubmit = async (obj) => {
+    axios.post(`${config.API_URL}/api/ctv/add`, obj)
+    .then(createNotification('success', {message: 'Cảm ơn bạn đã đăng ký CTV :3', duration: 2, placement: 'bottomRight'}))
+    .catch((err) => {
+      createNotification('error', {message: 'Lỗi Đăng Ký!', duration: 2, placement: 'bottomRight'})
+      console.log(err);
+    })
+  };
+
+  
+  useEffect(() => {
+    // getData()
+  }, []);
+
+  const sendEmail = (values) => {
+    emailjs.send("gmail", "template_ol8vwc6", values, "iaJ4LMteT5H4R1l9d").then(
+      (result) => {
+        console.log(result.text);
+      },
+      (error) => {
+        console.log(error.text);
+      }
+    );
+  };
 
   return (
     <section className={outerClasses}>
@@ -87,7 +113,7 @@ const SignUpForm = ({
         </span>
         <div className={innerClasses}>
           <div className="signUpForm--left flex-col">
-            <div>
+            <div className="flex-child">
               {textMainBase.title}
 
               <p>
@@ -109,17 +135,8 @@ const SignUpForm = ({
                 ))}
               </div>
             </div>
-            <div className="signUpForm__footer">
-              {!dateData.isTimeOut ? (
-                <span style={{ fontSize: "15px" }}>
-                  Hạn đăng kí: Còn <strong>{formatText(dateData.days)}</strong>{" "}
-                  ngày <strong>{formatText(dateData.hours)}</strong> giờ{" "}
-                  <strong>{formatText(dateData.min)}</strong> phút{" "}
-                  <strong>{formatText(dateData.second)}</strong> giây{" "}
-                </span>
-              ) : (
-                <span style={{ fontSize: "15px" }}>Đã hết hạn đăng kí</span>
-              )}
+            <div className="signUpForm__footer flex-child">
+              <DateTime time={dayOut}/>
             </div>
           </div>
           <div className="signUpForm--right flex-col">
@@ -139,15 +156,19 @@ const SignUpForm = ({
                   .email("E-mail của bạn không hợp lệ")
                   .required("Vui Lòng Điền Trường Này"),
                 class: Yup.string().required("Vui Lòng Điền Trường Này"),
+                answer: Yup.array()
+                  .required()
+                  .min(1, "Vui Lòng Chọn Trường Này"),
               })}
               onSubmit={(values) => {
+                handleSubmit(values).then(() => sendEmail(values))
                 props.stateFunc();
               }}
             >
               {({ errors, touched }) => {
                 return (
-                  <Form className="flex-col">
-                    <div className="basic-info gridCol-2">
+                  <Form>
+                    <div className="basic-info gridCol-2 flex-child">
                       {basicQues.map((item) => (
                         <div className="basic-info__item" key={item.quesTitle}>
                           <Field
@@ -170,7 +191,7 @@ const SignUpForm = ({
                       ))}
                     </div>
                     <div
-                      className="choose-info"
+                      className="choose-info flex-child"
                       role="group"
                       aria-labelledby="checkbox-group"
                     >
@@ -189,16 +210,21 @@ const SignUpForm = ({
                           </label>
                         ))}
                       </div>
+                      {errors.answer && touched.answer ? (
+                        <span className="errorMessage">{errors.answer}</span>
+                      ) : (
+                        ""
+                      )}
                     </div>
                     <div className="message flex-col">
-                      <label className="title">
+                      <label className="title flex-child">
                         {textMainBase.messageTitle}
                       </label>
                       <Field
-                        className="message__text"
+                        className="message__text flex-child"
                         as="textarea"
                         name="message"
-                        placeholder="Your message"
+                        placeholder="Câu trả lời của bạn . . ."
                         rows={3}
                       ></Field>
                     </div>
@@ -207,14 +233,14 @@ const SignUpForm = ({
                         className="button button-sm"
                         onClick={props.stateFunc}
                       >
-                        CANCEL
+                        HUỶ
                       </button>
                       <button
                         className="button button-primary button-sm"
-                        disabled={dateData.isTimeOut}
+                        disabled={disabled}
                         type="submit"
                       >
-                        SUBMIT
+                        NỘP
                       </button>
                     </div>
                   </Form>

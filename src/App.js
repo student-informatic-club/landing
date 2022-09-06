@@ -37,6 +37,7 @@ import AdminPage from "./admin";
 import Contact from "./admin/components/Contact";
 import configureStore from "./components/Scanner/store/configStore";
 import RouteGuard from "./utils/RouteGuard";
+import CreateArticle from "./admin/components/Blog/CreateArticle";
 
 // import store
 // import store from './store';
@@ -125,6 +126,12 @@ const App = () => {
                     exact
                     path="/admin/contact"
                     component={Contact}
+                    layout={LayoutAdmin}
+                  />
+                  <AppRoute
+                    exact
+                    path="/admin/Blog-Event/add"
+                    component={CreateArticle}
                     layout={LayoutAdmin}
                   />
                 </Switch>

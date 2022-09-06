@@ -1,5 +1,5 @@
 import { LockFilled, PlusOutlined, UnlockFilled } from "@ant-design/icons";
-import config from '../../../../db.config';
+import config from "../../../../db.config";
 import {
   Checkbox,
   DatePicker,
@@ -14,40 +14,52 @@ import { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import createNotification from "../../../../components/elements/Nofication";
+import handleUploadImage from "../../../../utils/uploadImage";
 
 const FormModal = (props) => {
   const { visible, onCancel, obj } = props;
-  const [img, setImg] = useState(obj.image || null);
+  const [img, setImg] = useState(obj.image || "");
   const [msv, setMsv] = useState(obj.msv || "");
   const [name, setName] = useState(obj.name || "");
   const [gender, setGender] = useState(obj.gender || 0);
   const [classs, setClasss] = useState(obj.class || "");
   const [date, setDate] = useState(obj.date || "");
   const [unlock, setUnlock] = useState(true);
+  const [imagePreview, setImagePreview] = useState("");
+
 
   const handleCreate = () => {
     const obj = {
-        msv: msv.replace(/\n/g, ''),
-        name: name,
-        gender: gender,
-        class: classs,
-        date: date,
-        entered: true
-    }
+      image: img,
+      msv: msv.replace(/\n/g, ""),
+      name: name,
+      gender: gender,
+      class: classs,
+      date: date.toLocaleString(),
+      entered: true,
+    };
 
-    axios.post(`${config.API_URL}/api/room/add`, obj).then((res) => {
-      createNotification('success', {message: 'Đã Thêm'})
-    })
-    .catch((err) => {
-      console.log(err)
-      createNotification('error', { message: 'Lỗi' })
-    })
-  }
+    axios
+      .post(`${config.API_URL}/api/room/add`, obj)
+      .then((res) => {
+        createNotification("success", { message: "Đã Thêm" });
+      })
+      .catch((err) => {
+        console.log(err);
+        createNotification("error", { message: "Lỗi" });
+      });
+  };
 
   useEffect(() => {
     setMsv(obj.msv);
   }, [obj.msv]);
-  console.log(visible)
+  console.log(visible);
+
+  function handlePreviewImage(e) {
+    const file = e.target.files[0];
+    file.preview = URL.revokeObjectURL(file);
+    setImagePreview(file);
+  }
 
   return (
     <Modal
@@ -65,25 +77,42 @@ const FormModal = (props) => {
         // disabled={componentDisabled}
       >
         <Form.Item label="Ảnh" valuePropName="fileList">
-          <Upload action={(file) => axios.post(`${config.API_URL}/api/images/add`, {image: file.name, msv: msv})} listType="picture-card" onChange={(e) => console.log(e.file.fileName)}>
-            <div>
-              <PlusOutlined />
-              <div style={{ marginTop: 8 }}>Upload</div>
+          <input
+            type="file"
+            className="input file"
+            onChange={(e) => {
+              handlePreviewImage(e);
+              handleUploadImage(e.target.files[0], setImg);
+            }}
+          />
+          {imagePreview && (
+            <div className="article_image_preview">
+              <img src={imagePreview.preview} alt="" width="300px" />
             </div>
-          </Upload>
+          )}
         </Form.Item>
         <Form.Item label="Mã SV">
-          <div style={{display: 'flex', gap: '20px', alignItems: 'center'}}>
-            <Input value={msv} disabled={unlock} onChange={(e) => setMsv(e.target.value)}/>{" "}
+          <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
+            <Input
+              value={msv}
+              disabled={unlock}
+              onChange={(e) => setMsv(e.target.value)}
+            />{" "}
             {unlock ? (
-              <LockFilled style={{fontSize: '20px'}} onClick={() => setUnlock(false)} />
+              <LockFilled
+                style={{ fontSize: "20px" }}
+                onClick={() => setUnlock(false)}
+              />
             ) : (
-              <UnlockFilled style={{fontSize: '20px'}} onClick={() => setUnlock(true)} />
+              <UnlockFilled
+                style={{ fontSize: "20px" }}
+                onClick={() => setUnlock(true)}
+              />
             )}
           </div>
         </Form.Item>
         <Form.Item label="Họ Tên">
-          <Input value={name} onChange={(e) => setName(e.target.value)}/>
+          <Input value={name} onChange={(e) => setName(e.target.value)} />
         </Form.Item>
         <Form.Item label="Giới Tính">
           <Radio.Group onChange={(e) => setGender(e.target.value)}>
@@ -98,10 +127,18 @@ const FormModal = (props) => {
           </Radio.Group>
         </Form.Item>
         <Form.Item label="Ngày Sinh">
-          <DatePicker size="small" onChange={(e) => setDate(e.date().toLocaleString())}/>
+          <DatePicker
+            size="small"
+            onChange={(e) => setDate(e.date().toLocaleString())}
+          />
         </Form.Item>
         <Form.Item label="Lớp">
-          <Input maxLength={10} width={100} value={classs} onChange={(e) => setClasss(e.target.value)}/>
+          <Input
+            maxLength={10}
+            width={100}
+            value={classs}
+            onChange={(e) => setClasss(e.target.value)}
+          />
         </Form.Item>
       </Form>
     </Modal>

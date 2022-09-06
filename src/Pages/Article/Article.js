@@ -161,7 +161,7 @@ const Article = ({ type, title }) => {
                             </div>
                           </div>
                         </div>
-                      ))
+                      )).reverse()
                   : ""}
               </div>
               {/* 

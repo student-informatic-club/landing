@@ -9,7 +9,7 @@ import Config from "../../../../db.config";
 const DashboardRoom = ({ Data, config, isBusy }) => {
   const [data, setData] = useState([]);
   const [detail, setDetail] = useState({});
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   useEffect(() => {
     setDetail({
       msv: Data,
@@ -46,7 +46,7 @@ const DashboardRoom = ({ Data, config, isBusy }) => {
           )
           )
         } */}
-        <FormModal visible={true} onCancel={closeForm} obj={detail} />
+        <FormModal visible={open} onCancel={closeForm} obj={detail} />
       <div className="inner-room">
         <h3 className="inner-room-form--heading">
           Danh Sách Sinh Viên Vào Phòng

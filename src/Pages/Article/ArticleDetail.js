@@ -26,8 +26,10 @@ const ArticleDetail = ({ type }) => {
       setData(res.data);
     });
   }, [postID, type]);
+  console.log(data)
   const { title, image, text, tags, createdAt, author } = data;
   const urlPost = `https://dev-web-sic.vercel.app/${type}/${postID} `;
+
 
   return (
     <>

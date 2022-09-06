@@ -5,15 +5,23 @@ import { createBrowserHistory } from "history";
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import {Provider} from 'react-redux/es/exports';
 
-//import './App.css';
+
+
+// import slick-carousel
+import '../node_modules/slick-carousel/slick/slick.scss';
+import '../node_modules/slick-carousel/slick/slick-theme.scss';
+
+import './App.css';
 import './assets/scss/style.scss';
+
 
 const history = createBrowserHistory();
 
 ReactDOM.render(
   <Router history={history}>
-    <App />
+      <App />
   </Router>,
   document.getElementById('root')
 );

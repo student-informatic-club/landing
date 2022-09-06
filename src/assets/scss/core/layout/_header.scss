@@ -1,6 +1,6 @@
 :root {
 	--bg-nav: transparent;
-	--bg-nav-scroll: #6B6DFF;
+	--bg-nav-scroll: #191A2E;
 }
 
 @keyframes scrollDown {
@@ -21,13 +21,14 @@
 	}
 }
 
+
 .site-header {
 	position: fixed !important;
 	top: 0;
 	width: 100%;
 	z-index: 9999 !important;
 	background-color: var(--bg-nav);
-	animation: scrollUp linear .3s;
+	animation: scrollUp linear .2s;
 	+ .site-content {
 
 		.section:first-of-type {
@@ -37,12 +38,39 @@
 
 	.brand {
 		margin-right: $header-nav--padding-h;
-	}	
+	}
+	&:not(.scroll) {
+		.dropdown {
+			li {
+				a:not(.button), span{
+					color: #111 !important;
+					transition: linear .2s;
+				}
+			}
+		}
+	}
+}
+
+a.active {
+	color: #DD483A !important;
+	transition: linear .2s;
 }
 
 .scroll {
 	background-color: var(--bg-nav-scroll);
-	animation: scrollDown linear .3s;
+	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+	animation: scrollDown linear .2s;
+	li {
+		color: #ffffff !important;
+		transition: linear .2s;
+	}
+
+	.dropdown {
+		background-color: #191A2E;
+		&-item::after {
+			background-color: #DD483A;
+		}
+	}
 }
 
 .site-header-inner {
@@ -56,11 +84,6 @@
 .container-nav {
 	max-width: 1350px ;
 	margin: 0 auto;
-	// position: sticky;
-	// width: 100%;
-	// top: 0;
-	// left: 16%;
-	// z-index: 9999;
 }
 
 .header-nav {
@@ -77,6 +100,7 @@
 		flex-grow: 1;
         white-space: nowrap;
 		margin-bottom: 0;
+		list-style-type: none;
 
 		&:first-of-type {
 			flex-wrap: wrap;
@@ -84,28 +108,16 @@
     }
 
     li {
-
 		+ .header-button {
-			
 			margin-left: $header-nav--padding-h;
 		}
+		padding: 0 32px;
     }
 
-    a:not(.button) {
+    a:not(.button).home {
 		display: block;
-        @include anchor-aspect(header);
-		@include font-weight(header-link);
-		text-transform: $link-header--transform;
         padding: 0 $header-nav--padding-h;
-
-		.invert-color & {
-			@include anchor-aspect(header, inverse);
-		}
     }
-
-	a.button {
-		margin-left: $header-nav--padding-h;
-	}
 }
 
 .header-nav-center:first-of-type {
@@ -163,6 +175,7 @@
 			        @include anchor-aspect(header-mobile);
 					padding-top: $header-nav--padding-v__mobile / 2;
 					padding-bottom: $header-nav--padding-v__mobile / 2;
+					color: #fff !important;
 			    }
 			}
 
@@ -191,3 +204,11 @@
 		height: $header-height__desktop;
 	}
 }
+
+@media screen and (max-width: 850px) {
+	.site-header-inner {
+		justify-content: space-between;
+	}
+}
+
+@import '../elements/containers'

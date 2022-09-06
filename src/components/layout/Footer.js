@@ -34,7 +34,7 @@ const Footer = ({ className, topOuterDivider, topDivider, ...props }) => {
           <div className="footer-top text-xxs">
             <Logo />
             <div className="footer-copyright">
-              Made by <a href="https://cruip.com">Cruip</a>. All right reserved
+              Made by <a href="https://www.facebook.com/clbtinhocsinhvien">SIC</a>. All right reserved
             </div>
           </div>
           <div className="footer-bottom text-xxs invert-order-desktop">

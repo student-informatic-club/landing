@@ -2,6 +2,8 @@
 # Based on Cruip framework - v1.0.0
 --------------------------------------------------------------*/
 
+@import url('https://fonts.googleapis.com/css2?family=Sriracha&display=swap');
+
 /*--------------------------------------------------------------
 # Variables, functions and mixins
 --------------------------------------------------------------*/
@@ -61,6 +63,13 @@
 # Modal
 --------------------------------------------------------------*/
 @import "core/elements/modal";
+
+/*--------------------------------------------------------------
+# DropDown
+--------------------------------------------------------------*/
+@import "core/elements/dropdown";
+
+@import "core/elements/slider";
 
 /*--------------------------------------------------------------
 # Split pattern
@@ -126,3 +135,27 @@
 # Helpers
 --------------------------------------------------------------*/
 @import "core/base/helpers";
+
+/*--------------------------------------------------------------
+# Article Detail
+--------------------------------------------------------------*/
+
+@import "theme/sections/article";
+
+/*--------------------------------------------------------------
+# Loading Animation
+--------------------------------------------------------------*/
+
+@import "theme/elements/loading";
+
+// @import "core/elements/notification";
+
+@import "theme/elements/facebook";
+
+@import '../../admin/components/Blog/assets/style.scss';
+@import "core/base/global";
+
+// @import "globalStyle
+
+
+

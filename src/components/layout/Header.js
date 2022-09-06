@@ -1,11 +1,16 @@
+/* eslint-disable no-restricted-globals */
 import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { Link } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Logo from "./partials/Logo";
 import MessengerCustomerChat from "react-messenger-customer-chat";
+import DropDown from "../elements/dropdown";
+import { VscTriangleDown } from "react-icons/vsc";
 
 const propTypes = {
+  Nav: PropTypes.array,
   navPosition: PropTypes.string,
   hideNav: PropTypes.bool,
   hideSignin: PropTypes.bool,
@@ -15,6 +20,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+  Nav: null,
   navPosition: "",
   hideNav: false,
   hideSignin: false,
@@ -25,6 +31,7 @@ const defaultProps = {
 
 const Header = ({
   className,
+  Nav,
   navPosition,
   hideNav,
   hideSignin,
@@ -34,38 +41,52 @@ const Header = ({
   ...props
 }) => {
   const [isActive, setIsactive] = useState(false);
+  let history = useHistory();
+  let location = useLocation()
+  useEffect(() => {
+    if(location.hash === '#about-us') {
+      scrollTarget('about-us')
+    }
+  }, [location])
 
   const nav = useRef(null);
   const hamburger = useRef(null);
-
   useEffect(() => {
     isActive && openMenu();
-    document.addEventListener("keydown", keyPress);
-    document.addEventListener("click", clickOutside);
+    document
+      .querySelector(".header-nav-toggle")
+      .addEventListener("keydown", keyPress);
+    document
+      .querySelector(".header-nav-toggle")
+      .addEventListener("click", clickOutside);
     return () => {
-      document.removeEventListener("keydown", keyPress);
-      document.removeEventListener("click", clickOutside);
+      document
+        .querySelector(".header-nav-toggle")
+        .removeEventListener("keydown", keyPress);
+      document
+        .querySelector(".header-nav-toggle")
+        .removeEventListener("click", clickOutside);
       closeMenu();
     };
-  });
+  }, []);
 
-  const openMenu = () => {
+  function openMenu() {
     document.body.classList.add("off-nav-is-active");
     nav.current.style.maxHeight = nav.current.scrollHeight + "px";
     setIsactive(true);
-  };
+  }
 
-  const closeMenu = () => {
+  function closeMenu() {
     document.body.classList.remove("off-nav-is-active");
     nav.current && (nav.current.style.maxHeight = null);
     setIsactive(false);
-  };
+  }
 
-  const keyPress = (e) => {
+  function keyPress(e) {
     isActive && e.keyCode === 27 && closeMenu();
-  };
+  }
 
-  const clickOutside = (e) => {
+  function clickOutside(e) {
     if (!nav.current) return;
     if (
       !isActive ||
@@ -74,7 +95,7 @@ const Header = ({
     )
       return;
     closeMenu();
-  };
+  }
 
   const classes = classNames(
     "site-header",
@@ -83,13 +104,27 @@ const Header = ({
     className
   );
 
+  const scrollTarget = (id) => {
+    const elem = document.getElementById(id)
+    let pos = elem.offsetTop
+    window.scrollTo({
+      top: pos-100,
+      behavior: "smooth"
+    })
+  }
+
+
+  const scrollToElement = (id) => {
+    scrollTarget(id)
+  }
+
   return (
     <header {...props} className={classes}>
-      <div className="container-nav">
+      <div className=" container container-nav">
         <div
           className={classNames(
             "site-header-inner",
-            bottomDivider && "has-bottom-divider"
+            bottomDivider ? "has-bottom-divider" : ""
           )}
         >
           <Logo />
@@ -107,34 +142,63 @@ const Header = ({
               </button>
               <nav
                 ref={nav}
-                className={classNames("header-nav", isActive && "is-active")}
+                className={classNames(
+                  "header-nav",
+                  isActive ? "is-active" : ""
+                )}
               >
                 <div className="header-nav-inner">
                   <ul
                     className={classNames(
                       "list-reset text-xs",
-                      navPosition && `header-nav-${navPosition}`
+                      navPosition ? `header-nav-${navPosition}` : ""
                     )}
                   >
-                    <li>
-                      <Link to="#0" onClick={closeMenu}>
-                        Documentation
-                      </Link>
-                    </li>
+                    {Nav &&
+                      Nav.map((navLink, index) => {
+                        return (
+                          <li
+                            key={index}
+                            className={navLink.dropdown ? "hover-dropdown" : ""}
+                          >
+                            {navLink.dropdown ? (
+                              <>
+                                <span>
+                                  {navLink.name}{" "}
+                                  <VscTriangleDown
+                                    style={{ display: "inline-block" }}
+                                    className="dropdown-icon"
+                                  />
+                                </span>
+                                <DropDown children={navLink.dropdown} />
+                              </>
+                            ) : (
+                              <>
+                                {navLink.href !== '/us' ? (
+                                  <NavLink
+                                    className={({ isActive }) =>
+                                      isActive ? "active" : ""
+                                    }
+                                    to={navLink.href ? navLink.href : ""}
+                                    exact={true}
+                                  >
+                                    {navLink.name}
+                                  </NavLink>
+                                ) : (
+                                  <>
+                                    {location.pathname === '/' ? (
+                                      <a href='javascript:void(0)' onClick={() => scrollToElement('about-us')}>{navLink.name}</a>
+                                    ) : (
+                                      <Link to='/#about-us'>{navLink.name}</Link>
+                                    )}
+                                  </>
+                                )}
+                              </>
+                            )}
+                          </li>
+                        );
+                      })}
                   </ul>
-                  {!hideSignin && (
-                    <ul className="list-reset header-nav-right">
-                      <li>
-                        <Link
-                          to="#0"
-                          className="button button-primary button-wide-mobile button-sm"
-                          onClick={closeMenu}
-                        >
-                          Sign up
-                        </Link>
-                      </li>
-                    </ul>
-                  )}
                 </div>
               </nav>
             </>

@@ -28,12 +28,6 @@ const events = [
     desc: `Luôn đồng hành cũng các bạn tân sinh viên, sát cánh ngay những" bước đầu tiên". CLB Tin Học Sinh Viên hỗ trợ tân sinh viên trong việc khai báo hồ sơ, hoàn tất thủ tục nhập học bằng mọi hình thức dù xa hay gần chỉ với những click chuột. Bên cạnh đó, các kênh hỗ trợ online, tổng đài liên hệ luôn sẵn sàng để giải đáp thắc mặc cho tân sinh viên và phụ huynh.`,
     images: [ht1, ht2, ht3, ht4, ht5],
   },
-  {
-    name: `HoTro`,
-    title: `Hỗ trợ tân sinh viên nhập học`,
-    desc: `Luôn đồng hành cũng các bạn tân sinh viên, sát cánh ngay những" bước đầu tiên". CLB Tin Học Sinh Viên hỗ trợ tân sinh viên trong việc khai báo hồ sơ, hoàn tất thủ tục nhập học bằng mọi hình thức dù xa hay gần chỉ với những click chuột. Bên cạnh đó, các kênh hỗ trợ online, tổng đài liên hệ luôn sẵn sàng để giải đáp thắc mặc cho tân sinh viên và phụ huynh.`,
-    images: [ht1, ht2, ht3, ht4, ht5],
-  },
 ];
 
 export default events;

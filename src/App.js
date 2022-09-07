@@ -1,11 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import ReactGA from "react-ga";
-import { Switch, useHistory, useLocation } from "react-router-dom";
+import { Switch, useLocation } from "react-router-dom";
 import AppRoute from "./utils/AppRoute";
 import ScrollReveal from "./utils/ScrollReveal";
 
 // Layouts
-import LayoutAdmin from "./layouts/LayoutAdmin";
 import LayoutDefault from "./layouts/LayoutDefault";
 // Views
 import Home from "./views/Home";
@@ -14,7 +13,6 @@ import Home from "./views/Home";
 import 'antd/dist/antd.css';
 import { NotificationContainer } from "react-notifications";
 import "react-notifications/lib/notifications.css";
-import login from "./views/Login";
 // BAN
 import BanHocTap from "./Pages/Ban/BanHocTap";
 import BanHoTro from "./Pages/Ban/BanHoTro";
@@ -27,17 +25,11 @@ import Event from "./Pages/Article/events/Event";
 import EventDetail from "./Pages/Article/events/EventDetail";
 
 // Admin
-import BlogAdmin from "./admin/components/Blog";
-import Dashboard from "./admin/components/Dashboard/index";
-import QTV from "./admin/components/QuanTriVien/index";
 // import Event from "./admin/components/Events";
 
 import { Provider } from "react-redux";
-import AdminPage from "./admin";
-import Contact from "./admin/components/Contact";
 import configureStore from "./components/Scanner/store/configStore";
-import RouteGuard from "./utils/RouteGuard";
-import CreateArticle from "./admin/components/Blog/CreateArticle";
+import { Error404 } from "./components/Error";
 
 // import store
 // import store from './store';
@@ -68,7 +60,6 @@ const App = () => {
           <ScrollReveal
             ref={childRef}
             children={() => (
-              // <ScrollToTop>
                 <Switch>
                   <AppRoute
                     exact
@@ -99,43 +90,8 @@ const App = () => {
                     path="/ban-truyen-thong"
                     component={BanTruyenThong}
                   />
-                  {/* {history.location.pathname === "/admin" &&
-                    (loginStatus === false || loginStatus === null) &&
-                    history.push("/loginAdmin") } */}
-                  <RouteGuard exact path='/admin' component={AdminPage} layout={LayoutAdmin}/>
-                  <AppRoute exact path="/loginAdmin" component={login} />
-                  <AppRoute
-                    exact
-                    path="/admin/Dashboard"
-                    component={Dashboard}
-                    layout={LayoutAdmin}
-                  />
-                  <AppRoute
-                    exact
-                    path="/admin/Quan-tri-vien"
-                    component={QTV}
-                    layout={LayoutAdmin}
-                  />
-                  <AppRoute
-                    exact
-                    path="/admin/Blog-Event"
-                    component={BlogAdmin}
-                    layout={LayoutAdmin}
-                  />
-                  <AppRoute
-                    exact
-                    path="/admin/contact"
-                    component={Contact}
-                    layout={LayoutAdmin}
-                  />
-                  <AppRoute
-                    exact
-                    path="/admin/Blog-Event/add"
-                    component={CreateArticle}
-                    layout={LayoutAdmin}
-                  />
+                  <AppRoute path="*" component={Error404}/>
                 </Switch>
-              /* </ScrollToTop> */
             )}
           />
           <NotificationContainer/>

@@ -22,10 +22,6 @@ import { Tags } from "../../../../utils/tags";
 
 const DashboardBlog = () => {
   // For Detail Page
-  const [showDetailArticle, setShowDetailArticle] = useState(false); // show detail
-
-  const [searchValue, setSearchValue] = useState("");
-
   const columns = [
     {
       title: "ID Blog",
@@ -82,7 +78,7 @@ const DashboardBlog = () => {
     axios
       .get(`${config.API_URL}/api/article`, { params: { categorize: "Blog" } })
       .then((res) => {
-        setData(res.data)
+        setData(res.data.reverse())
         setLoading(false)
       });
   };

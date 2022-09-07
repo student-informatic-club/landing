@@ -5,11 +5,13 @@ import { MdRemoveCircle } from "react-icons/md";
 import { BarcodeScanner } from "react-usb-barcode-scanner";
 import FormModal from "../components/formModal";
 import Config from "../../../../db.config";
+import { Box } from "@mui/material";
 
 const DashboardRoom = ({ Data, config, isBusy }) => {
   const [data, setData] = useState([]);
   const [detail, setDetail] = useState({});
   const [open, setOpen] = useState(true);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     setDetail({
       msv: Data,
@@ -19,10 +21,14 @@ const DashboardRoom = ({ Data, config, isBusy }) => {
   console.log(detail);
 
   const getData = () => {
-    axios.get(`${Config.API_URL}/api/room`).then((res) => setData(res.data));
+    axios.get(`${Config.API_URL}/api/room`).then((res) => {
+      setLoading(false);
+      setData(res.data);
+    });
   };
 
   useEffect(() => {
+    setLoading(true);
     getData();
   }, []);
 
@@ -31,29 +37,40 @@ const DashboardRoom = ({ Data, config, isBusy }) => {
   };
 
   useEffect(() => {
-    if(isBusy){
-      setOpen(true)
-    }else {
-      return
+    if (isBusy) {
+      setOpen(true);
+    } else {
+      return;
     }
-  }, [isBusy])
+  }, [isBusy]);
 
   return (
     <div className="Dashboard-room">
       <BarcodeScanner config={config} />
-      {/* {isBusy ? (<div>....</div>) : (
+      {isBusy ? (
+        <div>....</div>
+      ) : (
         Data !== "" && (
-          )
-          )
-        } */}
-        <FormModal visible={open} onCancel={closeForm} obj={detail} />
+          <FormModal visible={open} onCancel={closeForm} obj={detail} />
+        )
+      )}
       <div className="inner-room">
         <h3 className="inner-room-form--heading">
           Danh Sách Sinh Viên Vào Phòng
         </h3>
         <Table
+          loading={loading}
           dataSource={data.filter((item) => item.entered === true)}
           columns={[
+            {
+              title: "Ảnh",
+              dataIndex: ["image"],
+              render(value) {
+                return (
+                  <Box component="img" src={value} width={50} height={50} />
+                );
+              },
+            },
             {
               title: "Mã Sinh Viên",
               dataIndex: ["msv"],

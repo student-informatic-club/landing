@@ -13,7 +13,6 @@ const BlogAdmin = () => {
   const [article, setArticle] = useState([]);
   const [sortedValue, setSortedValue] = useState("");
 
-  // let data = [];
   useEffect(() => {
     axios
       .get(`${dbConfig.API_URL}/api/article`, {
@@ -25,28 +24,8 @@ const BlogAdmin = () => {
         },
       })
       .then((res) => {
-        setArticle(res.data);
+        setArticle(res.data.reverse());
       });
-    // const q =
-    //   sortedValue === ""
-    //     ? collection(db, "article")
-    //     : query(
-    //         collection(db, "article"),
-    //         where("categorize", "==", sortedValue)
-    //       );
-    // getDocs(q)
-    //   .then((snapshot) => {
-    //     snapshot.forEach((item) => {
-    //       data.push({
-    //         id: item.id,
-    //         ...item.data(),
-    //       });
-    //     });
-    //     setArticle(data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
   }, [sortedValue]);
 
   return (

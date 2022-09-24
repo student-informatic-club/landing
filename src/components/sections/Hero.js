@@ -6,7 +6,7 @@ import Button from "../elements/Button";
 import Image from "../elements/Image";
 import Modal from "../elements/Modal";
 
-import videoPlacehoder from "./../../assets/images/logo.png";
+import banner_slider from "./../../assets/images/banner_slider.png";
 import SignUpForm from "../elements/SignUpForm";
 
 const propTypes = {
@@ -109,7 +109,7 @@ const Hero = ({
             >
               <Image
                 className="has-shadow"
-                src={videoPlacehoder}
+                src={banner_slider}
                 alt="Hero"
                 width={896}
                 height={504}

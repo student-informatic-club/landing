@@ -4,7 +4,7 @@ import { MdLocationOn } from "react-icons/md";
 const textMainBase = {
   // Định dạng mẫu: 2022-12-24T00:00:00, input dạng chuỗi 2 kí tự 2=>02
     title: <h3>BECOME OUR TEAMMATE</h3>,
-    dayEnd: '05',
+    dayEnd: '24',
     monthEnd: '09',
     yearEnd: '2022',
     messageTitle: 'Mong muốn của bạn khi vào CLB'
@@ -16,17 +16,22 @@ const infoContact = [
     data: "sic@wru.vn",
   },
   // {
-  //   href: "tel:0123456789",
-  //   icon: <FaPhoneAlt className="contact__icon"></FaPhoneAlt>,
-  //   data: "0123456789",
-  // },
+    //   href: "tel:0123456789",
+    //   icon: <FaPhoneAlt className="contact__icon"></FaPhoneAlt>,
+    //   data: "0123456789",
+    // },
+    {
+      href: "https://goo.gl/maps/B6F5v82rMN1ViEF88",
+      icon: <MdLocationOn className="contact__icon"></MdLocationOn>,
+      data: "175 Tây Sơn Đống Đa",
+    },
+  ];
+  const basicQues = [
   {
-    href: "https://goo.gl/maps/B6F5v82rMN1ViEF88",
-    icon: <MdLocationOn className="contact__icon"></MdLocationOn>,
-    data: "175 Tây Sơn Đống Đa",
+    quesName: "masv",
+    quesTitle: "Mã sinh viên",
+    quesExample: "21********",
   },
-];
-const basicQues = [
   {
     quesName: "fullName",
     quesTitle: "Họ và tên",

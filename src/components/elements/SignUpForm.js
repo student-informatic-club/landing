@@ -142,6 +142,7 @@ const SignUpForm = ({
           <div className="signUpForm--right flex-col">
             <Formik
               initialValues={{
+                masv: "",
                 fullName: "",
                 phone: "",
                 email: "",
@@ -150,6 +151,7 @@ const SignUpForm = ({
                 message: "",
               }}
               validationSchema={Yup.object({
+                masv: Yup.string().required("Vui Lòng Điền Trường Này"),
                 fullName: Yup.string().required("Vui Lòng Điền Trường Này"),
                 phone: Yup.string().required("Vui Lòng Điền Trường Này"),
                 email: Yup.string()

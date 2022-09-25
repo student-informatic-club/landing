@@ -4,8 +4,8 @@ import { MdLocationOn } from "react-icons/md";
 const textMainBase = {
   // Định dạng mẫu: 2022-12-24T00:00:00, input dạng chuỗi 2 kí tự 2=>02
     title: <h3>BECOME OUR TEAMMATE</h3>,
-    dayEnd: '24',
-    monthEnd: '09',
+    dayEnd: '10',
+    monthEnd: '10',
     yearEnd: '2022',
     messageTitle: 'Mong muốn của bạn khi vào CLB'
 }

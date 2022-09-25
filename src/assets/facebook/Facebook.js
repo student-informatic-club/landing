@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 function LoginFacebook() {
   <div
@@ -13,6 +13,11 @@ function LoginFacebook() {
 }
 
 function LikeAndShare({ url }) {
+  useEffect(() => {
+    if (window.FB) {
+      window.FB.XFBML.parse();
+  }
+  }, [])
   return (
     <div
       class="fb-like"
@@ -27,6 +32,12 @@ function LikeAndShare({ url }) {
 }
 
 function Comment({ url }) {
+  useEffect(() => {
+    if (window.FB) {
+      window.FB.XFBML.parse();
+  }
+  }, [])
+
   return (
     <div
       class="fb-comments facebook-cm"

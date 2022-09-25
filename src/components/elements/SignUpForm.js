@@ -166,6 +166,7 @@ const SignUpForm = ({
                 handleSubmit(values).then(() => sendEmail(values))
                 props.stateFunc();
               }}
+              
             >
               {({ errors, touched }) => {
                 return (

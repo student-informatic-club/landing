@@ -10,11 +10,9 @@ import Header from "../../components/layout/Header";
 import navLinks from "../../components/layout/partials/HeaderNav";
 import Cta from "../../components/sections/Cta";
 // import db from "../../db.config";
+import { Skeleton } from "antd";
 import axios from "axios";
 import config from "../../db.config";
-import { handleChangeSeconsToDate } from "../../utils/ConvertSecondToDate";
-import Loading from "../../utils/Loading";
-import { Skeleton } from "antd";
 const ArticleDetail = ({ type }) => {
   const { postID } = useParams();
   const [data, setData] = useState("");
@@ -26,9 +24,8 @@ const ArticleDetail = ({ type }) => {
       setData(res.data);
     });
   }, [postID, type]);
-  console.log(data);
   const { title, image, text, tags, createdAt, author } = data;
-  const urlPost = `https://dev-web-sic.vercel.app/${type}/${postID} `;
+  const urlPost = `https://web.sictlu.tech/${type}/${postID} `;
 
   return (
     <>

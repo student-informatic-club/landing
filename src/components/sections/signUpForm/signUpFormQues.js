@@ -11,9 +11,9 @@ const textMainBase = {
 }
 const infoContact = [
   {
-    href: "mailto:sic@wru.vn",
+    href: "mailto:clbtinhocsinhvien@gmail.com",
     icon: <SiGmail className="contact__icon"></SiGmail>,
-    data: "sic@wru.vn",
+    data: "clbtinhocsinhvien@gmail.com",
   },
   // {
     //   href: "tel:0123456789",
@@ -21,9 +21,9 @@ const infoContact = [
     //   data: "0123456789",
     // },
     {
-      href: "https://goo.gl/maps/B6F5v82rMN1ViEF88",
+      href: "https://goo.gl/maps/verubmkQeMuV1EDo8",
       icon: <MdLocationOn className="contact__icon"></MdLocationOn>,
-      data: "175 Tây Sơn Đống Đa",
+      data: "Phòng 204 Thư viện đại học Thủy Lợi, 175 P. Tây Sơn, Trung Liệt, Đống Đa, Hà Nội",
     },
   ];
   const basicQues = [
@@ -55,7 +55,7 @@ const infoContact = [
 ];
 
 const chooseQues = {
-  quesTitle: "Bạn muốn đăng kí vào (những) ban nào?",
+  quesTitle: "Sau khi vào CLB bạn muốn đăng kí vào (những) ban nào?",
   quesName: "answer",
   ans: ["Ban truyền thông", "Ban học tập", "Ban kỹ thuật", "Ban hỗ trợ"],
 };

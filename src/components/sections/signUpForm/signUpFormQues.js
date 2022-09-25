@@ -4,29 +4,34 @@ import { MdLocationOn } from "react-icons/md";
 const textMainBase = {
   // Định dạng mẫu: 2022-12-24T00:00:00, input dạng chuỗi 2 kí tự 2=>02
     title: <h3>BECOME OUR TEAMMATE</h3>,
-    dayEnd: '05',
-    monthEnd: '09',
+    dayEnd: '10',
+    monthEnd: '10',
     yearEnd: '2022',
     messageTitle: 'Mong muốn của bạn khi vào CLB'
 }
 const infoContact = [
   {
-    href: "mailto:sic@wru.vn",
+    href: "mailto:clbtinhocsinhvien@gmail.com",
     icon: <SiGmail className="contact__icon"></SiGmail>,
-    data: "sic@wru.vn",
+    data: "clbtinhocsinhvien@gmail.com",
   },
   // {
-  //   href: "tel:0123456789",
-  //   icon: <FaPhoneAlt className="contact__icon"></FaPhoneAlt>,
-  //   data: "0123456789",
-  // },
+    //   href: "tel:0123456789",
+    //   icon: <FaPhoneAlt className="contact__icon"></FaPhoneAlt>,
+    //   data: "0123456789",
+    // },
+    {
+      href: "https://goo.gl/maps/verubmkQeMuV1EDo8",
+      icon: <MdLocationOn className="contact__icon"></MdLocationOn>,
+      data: "Phòng 204 Thư viện đại học Thủy Lợi, 175 P. Tây Sơn, Trung Liệt, Đống Đa, Hà Nội",
+    },
+  ];
+  const basicQues = [
   {
-    href: "https://goo.gl/maps/B6F5v82rMN1ViEF88",
-    icon: <MdLocationOn className="contact__icon"></MdLocationOn>,
-    data: "175 Tây Sơn Đống Đa",
+    quesName: "masv",
+    quesTitle: "Mã sinh viên",
+    quesExample: "21********",
   },
-];
-const basicQues = [
   {
     quesName: "fullName",
     quesTitle: "Họ và tên",
@@ -50,7 +55,7 @@ const basicQues = [
 ];
 
 const chooseQues = {
-  quesTitle: "Bạn muốn đăng kí vào (những) ban nào?",
+  quesTitle: "Sau khi vào CLB bạn muốn đăng kí vào (những) ban nào?",
   quesName: "answer",
   ans: ["Ban truyền thông", "Ban học tập", "Ban kỹ thuật", "Ban hỗ trợ"],
 };
